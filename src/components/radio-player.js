@@ -132,6 +132,8 @@ const RadioPlayer = ({audioObjkts}) => {
         }));
     };
 
+    const isTrackPlaying = i => playerState.isPlaying && playerState.currentTrackKey === i;
+
     return (
         <div className={styles.radioPlayerContainer}>
             <audio ref={audioRef}/>
@@ -169,7 +171,14 @@ const RadioPlayer = ({audioObjkts}) => {
                 <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
             </div>
             <div>
-                {tracks.map((t, i) => <div className={styles.trackRow}><button onClick={selectTrack(i)}>Play</button> {t.name}</div>)}
+                {tracks.map((t, i) =>
+                    <div className={styles.trackRow}>
+                        <button onClick={selectTrack(i)}>
+                            {isTrackPlaying(i) ? 'Playing...' : 'Play'}
+                        </button>
+                        {t.name}
+                    </div>
+                )}
             </div>
         </div>
     );
