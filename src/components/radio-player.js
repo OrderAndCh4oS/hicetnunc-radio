@@ -12,12 +12,12 @@ const RadioPlayer = ({audioObjkts}) => {
         analyser: null,
         bufferLength: null,
         dataArray: null,
-    })
+    });
     const [playerState, setPlayerState] = useState({
         playing: false,
         currentTrack: null,
         isMuted: false,
-        volume: 0.5
+        volume: 0.5,
     });
     const [tracks, setTracks] = useState(null);
     const audioRef = createRef();
@@ -27,18 +27,18 @@ const RadioPlayer = ({audioObjkts}) => {
         console.log(audioObjkts);
         setTracks(audioObjkts.map(o => ({
             track: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
-            mimeType: o.token_info.formats[0].mimeType
+            mimeType: o.token_info.formats[0].mimeType,
         })));
     }, [audioObjkts]);
 
     useEffect(() => {
         if(!tracks?.length || !audioRef.current) return;
         if(audioRef.current.src) return;
-        console.log('track', tracks[0].track);
-        audioRef.current.crossOrigin = "anonymous";
-        audioRef.current.src = tracks[0].track
-        audioRef.current.mimeType = tracks[0].mimeType
-    }, [audioState, tracks])
+        audioRef.current.crossOrigin = 'anonymous';
+        audioRef.current.src = tracks[0].track;
+        audioRef.current.volume = playerState.volume;
+        audioRef.current.mimeType = tracks[0].mimeType;
+    }, [audioState, tracks]);
 
     const handleNext = () => {
         console.log('clicked next');
@@ -68,30 +68,32 @@ const RadioPlayer = ({audioObjkts}) => {
             analyser,
             bufferLength,
             dataArray,
-        })
-    }, [audioRef])
+        });
+    }, [audioRef]);
 
     const handlePlay = () => {
         if(!audioRef.current) return;
-        console.log('PLAY')
-        audioRef.current.play();
+        console.log('PLAY');
+        console.log(audioState.source);
+        audioState.audioContext.resume()
+        audioRef.current.play()
     };
 
     const handlePause = () => {
-        if(!audioRef.current) return
+        if(!audioRef.current) return;
         audioRef.current.pause();
     };
 
     const handleMute = (event) => {
-        if(!audioRef.current) return
+        if(!audioRef.current) return;
         audioRef.current.volume = audioState.isMuted ? 0 : event.target.value;
     };
 
     const handleVolumeChange = (event) => {
-        if(!audioRef.current) return
+        if(!audioRef.current) return;
         const volume = event.target.value;
         audioRef.current.volume = volume;
-        setPlayerState({volume})
+        setPlayerState({volume});
     };
 
     if(!tracks) return <p>Loading...</p>;
