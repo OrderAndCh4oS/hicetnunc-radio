@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import getObjktsByWalletId from '../../api/get-objkts-by-wallet-id';
 import RadioPlayer from '../../components/radio-player';
 
-const audioMimeTypes = ['audio/ogg'];
+const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
 const RadioView = () => {
     const [objktData, setObjktData] = useState(null);
@@ -19,20 +19,20 @@ const RadioView = () => {
     }, [walletId]);
 
     useEffect(() => {
-        console.log(walletId)
-    }, [walletId])
+        console.log(walletId);
+    }, [walletId]);
 
     const handleWalletIDChange = (event) => {
-        setWalletId(event.target.value)
+        setWalletId(event.target.value);
     };
 
     const handleGetTracks = () => {
         setWalletId(walletIdInput);
-        setWalletIdInput('')
+        setWalletIdInput('');
     };
 
     const filterAudio = (objkts) =>
-        objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType))
+        objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType));
 
     if(!objktData) return <p>Loading...</p>;
 

@@ -3,6 +3,8 @@ import PlayIcon from './play-icon';
 import MuteIcon from './mute-icon';
 import styles from './styles.module.css';
 import { createRef } from 'react/cjs/react.production.min';
+import PauseIcon from './pause-icon';
+import UnmuteIcon from './unmute-icon';
 
 const RadioPlayer = ({audioObjkts}) => {
     const [audioState, setAudioState] = useState({
@@ -16,12 +18,14 @@ const RadioPlayer = ({audioObjkts}) => {
     const [playerState, setPlayerState] = useState({
         playing: false,
         currentTrack: null,
+        isPlaying: false,
         isMuted: false,
         volume: 0.5,
     });
     const [tracks, setTracks] = useState(null);
     const audioRef = createRef();
     const canvas = createRef();
+    const {isMuted, isPlaying} = playerState;
 
     useEffect(() => {
         console.log(audioObjkts);
@@ -74,19 +78,25 @@ const RadioPlayer = ({audioObjkts}) => {
     const handlePlay = () => {
         if(!audioRef.current) return;
         console.log('PLAY');
-        console.log(audioState.source);
-        audioState.audioContext.resume()
-        audioRef.current.play()
+        audioState.audioContext.resume();
+        audioRef.current.play();
+        setAudioState({isPlaying: true});
     };
 
     const handlePause = () => {
         if(!audioRef.current) return;
         audioRef.current.pause();
+        setAudioState({isPlaying: false});
     };
 
     const handleMute = (event) => {
         if(!audioRef.current) return;
-        audioRef.current.volume = audioState.isMuted ? 0 : event.target.value;
+        audioRef.current.volume = 0;
+    };
+
+    const handleUnmute = (event) => {
+        if(!audioRef.current) return;
+        audioRef.current.volume = playerState.volume;
     };
 
     const handleVolumeChange = (event) => {
@@ -103,13 +113,21 @@ const RadioPlayer = ({audioObjkts}) => {
             <audio ref={audioRef}/>
             <div className="playerBar">
                 <div className="controlsHolder">
-                    <button
-                        id="play"
-                        className={`${styles.button} ${styles.button_play} ${styles.button_playerControl}`}
-                        onClick={handlePlay}
-                    >
-                        <PlayIcon/>
-                    </button>
+                    {isPlaying ? (
+                        <button
+                            className={`${styles.button} ${styles.button_play} ${styles.button_playerControl}`}
+                            onClick={handlePause}
+                        >
+                            <PauseIcon/>
+                        </button>
+                    ) : (
+                        <button
+                            className={`${styles.button} ${styles.button_pause} ${styles.button_playerControl}`}
+                            onClick={handlePlay}
+                        >
+                            <PlayIcon/>
+                        </button>
+                    )}
                     <input
                         className={styles.radioRange}
                         title="volume"
@@ -121,13 +139,21 @@ const RadioPlayer = ({audioObjkts}) => {
                         step="0.01"
                         onChange={handleVolumeChange}
                     />
-                    <button
-                        id="mute"
-                        className={`${styles.button} ${styles.button_mute} ${styles.button_playerControl}`}
-                        onClick={handleMute}
-                    >
-                        <MuteIcon/>
-                    </button>
+                    {isMuted ? (
+                        <button
+                            className={`${styles.button} ${styles.button_unmute} ${styles.button_playerControl}`}
+                            onClick={handleUnmute}
+                        >
+                            <UnmuteIcon/>
+                        </button>
+                    ) : (
+                        <button
+                            className={`${styles.button} ${styles.button_mute} ${styles.button_playerControl}`}
+                            onClick={handleMute}
+                        >
+                            <MuteIcon/>
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="canvasWrapper">
