@@ -38,8 +38,10 @@ const RadioView = () => {
 
     return (
         <div className={styles.radioView}>
-            <input value={walletIdInput} onChange={handleWalletIDChange}/>
-            <button onClick={handleGetTracks}>Get Tracks</button>
+            <div className={styles.walletIdEntry}>
+                <input value={walletIdInput} onChange={handleWalletIDChange}/>
+                <button onClick={handleGetTracks}>Get Tracks</button>
+            </div>
             <RadioPlayer audioObjkts={filterAudio(objktData.result)}/>
         </div>
     );

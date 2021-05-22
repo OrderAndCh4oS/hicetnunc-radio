@@ -15,7 +15,7 @@ const RadioPlayer = ({audioObjkts}) => {
     });
     const [playerState, setPlayerState] = useState({
         playing: false,
-        currentTrack: null,
+        currentTrackKey: 0,
         isPlaying: false,
         isMuted: false,
         volume: 0.5,
@@ -27,7 +27,8 @@ const RadioPlayer = ({audioObjkts}) => {
     useEffect(() => {
         console.log(audioObjkts);
         setTracks(audioObjkts.map(o => ({
-            track: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
+            name: o.token_info.name,
+            src: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
             mimeType: o.token_info.formats[0].mimeType,
         })));
     }, [audioObjkts]);
@@ -36,24 +37,37 @@ const RadioPlayer = ({audioObjkts}) => {
         if(!tracks?.length || !audioRef.current) return;
         if(audioRef.current.src) return;
         audioRef.current.crossOrigin = 'anonymous';
-        audioRef.current.src = tracks[0].track;
+        audioRef.current.src = tracks[0].src;
         audioRef.current.volume = playerState.volume;
         audioRef.current.mimeType = tracks[0].mimeType;
     }, [audioState, tracks]);
 
     const handleNext = () => {
-        console.log('clicked next');
+        const {currentTrackKey} = playerState;
+        const nextTrackKey = (currentTrackKey + 1) % tracks.length;
+        audioRef.current.src = tracks[nextTrackKey].src;
+        if(playerState.isPlaying) {
+            audioState.audioContext.resume();
+            audioRef.current.play();
+        }
+        setPlayerState(prevState => ({...prevState, currentTrackKey: nextTrackKey}));
     };
 
     const handlePrev = () => {
-        console.log('clicked prev');
+        const {currentTrackKey} = playerState;
+        let prevTrackKey = currentTrackKey - 1;
+        if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
+        audioRef.current.src = tracks[prevTrackKey].src;
+        if(playerState.isPlaying) {
+            audioState.audioContext.resume();
+            audioRef.current.play();
+        }
+        setPlayerState(prevState => ({...prevState, currentTrackKey: prevTrackKey}));
     };
 
     useEffect(() => {
-        console.log('asac', audioState.audioContext);
         if(!audioRef.current) return;
         if(audioState.audioContext) return;
-        console.log('HERE');
         const audioContext = new AudioContext();
         const source = audioContext.createMediaElementSource(audioRef.current);
         const gain = audioContext.createGain();
@@ -135,10 +149,18 @@ const RadioPlayer = ({audioObjkts}) => {
                     />
                 </div>
             </div>
+            <div className={styles.nextPrevControls}>
+                <button onClick={handlePrev}>
+                    Prev
+                </button>
+                <button onClick={handleNext}>
+                    Next
+                </button>
+                <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
+            </div>
             <div className={styles.canvasWrapper}>
                 <canvas ref={canvas}/>
             </div>
-            {/*<div className="currentTrack">{currentTrack}</div>*/}
         </div>
     );
 };

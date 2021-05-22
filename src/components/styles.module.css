@@ -51,9 +51,20 @@
 
 .playerBar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 8px 12px;
-    box-shadow: 0 4px 8px rgba(29, 29, 27, 0.2);
+}
+
+.currentTrack {
+    padding: 4px 0 0 16px;
+    margin-bottom: 8px;
+}
+
+.nextPrevControls {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    padding: 0 22px;
     margin-bottom: 16px;
 }
 
