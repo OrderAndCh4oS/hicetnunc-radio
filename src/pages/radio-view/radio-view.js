@@ -23,7 +23,7 @@ const RadioView = () => {
     }, [walletId]);
 
     const handleWalletIDChange = (event) => {
-        setWalletId(event.target.value);
+        setWalletIdInput(event.target.value);
     };
 
     const handleGetTracks = () => {
