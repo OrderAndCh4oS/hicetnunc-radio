@@ -29,6 +29,30 @@
     height: auto;
 }
 
+.button_pause svg {
+    width: 17px;
+    height: auto;
+}
+
+.button_playerControl_small {
+    width: 14px;
+    height: 14px;
+    padding: 3px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.button_play_small svg {
+    width: 11px;
+    height: auto;
+}
+
+.button_pause_small svg {
+    width: 12px;
+    height: auto;
+}
+
 .button_mute svg {
     width: 24px;
     height: auto;
@@ -36,11 +60,6 @@
 
 .button_unmute svg {
     width: 24px;
-    height: auto;
-}
-
-.button_pause svg {
-    width: 17px;
     height: auto;
 }
 
@@ -58,15 +77,28 @@
 .nextPrevControls {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     align-content: center;
     padding: 0;
     margin-bottom: 16px;
 }
 
+.button_nextTrack {
+    margin-left: 8px;
+}
+
+.button_prevTrack {
+}
+
 .trackRow {
+    display: flex;
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
     border-bottom: 1px solid #000;
+}
+
+.trackRow_name {
+    margin-left: 16px;
 }
 
 input[type="range"].radioRange {

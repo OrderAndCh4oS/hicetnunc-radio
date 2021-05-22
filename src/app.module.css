@@ -1,0 +1,13 @@
+body, button, input {
+    font-family: "Courier New", "Courier", monospace
+}
+
+button {
+    background-color: #fff;
+    border-top: 0;
+    border-left: 0;
+    border-right: 2px #000000 solid;
+    border-bottom: 2px #000000 solid;
+    padding: 1px 4px;
+    cursor: pointer;
+}

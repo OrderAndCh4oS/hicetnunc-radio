@@ -3,6 +3,8 @@ import styles from './styles.module.css';
 import { createRef } from 'react/cjs/react.production.min';
 import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
+import PauseIcon from './pause-icon';
+import PlayIcon from './play-icon';
 
 const RadioPlayer = ({audioObjkts}) => {
     const [audioState, setAudioState] = useState({
@@ -128,7 +130,7 @@ const RadioPlayer = ({audioObjkts}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: i,
-            isPlaying: true
+            isPlaying: true,
         }));
     };
 
@@ -162,10 +164,16 @@ const RadioPlayer = ({audioObjkts}) => {
                 </div>
             </div>
             <div className={styles.nextPrevControls}>
-                <button onClick={handlePrev}>
+                <button
+                    className={styles.button_prevTrack}
+                    onClick={handlePrev}
+                >
                     Prev
                 </button>
-                <button onClick={handleNext}>
+                <button
+                    className={styles.button_nextTrack}
+                    onClick={handleNext}
+                >
                     Next
                 </button>
                 <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
@@ -173,11 +181,16 @@ const RadioPlayer = ({audioObjkts}) => {
             <div>
                 {tracks.map((t, i) =>
                     <div className={styles.trackRow}>
-                        <button onClick={selectTrack(i)}>
-                            {isTrackPlaying(i) ? 'Playing...' : 'Play'}
-                        </button>
-                        {t.name}
-                    </div>
+                        {isTrackPlaying(i) ? <button
+                                className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
+                                onClick={handlePause}
+                            ><PauseIcon/></button>
+                            : <button
+                                className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
+                                onClick={selectTrack(i)}
+                            ><PlayIcon/></button>}
+                        <span className={styles.trackRow_name}>{t.name}</span>
+                    </div>,
                 )}
             </div>
         </div>
