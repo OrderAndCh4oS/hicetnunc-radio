@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import PlayIcon from './play-icon';
-import MuteIcon from './mute-icon';
 import styles from './styles.module.css';
 import { createRef } from 'react/cjs/react.production.min';
-import PauseIcon from './pause-icon';
-import UnmuteIcon from './unmute-icon';
+import MuteButton from './mute-button';
+import PlayPauseButton from './play-pause-button';
 
 const RadioPlayer = ({audioObjkts}) => {
     const [audioState, setAudioState] = useState({
@@ -25,7 +23,6 @@ const RadioPlayer = ({audioObjkts}) => {
     const [tracks, setTracks] = useState(null);
     const audioRef = createRef();
     const canvas = createRef();
-    const {isMuted, isPlaying} = playerState;
 
     useEffect(() => {
         console.log(audioObjkts);
@@ -53,8 +50,10 @@ const RadioPlayer = ({audioObjkts}) => {
     };
 
     useEffect(() => {
+        console.log('asac', audioState.audioContext);
         if(!audioRef.current) return;
         if(audioState.audioContext) return;
+        console.log('HERE');
         const audioContext = new AudioContext();
         const source = audioContext.createMediaElementSource(audioRef.current);
         const gain = audioContext.createGain();
@@ -77,33 +76,34 @@ const RadioPlayer = ({audioObjkts}) => {
 
     const handlePlay = () => {
         if(!audioRef.current) return;
-        console.log('PLAY');
         audioState.audioContext.resume();
         audioRef.current.play();
-        setAudioState({isPlaying: true});
+        setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
     const handlePause = () => {
         if(!audioRef.current) return;
         audioRef.current.pause();
-        setAudioState({isPlaying: false});
+        setPlayerState(prevState => ({...prevState, isPlaying: false}));
     };
 
-    const handleMute = (event) => {
+    const handleMute = () => {
         if(!audioRef.current) return;
         audioRef.current.volume = 0;
+        setPlayerState(prevState => ({...prevState, isMuted: true}));
     };
 
-    const handleUnmute = (event) => {
+    const handleUnmute = () => {
         if(!audioRef.current) return;
         audioRef.current.volume = playerState.volume;
+        setPlayerState(prevState => ({...prevState, isMuted: false}));
     };
 
     const handleVolumeChange = (event) => {
         if(!audioRef.current) return;
         const volume = event.target.value;
         audioRef.current.volume = volume;
-        setPlayerState({volume});
+        setPlayerState(prevState => ({...prevState, volume}));
     };
 
     if(!tracks) return <p>Loading...</p>;
@@ -113,21 +113,11 @@ const RadioPlayer = ({audioObjkts}) => {
             <audio ref={audioRef}/>
             <div className="playerBar">
                 <div className="controlsHolder">
-                    {isPlaying ? (
-                        <button
-                            className={`${styles.button} ${styles.button_play} ${styles.button_playerControl}`}
-                            onClick={handlePause}
-                        >
-                            <PauseIcon/>
-                        </button>
-                    ) : (
-                        <button
-                            className={`${styles.button} ${styles.button_pause} ${styles.button_playerControl}`}
-                            onClick={handlePlay}
-                        >
-                            <PlayIcon/>
-                        </button>
-                    )}
+                    <PlayPauseButton
+                        isPlaying={playerState.isPlaying}
+                        handlePlay={handlePlay}
+                        handlePause={handlePause}
+                    />
                     <input
                         className={styles.radioRange}
                         title="volume"
@@ -139,21 +129,11 @@ const RadioPlayer = ({audioObjkts}) => {
                         step="0.01"
                         onChange={handleVolumeChange}
                     />
-                    {isMuted ? (
-                        <button
-                            className={`${styles.button} ${styles.button_unmute} ${styles.button_playerControl}`}
-                            onClick={handleUnmute}
-                        >
-                            <UnmuteIcon/>
-                        </button>
-                    ) : (
-                        <button
-                            className={`${styles.button} ${styles.button_mute} ${styles.button_playerControl}`}
-                            onClick={handleMute}
-                        >
-                            <MuteIcon/>
-                        </button>
-                    )}
+                    <MuteButton
+                        isMuted={playerState.isMuted}
+                        handleMute={handleMute}
+                        handleUnmute={handleUnmute}
+                    />
                 </div>
             </div>
             <div className="canvasWrapper">
