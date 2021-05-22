@@ -29,8 +29,8 @@ const RadioPlayer = ({audioObjkts}) => {
     }, [audioObjkts]);
 
     useEffect(() => {
-        if(!tracks?.length || !audioState.audioContext) return;
-        audioState.audioContext.src = tracks[0]
+        if(!tracks?.length || !audioRef.current) return;
+        audioRef.current.src = tracks[0]
     }, [audioState, tracks])
 
     const handleNext = () => {
