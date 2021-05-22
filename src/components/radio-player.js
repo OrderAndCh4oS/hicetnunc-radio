@@ -25,12 +25,19 @@ const RadioPlayer = ({audioObjkts}) => {
 
     useEffect(() => {
         console.log(audioObjkts);
-        setTracks(audioObjkts.map(o => `https://cloudflare-ipfs.com/ipfs/${o.ipfsHash}`));
+        setTracks(audioObjkts.map(o => ({
+            track: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
+            mimeType: o.token_info.formats[0].mimeType
+        })));
     }, [audioObjkts]);
 
     useEffect(() => {
         if(!tracks?.length || !audioRef.current) return;
-        audioRef.current.src = tracks[0]
+        if(audioRef.current.src) return;
+        console.log('track', tracks[0].track);
+        audioRef.current.crossOrigin = "anonymous";
+        audioRef.current.src = tracks[0].track
+        audioRef.current.mimeType = tracks[0].mimeType
     }, [audioState, tracks])
 
     const handleNext = () => {
