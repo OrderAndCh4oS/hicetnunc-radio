@@ -1,10 +1,6 @@
 .radioPlayerContainer {
 }
 
-.canvasWrapper {
-    padding-bottom: 14px;
-}
-
 .button {
     border: none;
     background: none;
@@ -19,14 +15,13 @@
     width: 40px;
     height: 32px;
     padding: 3px 0 0 0;
-    margin: 0 6px;
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
 .button_playerControl svg {
-    fill: #151515;
+    fill: #000000;
 }
 
 .button_play svg {
@@ -52,7 +47,7 @@
 .playerBar {
     display: flex;
     justify-content: flex-start;
-    padding: 8px 12px;
+    padding: 8px 0;
 }
 
 .currentTrack {
@@ -64,18 +59,14 @@
     display: flex;
     justify-content: flex-start;
     align-content: center;
-    padding: 0 22px;
+    padding: 0;
     margin-bottom: 16px;
 }
 
-.currentShow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 12px;
-    box-shadow: 0 -4px 8px rgba(29, 29, 27, 0.2);
-    margin-bottom: 0;
-    height: 68px;
+.trackRow {
+    margin: 0 0 8px 0;
+    padding: 0 0 8px 0;
+    border-bottom: 1px solid #000;
 }
 
 input[type="range"].radioRange {
