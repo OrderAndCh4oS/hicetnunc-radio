@@ -111,8 +111,8 @@ const RadioPlayer = ({audioObjkts}) => {
     return (
         <div className={styles.radioPlayerContainer}>
             <audio ref={audioRef}/>
-            <div className="playerBar">
-                <div className="controlsHolder">
+            <div className={styles.playerBar}>
+                <div className={styles.controlsHolder}>
                     <PlayPauseButton
                         isPlaying={playerState.isPlaying}
                         handlePlay={handlePlay}
@@ -121,7 +121,6 @@ const RadioPlayer = ({audioObjkts}) => {
                     <input
                         className={styles.radioRange}
                         title="volume"
-                        id="volume"
                         type="range"
                         value={playerState.volume}
                         min="0"
@@ -136,7 +135,7 @@ const RadioPlayer = ({audioObjkts}) => {
                     />
                 </div>
             </div>
-            <div className="canvasWrapper">
+            <div className={styles.canvasWrapper}>
                 <canvas ref={canvas}/>
             </div>
             {/*<div className="currentTrack">{currentTrack}</div>*/}
