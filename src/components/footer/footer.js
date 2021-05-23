@@ -4,9 +4,9 @@ const Footer = () =>
     <div className={styles.footerBar}>
         <h2 className={styles.footerTitle}>Created as part of Hicathon Hackday 2021</h2>
 
-        <p className={styles.footerText}><a href='https://github.com/OrderAndCh4oS/hicetnunc-radio'>GitHub Repository</a></p>
+        <p className={styles.footerText}>View on <a href='https://github.com/OrderAndCh4oS/hicetnunc-radio'>GitHub</a></p>
 
-        <p className={styles.footerText}>Working Group:{' '}
+        <p className={styles.footerText}>Working Group:<br/>
             <a href='https://twitter.com/lauzaki'>@lauzaki</a>,{' '}
             <a href='https://twitter.com/andreasrau_eu'>@andreasrau_eu</a>,{' '}
             <a href='https://twitter.com/uvdsc'>@uvdsc</a>,{' '}
