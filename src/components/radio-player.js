@@ -5,6 +5,7 @@ import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
 import PauseIcon from './pause-icon';
 import PlayIcon from './play-icon';
+let rAF;
 
 const RadioPlayer = ({audioObjkts}) => {
     const [audioState, setAudioState] = useState({
@@ -41,6 +42,7 @@ const RadioPlayer = ({audioObjkts}) => {
         audioRef.current.src = tracks[0].src;
         audioRef.current.volume = playerState.volume;
         audioRef.current.mimeType = tracks[0].mimeType;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audioState, tracks]);
 
     useEffect(() => {
@@ -64,12 +66,21 @@ const RadioPlayer = ({audioObjkts}) => {
             bufferLength,
             dataArray,
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audioRef]);
+
+
+    const outputTimestamps = () => {
+        let ts = audioState.audioContext.getOutputTimestamp()
+        console.log('Context time: ' + ts.contextTime + ' | Performance time: ' + ts.performanceTime);
+        rAF = requestAnimationFrame(outputTimestamps);
+    };
 
     const handlePlay = () => {
         if(!audioRef.current) return;
         audioState.audioContext.resume();
         audioRef.current.play();
+        rAF = requestAnimationFrame(outputTimestamps);
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
@@ -77,6 +88,7 @@ const RadioPlayer = ({audioObjkts}) => {
         if(!audioRef.current) return;
         audioRef.current.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
+        cancelAnimationFrame(rAF);
     };
 
     const handleMute = () => {
@@ -127,6 +139,7 @@ const RadioPlayer = ({audioObjkts}) => {
         audioRef.current.src = tracks[i].src;
         audioState.audioContext.resume();
         audioRef.current.play();
+        rAF = requestAnimationFrame(outputTimestamps);
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: i,
