@@ -5,6 +5,7 @@ import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
 import PauseIcon from './pause-icon';
 import PlayIcon from './play-icon';
+
 let rAF;
 
 const RadioPlayer = ({audioObjkts}) => {
@@ -23,8 +24,10 @@ const RadioPlayer = ({audioObjkts}) => {
         isMuted: false,
         volume: 0.5,
     });
+    const [runningTime, setRunningTime] = useState(0);
     const [tracks, setTracks] = useState(null);
-    const audioRef = createRef();
+    const rAFRef = createRef(null);
+    const audioRef = createRef(null);
 
     useEffect(() => {
         console.log(audioObjkts);
@@ -70,26 +73,46 @@ const RadioPlayer = ({audioObjkts}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audioRef]);
 
+    const updateTrackPlayDuration = (audioEl) => () => {
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
+        console.log('running time?', audioEl.currentTime);
+        setRunningTime(audioEl.currentTime);
+    };
 
-    const outputTimestamps = () => {
-        let ts = audioState.audioContext.getOutputTimestamp()
-        console.log('Context time: ' + ts.contextTime + ' | Performance time: ' + ts.performanceTime);
-        rAF = requestAnimationFrame(outputTimestamps);
+    const getPlayTime = (time) => {
+        const minutes = ~~(time / 60);
+        const seconds = time - minutes * 60;
+        return `${minutes}.${pad(~~seconds, 2)}`;
     };
 
     const handlePlay = () => {
         if(!audioRef.current) return;
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
         audioState.audioContext.resume();
         audioRef.current.play();
-        rAF = requestAnimationFrame(outputTimestamps);
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
+    };
+
+    const handleSelectTrack = i => () => {
+        cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
+        audioRef.current.src = tracks[i].src;
+        audioState.audioContext.resume();
+        audioRef.current.play();
+        setRunningTime(0);
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: i,
+            isPlaying: true,
+        }));
     };
 
     const handlePause = () => {
         if(!audioRef.current) return;
+        cancelAnimationFrame(rAF);
         audioRef.current.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
-        cancelAnimationFrame(rAF);
+        console.log(rAFRef.current);
     };
 
     const handleMute = () => {
@@ -134,21 +157,15 @@ const RadioPlayer = ({audioObjkts}) => {
         setPlayerState(prevState => ({...prevState, currentTrackKey: prevTrackKey}));
     };
 
-    if(!tracks) return <p>Loading...</p>;
+    const isTrackPlaying = i => playerState.isPlaying && playerState.currentTrackKey === i;
 
-    const selectTrack = i => () => {
-        audioRef.current.src = tracks[i].src;
-        audioState.audioContext.resume();
-        audioRef.current.play();
-        rAF = requestAnimationFrame(outputTimestamps);
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: i,
-            isPlaying: true,
-        }));
+    const pad = (n, width, unit) => {
+        unit = unit || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
     };
 
-    const isTrackPlaying = i => playerState.isPlaying && playerState.currentTrackKey === i;
+    if(!tracks) return <p>Loading...</p>;
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -175,6 +192,7 @@ const RadioPlayer = ({audioObjkts}) => {
                         handleMute={handleMute}
                         handleUnmute={handleUnmute}
                     />
+                    <div className={styles.runningTime}>{getPlayTime(runningTime)}</div>
                 </div>
             </div>
             <div className={styles.nextPrevControls}>
@@ -201,10 +219,13 @@ const RadioPlayer = ({audioObjkts}) => {
                             ><PauseIcon/></button>
                             : <button
                                 className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                onClick={selectTrack(i)}
+                                onClick={handleSelectTrack(i)}
                             ><PlayIcon/></button>}
-                        <a href={`https://hicetnunc.xyz/objkt/${t.id}`} className={styles.trackRow_link}>#{t.id} {t.name}</a>
-                    </div>
+                        <a
+                            href={`https://hicetnunc.xyz/objkt/${t.id}`}
+                            className={styles.trackRow_link}
+                        >#{t.id} {t.name}</a>
+                    </div>,
                 )}
             </div>
         </div>

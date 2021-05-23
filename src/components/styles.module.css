@@ -69,6 +69,11 @@
     padding: 8px 0;
 }
 
+.runningTime {
+    margin-left: 8px;
+    padding-top: 4px;
+}
+
 .currentTrack {
     padding: 4px 0 0 16px;
     margin-bottom: 8px;
