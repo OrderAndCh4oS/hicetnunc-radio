@@ -158,8 +158,8 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
 
     const handleNext = () => {
         const {currentTrackKey} = playerState;
-        const nextTrackKey = (currentTrackKey + 1) % tracks.length;
-        audioRef.current.src = tracks[nextTrackKey].src;
+        const nextTrackKey = (currentTrackKey + 1) % filteredTracks.length;
+        audioRef.current.src = filteredTracks[nextTrackKey].src;
         if(playerState.isPlaying) {
             audioState.audioContext.resume();
             audioRef.current.play();
@@ -170,8 +170,8 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const handlePrev = () => {
         const {currentTrackKey} = playerState;
         let prevTrackKey = currentTrackKey - 1;
-        if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
-        audioRef.current.src = tracks[prevTrackKey].src;
+        if(prevTrackKey < 0) prevTrackKey = filteredTracks.length - 1;
+        audioRef.current.src = filteredTracks[prevTrackKey].src;
         if(playerState.isPlaying) {
             audioState.audioContext.resume();
             audioRef.current.play();
