@@ -23,7 +23,7 @@ const RadioView = () => {
         (async() => {
             const response = await getObjktsByWalletId(walletId);
             setIsLoading(false);
-            setObjktData(response.data);
+            setObjktData(filterAudio(response?.data?.result || []));
         })();
     }, [walletId]);
 
@@ -60,7 +60,7 @@ const RadioView = () => {
                 </button>
             </div>
             {isLoading ? <p>Loading...</p> : <RadioPlayer
-                audioObjkts={filterAudio(objktData.result)}
+                audioObjkts={objktData}
                 walletId={walletId}
             />}
             <Footer/>
