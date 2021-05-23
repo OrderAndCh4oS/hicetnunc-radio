@@ -83,6 +83,21 @@
     margin-bottom: 8px;
 }
 
+.filterTabs {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.filterButton {
+    margin-right: 8px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.selected {
+    font-weight: bold;
+}
+
 .nextPrevControls {
     display: flex;
     justify-content: flex-start;

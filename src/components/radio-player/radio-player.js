@@ -8,7 +8,13 @@ import PlayIcon from './play-icon';
 
 let rAF;
 
-const RadioPlayer = ({audioObjkts}) => {
+const FilterTypes = Object.freeze({
+    ALL: 0,
+    CREATIONS: 1,
+    COLLECTIONS: 2,
+});
+
+const RadioPlayer = ({audioObjkts, walletId}) => {
     const [audioState, setAudioState] = useState({
         audioContext: null,
         source: null,
@@ -26,6 +32,8 @@ const RadioPlayer = ({audioObjkts}) => {
     });
     const [runningTime, setRunningTime] = useState(0);
     const [tracks, setTracks] = useState(null);
+    const [filteredTracks, setFilteredTracks] = useState([]);
+    const [filter, setFilter] = useState(FilterTypes.ALL);
     const audioRef = createRef(null);
 
     useEffect(() => {
@@ -71,6 +79,23 @@ const RadioPlayer = ({audioObjkts}) => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audioRef]);
+
+    useEffect(() => {
+        if(!tracks) return;
+        setFilteredTracks(tracks.filter(t => {
+            switch(filter) {
+                case FilterTypes.ALL:
+                    return true;
+                case FilterTypes.CREATIONS:
+                    return t.creator === walletId;
+                case FilterTypes.COLLECTIONS:
+                    return t.creator !== walletId;
+                default:
+                    return true;
+            }
+        }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tracks, filter]);
 
     const updateTrackPlayDuration = (audioEl) => () => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
@@ -167,7 +192,6 @@ const RadioPlayer = ({audioObjkts}) => {
     };
 
     if(!tracks) return <p>Loading...</p>;
-    if(!tracks.length) return <p>No audio tracks available</p>;
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -212,29 +236,48 @@ const RadioPlayer = ({audioObjkts}) => {
                 </button>
                 <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
             </div>
-            <div>
-                {tracks.map((t, i) =>
-                    <div key={t.id} className={styles.trackRow}>
-                        {isTrackPlaying(i) ? <button
-                                className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
-                                onClick={handlePause}
-                            ><PauseIcon/></button>
-                            : <button
-                                className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                onClick={handleSelectTrack(i)}
-                            ><PlayIcon/></button>}
-                        <span className={styles.trackRow_text}><a
-                            href={`https://hicetnunc.xyz/objkt/${t.id}`}
-                            className={styles.trackRow_link}
-                        >#{t.id} {t.name}</a>,
+            <div className={styles.filterTabs}>
+                <button
+                    className={`${styles.filterButton} ${filter === FilterTypes.ALL ? styles.selected : ''}`}
+                    onClick={() => setFilter(FilterTypes.ALL)}
+                >All
+                </button>
+                <button
+                    className={`${styles.filterButton} ${filter === FilterTypes.CREATIONS ? styles.selected : ''}`}
+                    onClick={() => setFilter(FilterTypes.CREATIONS)}
+                >Creations
+                </button>
+                <button
+                    className={`${styles.filterButton} ${filter === FilterTypes.COLLECTIONS ? styles.selected : ''}`}
+                    onClick={() => setFilter(FilterTypes.COLLECTIONS)}
+                >Collections
+                </button>
+            </div>
+            {!filteredTracks.length ? <p>No audio tracks available</p> : (
+                <div>
+                    {filteredTracks.map((t, i) =>
+                        <div key={t.id} className={styles.trackRow}>
+                            {isTrackPlaying(i) ? <button
+                                    className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
+                                    onClick={handlePause}
+                                ><PauseIcon/></button>
+                                : <button
+                                    className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
+                                    onClick={handleSelectTrack(i)}
+                                ><PlayIcon/></button>}
+                            <span className={styles.trackRow_text}><a
+                                href={`https://hicetnunc.xyz/objkt/${t.id}`}
+                                className={styles.trackRow_link}
+                            >#{t.id} {t.name}</a>,
                         <a
                             href={`https://hicetnunc.xyz/tz/${t.creator}`}
                             className={styles.trackRow_link}
                         >{trimCreator(t.creator)}</a>
                             </span>
-                    </div>,
-                )}
-            </div>
+                        </div>,
+                    )}
+                </div>
+            )}
         </div>
     );
 };

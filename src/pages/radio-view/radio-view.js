@@ -54,7 +54,10 @@ const RadioView = () => {
                     onClick={handleGetTracks}
                 >Get Tracks</button>
             </div>
-            {isLoading ? <p>Loading...</p> : <RadioPlayer audioObjkts={filterAudio(objktData.result)}/>}
+            {isLoading ? <p>Loading...</p> : <RadioPlayer
+                audioObjkts={filterAudio(objktData.result)}
+                walletId={walletId}
+            />}
             <Footer/>
         </div>
     );
