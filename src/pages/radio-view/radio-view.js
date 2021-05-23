@@ -13,6 +13,7 @@ const RadioView = () => {
     console.log('tz', tz);
     const history = useHistory();
     const [objktData, setObjktData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [walletIdInput, setWalletIdInput] = useState('');
     const [walletId, setWalletId] = useState(tz || defaultWalletId);
 
@@ -20,6 +21,7 @@ const RadioView = () => {
         (async() => {
             const response = await getObjktsByWalletId(walletId);
             console.log(response);
+            setIsLoading(false)
             setObjktData(response.data);
         })();
     }, [walletId]);
@@ -35,6 +37,7 @@ const RadioView = () => {
     const handleGetTracks = () => {
         setWalletId(walletIdInput);
         setWalletIdInput('');
+        setIsLoading(true);
         history.push(`/tz/${walletIdInput}`)
     };
 
@@ -56,7 +59,7 @@ const RadioView = () => {
                     onClick={handleGetTracks}
                 >Get Tracks</button>
             </div>
-            <RadioPlayer audioObjkts={filterAudio(objktData.result)}/>
+            {isLoading ? <p>Loading...</p> : <RadioPlayer audioObjkts={filterAudio(objktData.result)}/>}
             <Footer/>
         </div>
     );
