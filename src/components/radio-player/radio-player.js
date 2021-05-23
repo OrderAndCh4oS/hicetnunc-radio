@@ -235,16 +235,14 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                 <button
                     className={styles.button_prevTrack}
                     onClick={handlePrev}
-                >
-                    Prev
-                </button>
+                >Prev</button>
                 <button
                     className={styles.button_nextTrack}
                     onClick={handleNext}
-                >
-                    Next
-                </button>
-                <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
+                >Next</button>
+                {playerState.currentTrackKey
+                    ? <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
+                    : null}
             </div>
             <div className={styles.filterTabs}>
                 <button
