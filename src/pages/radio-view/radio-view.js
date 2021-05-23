@@ -20,14 +20,9 @@ const RadioView = () => {
     useEffect(() => {
         (async() => {
             const response = await getObjktsByWalletId(walletId);
-            console.log(response);
             setIsLoading(false)
             setObjktData(response.data);
         })();
-    }, [walletId]);
-
-    useEffect(() => {
-        console.log(walletId);
     }, [walletId]);
 
     const handleWalletIDChange = (event) => {
