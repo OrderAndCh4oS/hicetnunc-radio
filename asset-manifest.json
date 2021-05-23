@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/hicetnunc-radio/static/css/main.8a27c6ee.chunk.css",
+    "main.css": "/hicetnunc-radio/static/css/main.51e9b311.chunk.css",
     "main.js": "/hicetnunc-radio/static/js/main.c8fb99bf.chunk.js",
     "main.js.map": "/hicetnunc-radio/static/js/main.c8fb99bf.chunk.js.map",
     "runtime-main.js": "/hicetnunc-radio/static/js/runtime-main.38b91bbd.js",
@@ -10,13 +10,13 @@
     "static/js/3.d0dfc9df.chunk.js": "/hicetnunc-radio/static/js/3.d0dfc9df.chunk.js",
     "static/js/3.d0dfc9df.chunk.js.map": "/hicetnunc-radio/static/js/3.d0dfc9df.chunk.js.map",
     "index.html": "/hicetnunc-radio/index.html",
-    "static/css/main.8a27c6ee.chunk.css.map": "/hicetnunc-radio/static/css/main.8a27c6ee.chunk.css.map",
+    "static/css/main.51e9b311.chunk.css.map": "/hicetnunc-radio/static/css/main.51e9b311.chunk.css.map",
     "static/js/2.7b9b2419.chunk.js.LICENSE.txt": "/hicetnunc-radio/static/js/2.7b9b2419.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.38b91bbd.js",
     "static/js/2.7b9b2419.chunk.js",
-    "static/css/main.8a27c6ee.chunk.css",
+    "static/css/main.51e9b311.chunk.css",
     "static/js/main.c8fb99bf.chunk.js"
   ]
 }
