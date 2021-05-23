@@ -25,11 +25,13 @@
 }
 
 .button_play svg {
+    margin-right: 8px;
     width: 16px;
     height: auto;
 }
 
 .button_pause svg {
+    margin-right: 8px;
     width: 17px;
     height: auto;
 }
@@ -54,11 +56,13 @@
 }
 
 .button_mute svg {
+    margin-left: 8px;
     width: 24px;
     height: auto;
 }
 
 .button_unmute svg {
+    margin-left: 8px;
     width: 24px;
     height: auto;
 }
