@@ -106,9 +106,12 @@
     border-bottom: 1px solid #000;
 }
 
-.trackRow_link {
-    margin-left: 16px;
+.trackRow_text {
     font-size: 14px;
+}
+
+.trackRow_link {
+    margin-left: 8px;
     color: #000;
     text-decoration: none;
 }

@@ -32,6 +32,7 @@ const RadioPlayer = ({audioObjkts}) => {
     useEffect(() => {
         setTracks(audioObjkts.map(o => ({
             id: o.token_id,
+            creator: o.token_info.creators[0],
             name: o.token_info.name,
             src: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
             mimeType: o.token_info.formats[0].mimeType,
@@ -162,8 +163,13 @@ const RadioPlayer = ({audioObjkts}) => {
         return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
     };
 
+
+    const trimCreator = creator => {
+        return creator.slice(0, 5) + '...' + creator.slice(-5);
+    };
+
     if(!tracks) return <p>Loading...</p>;
-    if(!tracks.length) return <p>No audio tracks available</p>
+    if(!tracks.length) return <p>No audio tracks available</p>;
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -219,10 +225,15 @@ const RadioPlayer = ({audioObjkts}) => {
                                 className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
                                 onClick={handleSelectTrack(i)}
                             ><PlayIcon/></button>}
-                        <a
+                        <span className={styles.trackRow_text}><a
                             href={`https://hicetnunc.xyz/objkt/${t.id}`}
                             className={styles.trackRow_link}
-                        >#{t.id} {t.name}</a>
+                        >#{t.id} {t.name}</a>,
+                        <a
+                            href={`https://hicetnunc.xyz/tz/${t.creator}`}
+                            className={styles.trackRow_link}
+                        >{trimCreator(t.creator)}</a>
+                            </span>
                     </div>,
                 )}
             </div>
