@@ -34,7 +34,7 @@ https://www.figma.com/file/EZsHWFIHW1VMqfvfsoqSHY/WG-7.2?node-id=2%3A2
 * Step 3: view the gallery in a browser on any device
 * Step 4: enjoy :)
 
-##Team support:
+## Team support:
 WG1 Facilitator: Name, Discord + Twitter handles
 WG1 Reporter: Name, Discord + Twitter handles
 Stack / Architecture
