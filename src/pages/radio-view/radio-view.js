@@ -1,9 +1,10 @@
 import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import getObjktsByWalletId from '../../api/get-objkts-by-wallet-id';
-import RadioPlayer from '../../components/radio-player';
+import RadioPlayer from '../../components/radio-player/radio-player';
 import { defaultWalletId } from '../../constants';
 import { useHistory, useParams } from 'react-router';
+import Footer from '../../components/footer/footer';
 
 const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
@@ -55,6 +56,7 @@ const RadioView = () => {
                 >Get Tracks</button>
             </div>
             <RadioPlayer audioObjkts={filterAudio(objktData.result)}/>
+            <Footer/>
         </div>
     );
 };
