@@ -4,17 +4,17 @@
 
 ### The Team:
 
-|Name            |Role          |Discord Username           |Twitter Username|Email                     |Wallet                              |
-|----------------|--------------|---------------------------|----------------|--------------------------|------------------------------------|
-|                |Team Leader   |laura?                     |                |                          |                                    |
-|Laura Ozaki     |Design/Dev    |lauzaki#2386               |@lauzaki        |laura.ozaki@gmail.com     |tz1ZTDCfahwoYqF6sJmxTmbtGDskPoAateJX|
-|Andreas Rau     |Designer      |andreasrau                 |@andreasrau_eu  |hic@andreasrau.eu         |tz1Roq6end2LFtkpGrmuyRZH82xsWfaRCat1|
-|                |Data Scientist|                           |                |                          |                                    |
-|Maja kalogera   |Tester/       |se.nao.neste.tempo/medikids|@uvdsc          |medikidsart@gmail.co      |tz1WJvfnevqRN6RnDDmaDj9S4tuiK2bJjU6a|
-|                |Marketer      |                           |                |                          |                                    |
-|orderandchaos   |Developer     |__orderandchaos#6577       |@__orderandchaos|sean@orderandchaoscreative|orderandchaos.tez                   |
-|Miguel Benevides|Cook          |opeculiar#3006             |@webidente      |opeculiar@protonmail.com  |tz2K1rDmszPuzVQYUcyDFxeSm7ZEJdDvhXx4|
-|Baby Commando   |Developer     |ʙᴀʙʏ ᴄᴏᴍᴍᴀɴᴅᴏ#7127         |@BabyCommando_  |jppf2000@gmail.com        |tz1KseWbS7f7YQhGsGP8QmXDJyzrKV71xxyj|
+|Name            |Role          |Discord Username           |Twitter Username|Wallet                    |
+|----------------|--------------|---------------------------|----------------|------------------------------------|
+|                |Team Leader   |laura?                     |                |                                    |
+|Laura Ozaki     |Design/Dev    |lauzaki#2386               |@lauzaki        |tz1ZTDCfahwoYqF6sJmxTmbtGDskPoAateJX|
+|Andreas Rau     |Designer      |andreasrau                 |@andreasrau_eu  |tz1Roq6end2LFtkpGrmuyRZH82xsWfaRCat1|
+|                |Data Scientist|                           |                |                                    |
+|Maja kalogera   |Tester/       |se.nao.neste.tempo/medikids|@uvdsc          tz1WJvfnevqRN6RnDDmaDj9S4tuiK2bJjU6a |
+|                |Marketer      |                           |                |                                    |
+|orderandchaos   |Developer     |__orderandchaos#6577       |@__orderandchaos|orderandchaos.tez                   |
+|Miguel Benevides|Cook          |opeculiar#3006             |@webidente      |tz2K1rDmszPuzVQYUcyDFxeSm7ZEJdDvhXx4|
+|Baby Commando   |Developer     |ʙᴀʙʏ ᴄᴏᴍᴍᴀɴᴅᴏ#7127         |@BabyCommando_  |tz1KseWbS7f7YQhGsGP8QmXDJyzrKV71xxyj|
 
 
 ### The Issue:
