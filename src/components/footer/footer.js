@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 const Footer = () =>
     <div className={styles.footerBar}>
         <h2 className={styles.footerTitle}>Created as part of Hicathon Hackday 2021</h2>
-        <p className={styles.footerText}>Working Group:
+        <p className={styles.footerText}>Working Group:{' '}
             <a href='https://twitter.com/lauzaki'>@lauzaki</a>,{' '}
             <a href='https://twitter.com/andreasrau_eu'>@andreasrau_eu</a>,{' '}
             <a href='https://twitter.com/uvdsc'>@uvdsc</a>,{' '}
