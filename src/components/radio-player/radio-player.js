@@ -3,17 +3,18 @@ import styles from './styles.module.css';
 import { createRef } from 'react/cjs/react.production.min';
 import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
-import PauseIcon from './pause-icon';
-import PlayIcon from './play-icon';
 import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
+import TrackList from '../track-list/track-list';
+import FilterTypes from '../../enums/filter-types';
+import TracksFilterBar from '../track-list/tracks-filter-bar';
 
 let rAF;
 
-const FilterTypes = Object.freeze({
-    ALL: 0,
-    CREATIONS: 1,
-    COLLECTIONS: 2,
-});
+const pad = (n, width, unit) => {
+    unit = unit || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
+};
 
 const RadioPlayer = ({audioObjkts, walletId}) => {
     const [audioState, setAudioState] = useState({
@@ -28,7 +29,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         playing: false,
         currentTrackKey: null,
         currentId: null,
-        isPlaying: false,
+        isPlaying: null,
         isMuted: false,
         volume: 0.5,
     });
@@ -60,8 +61,10 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [audioState, tracks]);
 
     useEffect(() => {
+        console.log('here23456');
         if(!audioRef.current) return;
         if(audioState.audioContext) return;
+        console.log('here54321');
         const audioContext = new AudioContext();
         const source = audioContext.createMediaElementSource(audioRef.current);
         const gain = audioContext.createGain();
@@ -102,24 +105,24 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
 
     useEffect(() => {
         if(!tracks) return;
-        (async () => {
-            const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator))
+        (async() => {
+            const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
             const nextCreatorMetadata = (await Promise.allSettled(
                 [...uniqueCreatorWalletIds]
-                    .map(id => getUserMetadataByWalletId(id))
+                    .map(id => getUserMetadataByWalletId(id)),
             ))
                 .filter(res => res.status === 'fulfilled')
                 .reduce((obj, res) => {
                     try {
-                        const walletId = res.value.data.logo.split('.')[0]
+                        const walletId = res.value.data.logo.split('.')[0];
                         obj[walletId] = res.value.data;
                     } catch(e) {
-                        console.warn('Error fetching metadata:', e)
+                        console.warn('Error fetching metadata:', e);
                     }
                     return obj;
                 }, {});
             setCreatorMetadata(nextCreatorMetadata);
-        })()
+        })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks, filter]);
 
@@ -139,6 +142,24 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
         audioState.audioContext.resume();
         audioRef.current.play();
+        audioRef.current.onended = (event) => {
+            console.log('ENDED!!!!!');
+            // console.log('this', this);
+            // console.log('Event', event);
+            // console.log('playing', playerState.isPlaying);
+            // console.log('key', playerState.currentTrackKey);
+            // const {currentTrackKey} = playerState;
+            // const nextTrackKey = (currentTrackKey + 1) % filteredTracks.length;
+            // event.target.src = filteredTracks[nextTrackKey].src;
+            // audioState.audioContext.resume();
+            // event.target.play();
+            // setPlayerState(prevState => ({
+            //     ...prevState,
+            //     isPlaying: true,
+            //     currentTrackKey: nextTrackKey,
+            //     currentId: filteredTracks[nextTrackKey].id,
+            // }));
+        };
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
@@ -216,21 +237,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
 
     const isTrackPlaying = id => playerState.isPlaying && playerState.currentId === id;
 
-    const pad = (n, width, unit) => {
-        unit = unit || '0';
-        n = n + '';
-        return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
-    };
-
-    const getCreator = creator => {
-        return creator.slice(0, 5) + '...' + creator.slice(-5);
-    };
-
     if(!tracks) return <p>Loading...</p>;
-
-    function getAlias(t) {
-        return t.creator in creatorMetadata ? creatorMetadata[t.creator].alias : '';
-    }
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -276,65 +283,14 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
                     : null}
             </div>
-            <div className={styles.filterTabs}>
-                <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.ALL
-                        ? styles.selected
-                        : ''}`}
-                    onClick={() => setFilter(FilterTypes.ALL)}
-                >All
-                </button>
-                <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.CREATIONS
-                        ? styles.selected
-                        : ''}`}
-                    onClick={() => setFilter(FilterTypes.CREATIONS)}
-                >Creations
-                </button>
-                <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.COLLECTIONS
-                        ? styles.selected
-                        : ''}`}
-                    onClick={() => setFilter(FilterTypes.COLLECTIONS)}
-                >Collections
-                </button>
-            </div>
-            {!filteredTracks.length ? <p>No audio tracks available</p> : (
-                <div>
-                    {filteredTracks.map((t, i) =>
-                        <div key={t.id} className={styles.trackRow}>
-                            {isTrackPlaying(t.id)
-                                ? (
-                                    <button
-                                        className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
-                                        onClick={handlePause}
-                                    ><PauseIcon/></button>
-                                ) : (
-                                    <button
-                                        className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                        onClick={handleSelectTrack(i)}
-                                    ><PlayIcon/></button>
-                                )}
-                            <span className={styles.trackRow_text}>
-                                <a
-                                    href={`https://hicetnunc.xyz/objkt/${t.id}`}
-                                    className={styles.trackRow_link}
-                                >#{t.id} {t.name}</a>
-                                <br/>
-                                By <a
-                                    href={`https://hicetnunc.xyz/tz/${t.creator}`}
-                                    className={styles.trackRow_link}
-                                >{getCreator(t.creator)} {getAlias(t)}</a>
-                            </span>
-                            <img
-                                alt={'Artist\'s avatar'}
-                                className={styles.trackRow_avatar}
-                                src={`https://services.tzkt.io/v1/avatars2/${t.creator}`}
-                            />
-                        </div>,
-                    )}
-                </div>
-            )}
+            <TracksFilterBar filter={filter} setFilter={setFilter}/>
+            <TrackList
+                filteredTracks={filteredTracks}
+                isTrackPlaying={isTrackPlaying}
+                handlePause={handlePause}
+                handleSelectTrack={handleSelectTrack}
+                creatorMetadata={creatorMetadata}
+            />
         </div>
     );
 };
