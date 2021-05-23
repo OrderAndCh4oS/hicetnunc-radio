@@ -26,6 +26,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const [playerState, setPlayerState] = useState({
         playing: false,
         currentTrackKey: 0,
+        currentId: null,
         isPlaying: false,
         isMuted: false,
         volume: 0.5,
@@ -119,13 +120,14 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const handleSelectTrack = i => () => {
         cancelAnimationFrame(rAF);
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
-        audioRef.current.src = tracks[i].src;
+        audioRef.current.src = filteredTracks[i].src;
         audioState.audioContext.resume();
         audioRef.current.play();
         setRunningTime(0);
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: i,
+            currentId: filteredTracks[i].id,
             isPlaying: true,
         }));
     };
@@ -164,7 +166,11 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
             audioState.audioContext.resume();
             audioRef.current.play();
         }
-        setPlayerState(prevState => ({...prevState, currentTrackKey: nextTrackKey}));
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: nextTrackKey,
+            currentId: filteredTracks[nextTrackKey].id
+        }));
     };
 
     const handlePrev = () => {
@@ -176,10 +182,14 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
             audioState.audioContext.resume();
             audioRef.current.play();
         }
-        setPlayerState(prevState => ({...prevState, currentTrackKey: prevTrackKey}));
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: prevTrackKey,
+            currentId: filteredTracks[prevTrackKey].id
+        }));
     };
 
-    const isTrackPlaying = i => playerState.isPlaying && playerState.currentTrackKey === i;
+    const isTrackPlaying = id => playerState.isPlaying && playerState.currentId === id;
 
     const pad = (n, width, unit) => {
         unit = unit || '0';
@@ -257,7 +267,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                 <div>
                     {filteredTracks.map((t, i) =>
                         <div key={t.id} className={styles.trackRow}>
-                            {isTrackPlaying(i) ? <button
+                            {isTrackPlaying(t.id) ? <button
                                     className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
                                     onClick={handlePause}
                                 ><PauseIcon/></button>
