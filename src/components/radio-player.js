@@ -30,7 +30,6 @@ const RadioPlayer = ({audioObjkts}) => {
     const audioRef = createRef(null);
 
     useEffect(() => {
-        console.log(audioObjkts);
         setTracks(audioObjkts.map(o => ({
             id: o.token_id,
             name: o.token_info.name,
@@ -75,7 +74,6 @@ const RadioPlayer = ({audioObjkts}) => {
 
     const updateTrackPlayDuration = (audioEl) => () => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
-        console.log('running time?', audioEl.currentTime);
         setRunningTime(audioEl.currentTime);
     };
 
@@ -112,7 +110,6 @@ const RadioPlayer = ({audioObjkts}) => {
         cancelAnimationFrame(rAF);
         audioRef.current.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
-        console.log(rAFRef.current);
     };
 
     const handleMute = () => {
