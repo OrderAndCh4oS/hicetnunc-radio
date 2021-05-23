@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Hicathon 2021 | WG7 7.2 - Galleries and collections
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Minimal galleries for exhibitions
 
-## Available Scripts
+### The Team:
 
-In the project directory, you can run:
+|Name            |Role          |Discord Username           |Twitter Username|Email                     |Wallet                              |
+|----------------|--------------|---------------------------|----------------|--------------------------|------------------------------------|
+|                |Team Leader   |laura?                     |                |                          |                                    |
+|Laura Ozaki     |Design/Dev    |lauzaki#2386               |@lauzaki        |laura.ozaki@gmail.com     |tz1ZTDCfahwoYqF6sJmxTmbtGDskPoAateJX|
+|Andreas Rau     |Designer      |andreasrau                 |@andreasrau_eu  |hic@andreasrau.eu         |tz1Roq6end2LFtkpGrmuyRZH82xsWfaRCat1|
+|                |Data Scientist|                           |                |                          |                                    |
+|Maja kalogera   |Tester/       |se.nao.neste.tempo/medikids|@uvdsc          |medikidsart@gmail.co      |tz1WJvfnevqRN6RnDDmaDj9S4tuiK2bJjU6a|
+|                |Marketer      |                           |                |                          |                                    |
+|orderandchaos   |Developer     |__orderandchaos#6577       |@__orderandchaos|sean@orderandchaoscreative|orderandchaos.tez                   |
+|Miguel Benevides|Cook          |opeculiar#3006             |@webidente      |opeculiar@protonmail.com  |tz2K1rDmszPuzVQYUcyDFxeSm7ZEJdDvhXx4|
+|Baby Commando   |Developer     |ʙᴀʙʏ ᴄᴏᴍᴍᴀɴᴅᴏ#7127         |@BabyCommando_  |jppf2000@gmail.com        |tz1KseWbS7f7YQhGsGP8QmXDJyzrKV71xxyj|
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### The Issue:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Exhibition viewing mode
+2. H=N permanent exhibit in a virtual museum
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Our Solution:
+A simple gallery view, just put in OBJKT numbers and you’re done (similar to objkts.gallery)
+https://www.figma.com/file/EZsHWFIHW1VMqfvfsoqSHY/WG-7.2?node-id=2%3A2
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### How it works:
+* Step 1: go to hengallery.xyz
+* Step 2: enter gallery details and select objects
+* Step 3: view the gallery in a browser on any device
+* Step 4: enjoy :)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##Team support:
+WG1 Facilitator: Name, Discord + Twitter handles
+WG1 Reporter: Name, Discord + Twitter handles
+Stack / Architecture
+Describe in a few sentences your stack.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+RoadMap
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+What did you do during the hackathon?
+Type your answer here.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+What is missing to finish the project?
+Type your answer here.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+________________
