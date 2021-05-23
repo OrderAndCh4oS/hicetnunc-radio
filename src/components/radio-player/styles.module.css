@@ -81,8 +81,9 @@
 }
 
 .currentTrack {
-    padding: 4px 0 0 16px;
-    margin-bottom: 8px;
+    padding: 0 0 0 16px;
+    margin: 0;
+    font-size: 14px;
 }
 
 .filterTabs {

@@ -26,7 +26,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     });
     const [playerState, setPlayerState] = useState({
         playing: false,
-        currentTrackKey: 0,
+        currentTrackKey: null,
         currentId: null,
         isPlaying: false,
         isMuted: false,
@@ -271,7 +271,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     onClick={handleNext}
                 >Next
                 </button>
-                {playerState.currentTrackKey
+                {playerState.currentTrackKey !== null
                     ?
                     <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
                     : null}
