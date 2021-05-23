@@ -34,7 +34,7 @@ const RadioView = () => {
     const filterAudio = (objkts) =>
         objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType));
 
-    if(!objktData) return <p>Loading...</p>;
+    if(!objktData) return  <div className={styles.radioView}><p>Loading...</p></div>;
 
     return (
         <div className={styles.radioView}>
