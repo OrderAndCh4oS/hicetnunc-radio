@@ -162,7 +162,6 @@ const RadioPlayer = ({audioObjkts}) => {
         return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
     };
 
-
     const trimCreator = creator => {
         return creator.slice(0, 5) + '...' + creator.slice(-5);
     };
