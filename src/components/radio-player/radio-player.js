@@ -5,6 +5,7 @@ import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
 import PauseIcon from './pause-icon';
 import PlayIcon from './play-icon';
+import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
 
 let rAF;
 
@@ -35,6 +36,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const [tracks, setTracks] = useState(null);
     const [filteredTracks, setFilteredTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
+    const [creatorMetadata, setCreatorMetadata] = useState({});
     const audioRef = createRef(null);
 
     useEffect(() => {
@@ -95,6 +97,29 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     return true;
             }
         }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tracks, filter]);
+
+    useEffect(() => {
+        if(!tracks) return;
+        (async () => {
+            const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator))
+            const nextCreatorMetadata = (await Promise.allSettled(
+                [...uniqueCreatorWalletIds]
+                    .map(id => getUserMetadataByWalletId(id))
+            ))
+                .filter(res => res.status === 'fulfilled')
+                .reduce((obj, res) => {
+                    try {
+                        const walletId = res.value.data.logo.split('.')[0]
+                        obj[walletId] = res.value.data;
+                    } catch(e) {
+                        console.warn('Error fetching metadata:', e)
+                    }
+                    return obj;
+                }, {});
+            setCreatorMetadata(nextCreatorMetadata);
+        })()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks, filter]);
 
@@ -197,11 +222,15 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
     };
 
-    const trimCreator = creator => {
+    const getCreator = creator => {
         return creator.slice(0, 5) + '...' + creator.slice(-5);
     };
 
     if(!tracks) return <p>Loading...</p>;
+
+    function getAlias(t) {
+        return t.creator in creatorMetadata ? creatorMetadata[t.creator].alias : '';
+    }
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -295,7 +324,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                                 By <a
                                     href={`https://hicetnunc.xyz/tz/${t.creator}`}
                                     className={styles.trackRow_link}
-                                >{trimCreator(t.creator)}</a>
+                                >{getCreator(t.creator)} {getAlias(t)}</a>
                             </span>
                             <img
                                 alt={'Artist\'s avatar'}
