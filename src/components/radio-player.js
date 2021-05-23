@@ -203,8 +203,8 @@ const RadioPlayer = ({audioObjkts}) => {
                                 className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
                                 onClick={selectTrack(i)}
                             ><PlayIcon/></button>}
-                        <a href={`https://hicetnunc.xyz/objkt/${t.id}`} className={styles.trackRow_link}>{t.name} #{t.id}</a>
-                    </div>,
+                        <a href={`https://hicetnunc.xyz/objkt/${t.id}`} className={styles.trackRow_link}>#{t.id} {t.name}</a>
+                    </div>
                 )}
             </div>
         </div>
