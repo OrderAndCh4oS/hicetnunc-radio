@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import RadioView from './pages/radio-view/radio-view';
 import './app.module.css';
-import { basePath } from './constants';
+import { publicUrl } from './constants';
 
 function App() {
     return (
-        <BrowserRouter basename={basePath}>
+        <BrowserRouter basename={`/${publicUrl}`}>
             <Switch>
                 <Route exact path="/" component={RadioView} />
                 <Route path="/tz/:tz" component={RadioView} />
