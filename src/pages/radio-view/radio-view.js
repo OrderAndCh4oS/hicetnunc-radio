@@ -5,11 +5,13 @@ import RadioPlayer from '../../components/radio-player/radio-player';
 import { defaultWalletId } from '../../constants';
 import { useHistory, useParams } from 'react-router';
 import Footer from '../../components/footer/footer';
+import useTitle from '../../hooks/use-title';
 
 const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
 const RadioView = () => {
     const {tz} = useParams();
+    useTitle(`H=N Radio ${tz ? `| ${tz}` : ''}` );
     console.log('tz', tz);
     const history = useHistory();
     const [objktData, setObjktData] = useState(null);
