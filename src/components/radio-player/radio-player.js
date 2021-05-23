@@ -169,7 +169,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: filteredTracks[nextTrackKey].id
+            currentId: filteredTracks[nextTrackKey].id,
         }));
     };
 
@@ -185,7 +185,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: prevTrackKey,
-            currentId: filteredTracks[prevTrackKey].id
+            currentId: filteredTracks[prevTrackKey].id,
         }));
     };
 
@@ -235,28 +235,37 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                 <button
                     className={styles.button_prevTrack}
                     onClick={handlePrev}
-                >Prev</button>
+                >Prev
+                </button>
                 <button
                     className={styles.button_nextTrack}
                     onClick={handleNext}
-                >Next</button>
+                >Next
+                </button>
                 {playerState.currentTrackKey
-                    ? <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
+                    ?
+                    <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
                     : null}
             </div>
             <div className={styles.filterTabs}>
                 <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.ALL ? styles.selected : ''}`}
+                    className={`${styles.filterButton} ${filter === FilterTypes.ALL
+                        ? styles.selected
+                        : ''}`}
                     onClick={() => setFilter(FilterTypes.ALL)}
                 >All
                 </button>
                 <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.CREATIONS ? styles.selected : ''}`}
+                    className={`${styles.filterButton} ${filter === FilterTypes.CREATIONS
+                        ? styles.selected
+                        : ''}`}
                     onClick={() => setFilter(FilterTypes.CREATIONS)}
                 >Creations
                 </button>
                 <button
-                    className={`${styles.filterButton} ${filter === FilterTypes.COLLECTIONS ? styles.selected : ''}`}
+                    className={`${styles.filterButton} ${filter === FilterTypes.COLLECTIONS
+                        ? styles.selected
+                        : ''}`}
                     onClick={() => setFilter(FilterTypes.COLLECTIONS)}
                 >Collections
                 </button>
@@ -265,23 +274,34 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                 <div>
                     {filteredTracks.map((t, i) =>
                         <div key={t.id} className={styles.trackRow}>
-                            {isTrackPlaying(t.id) ? <button
-                                    className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
-                                    onClick={handlePause}
-                                ><PauseIcon/></button>
-                                : <button
-                                    className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                    onClick={handleSelectTrack(i)}
-                                ><PlayIcon/></button>}
-                            <span className={styles.trackRow_text}><a
-                                href={`https://hicetnunc.xyz/objkt/${t.id}`}
-                                className={styles.trackRow_link}
-                            >#{t.id} {t.name}</a>,
-                        <a
-                            href={`https://hicetnunc.xyz/tz/${t.creator}`}
-                            className={styles.trackRow_link}
-                        >{trimCreator(t.creator)}</a>
+                            {isTrackPlaying(t.id)
+                                ? (
+                                    <button
+                                        className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
+                                        onClick={handlePause}
+                                    ><PauseIcon/></button>
+                                ) : (
+                                    <button
+                                        className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
+                                        onClick={handleSelectTrack(i)}
+                                    ><PlayIcon/></button>
+                                )}
+                            <span className={styles.trackRow_text}>
+                                <a
+                                    href={`https://hicetnunc.xyz/objkt/${t.id}`}
+                                    className={styles.trackRow_link}
+                                >#{t.id} {t.name}</a>
+                                <br/>
+                                By <a
+                                    href={`https://hicetnunc.xyz/tz/${t.creator}`}
+                                    className={styles.trackRow_link}
+                                >{trimCreator(t.creator)}</a>
                             </span>
+                            <img
+                                alt={'Artist\'s avatar'}
+                                className={styles.trackRow_avatar}
+                                src={`https://services.tzkt.io/v1/avatars2/${t.creator}`}
+                            />
                         </div>,
                     )}
                 </div>
