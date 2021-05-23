@@ -48,6 +48,7 @@ const RadioView = () => {
             <div className={styles.walletIdEntry}>
                 <input
                     value={walletIdInput}
+                    placeholder={'Enter a wallet id'}
                     onChange={handleWalletIDChange}
                 />
                 <button
