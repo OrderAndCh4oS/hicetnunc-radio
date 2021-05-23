@@ -26,7 +26,6 @@ const RadioPlayer = ({audioObjkts}) => {
     });
     const [runningTime, setRunningTime] = useState(0);
     const [tracks, setTracks] = useState(null);
-    const rAFRef = createRef(null);
     const audioRef = createRef(null);
 
     useEffect(() => {
