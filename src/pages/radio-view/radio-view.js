@@ -53,6 +53,7 @@ const RadioView = () => {
                 <button
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
+                    disabled={!walletIdInput}
                 >Get Tracks
                 </button>
             </div>
