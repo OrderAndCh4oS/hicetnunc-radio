@@ -11,8 +11,7 @@ const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
 const RadioView = () => {
     const {tz} = useParams();
-    useTitle(`H=N Radio ${tz ? `| ${tz}` : ''}` );
-    console.log('tz', tz);
+    useTitle(`H=N Radio ${tz ? `| ${tz}` : ''}`);
     const history = useHistory();
     const [objktData, setObjktData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +21,7 @@ const RadioView = () => {
     useEffect(() => {
         (async() => {
             const response = await getObjktsByWalletId(walletId);
-            setIsLoading(false)
+            setIsLoading(false);
             setObjktData(response.data);
         })();
     }, [walletId]);
@@ -35,13 +34,13 @@ const RadioView = () => {
         setWalletId(walletIdInput);
         setWalletIdInput('');
         setIsLoading(true);
-        history.push(`/tz/${walletIdInput}`)
+        history.push(`/tz/${walletIdInput}`);
     };
 
     const filterAudio = (objkts) =>
         objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType));
 
-    if(!objktData) return  <div className={styles.radioView}><p>Loading...</p></div>;
+    if(!objktData) return <div className={styles.radioView}><p>Loading...</p></div>;
 
     return (
         <div className={styles.radioView}>
@@ -54,7 +53,8 @@ const RadioView = () => {
                 <button
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
-                >Get Tracks</button>
+                >Get Tracks
+                </button>
             </div>
             {isLoading ? <p>Loading...</p> : <RadioPlayer
                 audioObjkts={filterAudio(objktData.result)}
