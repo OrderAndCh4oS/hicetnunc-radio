@@ -6,6 +6,7 @@ import { defaultWalletId } from '../../constants';
 import { useHistory, useParams } from 'react-router';
 import Footer from '../../components/footer/footer';
 import useTitle from '../../hooks/use-title';
+import Logo from '../../components/logo/logo';
 
 const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
@@ -44,6 +45,7 @@ const RadioView = () => {
 
     return (
         <div className={styles.radioView}>
+            <Logo />
             <div className={styles.walletIdEntry}>
                 <input
                     value={walletIdInput}
