@@ -1,4 +1,6 @@
 .radioPlayerContainer {
+    width: 90%;
+    max-width: 620px;
 }
 
 .button {
@@ -39,7 +41,7 @@
 .button_playerControl_small {
     width: 14px;
     height: 14px;
-    padding: 3px 0 0 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -86,7 +88,7 @@
 .filterTabs {
     display: flex;
     padding-bottom: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     border-bottom: 1px solid #E5E5E5;
 }
 
@@ -121,6 +123,7 @@
     margin: 0 0 8px 0;
     padding: 0 0 8px 0;
     border-bottom: 1px solid #E5E5E5;
+    align-items: center;
 }
 
 .trackRow_text {
@@ -135,6 +138,14 @@
 .trackRow_link:active, .trackRow_link:focus, .trackRow_link:visited {
     color: #000;
     text-decoration: underline;
+}
+
+.trackRow_avatar {
+    width: 22px;
+    height: auto;
+    overflow: hidden;
+    border-radius: 11px;
+    margin: 0 0 0 auto;
 }
 
 input[type="range"].radioRange {
