@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hicetnunc-radio/static/css/main.defc0603.chunk.css",
-    "main.js": "/hicetnunc-radio/static/js/main.bc110bb1.chunk.js",
-    "main.js.map": "/hicetnunc-radio/static/js/main.bc110bb1.chunk.js.map",
+    "main.js": "/hicetnunc-radio/static/js/main.bf14b95b.chunk.js",
+    "main.js.map": "/hicetnunc-radio/static/js/main.bf14b95b.chunk.js.map",
     "runtime-main.js": "/hicetnunc-radio/static/js/runtime-main.a732e6c2.js",
     "runtime-main.js.map": "/hicetnunc-radio/static/js/runtime-main.a732e6c2.js.map",
     "static/js/2.21f83f47.chunk.js": "/hicetnunc-radio/static/js/2.21f83f47.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.a732e6c2.js",
     "static/js/2.21f83f47.chunk.js",
     "static/css/main.defc0603.chunk.css",
-    "static/js/main.bc110bb1.chunk.js"
+    "static/js/main.bf14b95b.chunk.js"
   ]
 }
