@@ -290,8 +290,9 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                                 <a
                                     href={`https://hicetnunc.xyz/objkt/${t.id}`}
                                     className={styles.trackRow_link}
-                                >#{t.id} {t.name}</a>,
-                                <a
+                                >#{t.id} {t.name}</a>
+                                <br/>
+                                By <a
                                     href={`https://hicetnunc.xyz/tz/${t.creator}`}
                                     className={styles.trackRow_link}
                                 >{trimCreator(t.creator)}</a>
