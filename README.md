@@ -15,6 +15,8 @@
 |orderandchaos   |Developer     |__orderandchaos#6577       |@__orderandchaos|orderandchaos.tez                   |
 |Miguel Benevides|Cook          |opeculiar#3006             |@webidente      |tz2K1rDmszPuzVQYUcyDFxeSm7ZEJdDvhXx4|
 |Baby Commando   |Developer     |ʙᴀʙʏ ᴄᴏᴍᴍᴀɴᴅᴏ#7127         |@BabyCommando_  |tz1KseWbS7f7YQhGsGP8QmXDJyzrKV71xxyj|
+|Joshua Clayton  |Design/Dev    |jclayton#2254              |@jclayton       |tz1M348mq4NQsN56yGhFtLo66LDRHD9WjHSu|
+
 
 
 ## The Issue:
