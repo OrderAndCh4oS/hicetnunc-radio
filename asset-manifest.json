@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/hicetnunc-radio/static/css/main.c7d591c4.chunk.css",
-    "main.js": "/hicetnunc-radio/static/js/main.e3fc0a91.chunk.js",
-    "main.js.map": "/hicetnunc-radio/static/js/main.e3fc0a91.chunk.js.map",
+    "main.css": "/hicetnunc-radio/static/css/main.2e907fe9.chunk.css",
+    "main.js": "/hicetnunc-radio/static/js/main.41a4edf0.chunk.js",
+    "main.js.map": "/hicetnunc-radio/static/js/main.41a4edf0.chunk.js.map",
     "runtime-main.js": "/hicetnunc-radio/static/js/runtime-main.40069261.js",
     "runtime-main.js.map": "/hicetnunc-radio/static/js/runtime-main.40069261.js.map",
-    "static/js/2.438d26c8.chunk.js": "/hicetnunc-radio/static/js/2.438d26c8.chunk.js",
-    "static/js/2.438d26c8.chunk.js.map": "/hicetnunc-radio/static/js/2.438d26c8.chunk.js.map",
+    "static/js/2.fcf077fe.chunk.js": "/hicetnunc-radio/static/js/2.fcf077fe.chunk.js",
+    "static/js/2.fcf077fe.chunk.js.map": "/hicetnunc-radio/static/js/2.fcf077fe.chunk.js.map",
     "static/js/3.8ac0d5c1.chunk.js": "/hicetnunc-radio/static/js/3.8ac0d5c1.chunk.js",
     "static/js/3.8ac0d5c1.chunk.js.map": "/hicetnunc-radio/static/js/3.8ac0d5c1.chunk.js.map",
     "index.html": "/hicetnunc-radio/index.html",
-    "static/css/main.c7d591c4.chunk.css.map": "/hicetnunc-radio/static/css/main.c7d591c4.chunk.css.map",
-    "static/js/2.438d26c8.chunk.js.LICENSE.txt": "/hicetnunc-radio/static/js/2.438d26c8.chunk.js.LICENSE.txt"
+    "static/css/main.2e907fe9.chunk.css.map": "/hicetnunc-radio/static/css/main.2e907fe9.chunk.css.map",
+    "static/js/2.fcf077fe.chunk.js.LICENSE.txt": "/hicetnunc-radio/static/js/2.fcf077fe.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.40069261.js",
-    "static/js/2.438d26c8.chunk.js",
-    "static/css/main.c7d591c4.chunk.css",
-    "static/js/main.e3fc0a91.chunk.js"
+    "static/js/2.fcf077fe.chunk.js",
+    "static/css/main.2e907fe9.chunk.css",
+    "static/js/main.41a4edf0.chunk.js"
   ]
 }
