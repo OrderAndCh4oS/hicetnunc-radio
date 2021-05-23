@@ -29,6 +29,7 @@ const RadioPlayer = ({audioObjkts}) => {
     useEffect(() => {
         console.log(audioObjkts);
         setTracks(audioObjkts.map(o => ({
+            id: o.token_id,
             name: o.token_info.name,
             src: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
             mimeType: o.token_info.formats[0].mimeType,
@@ -193,7 +194,7 @@ const RadioPlayer = ({audioObjkts}) => {
             </div>
             <div>
                 {tracks.map((t, i) =>
-                    <div className={styles.trackRow}>
+                    <div key={t.id} className={styles.trackRow}>
                         {isTrackPlaying(i) ? <button
                                 className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
                                 onClick={handlePause}
@@ -202,7 +203,7 @@ const RadioPlayer = ({audioObjkts}) => {
                                 className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
                                 onClick={selectTrack(i)}
                             ><PlayIcon/></button>}
-                        <span className={styles.trackRow_name}>{t.name}</span>
+                        <a href={`https://hicetnunc.xyz/objkt/${t.id}`} className={styles.trackRow_link}>{t.name} #{t.id}</a>
                     </div>,
                 )}
             </div>

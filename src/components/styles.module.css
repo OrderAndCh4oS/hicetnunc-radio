@@ -97,8 +97,15 @@
     border-bottom: 1px solid #000;
 }
 
-.trackRow_name {
+.trackRow_link {
     margin-left: 16px;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+.trackRow_link:active, .trackRow_link:focus, .trackRow_link:visited {
+    color: #000;
+    text-decoration: underline;
 }
 
 input[type="range"].radioRange {

@@ -2,13 +2,18 @@ import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import getObjktsByWalletId from '../../api/get-objkts-by-wallet-id';
 import RadioPlayer from '../../components/radio-player';
+import { defaultWalletId } from '../../constants';
+import { useHistory, useParams } from 'react-router';
 
 const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
 const RadioView = () => {
+    const {tz} = useParams();
+    console.log('tz', tz);
+    const history = useHistory();
     const [objktData, setObjktData] = useState(null);
     const [walletIdInput, setWalletIdInput] = useState('');
-    const [walletId, setWalletId] = useState('tz2R9EzXYHT93EuBkuquC6ib2cJQWJy486EL');
+    const [walletId, setWalletId] = useState(tz || defaultWalletId);
 
     useEffect(() => {
         (async() => {
@@ -29,6 +34,7 @@ const RadioView = () => {
     const handleGetTracks = () => {
         setWalletId(walletIdInput);
         setWalletIdInput('');
+        history.push(`/tz/${walletIdInput}`)
     };
 
     const filterAudio = (objkts) =>
