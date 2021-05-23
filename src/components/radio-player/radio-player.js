@@ -61,10 +61,8 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [audioState, tracks]);
 
     useEffect(() => {
-        console.log('here23456');
         if(!audioRef.current) return;
         if(audioState.audioContext) return;
-        console.log('here54321');
         const audioContext = new AudioContext();
         const source = audioContext.createMediaElementSource(audioRef.current);
         const gain = audioContext.createGain();
@@ -142,23 +140,9 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
         audioState.audioContext.resume();
         audioRef.current.play();
-        audioRef.current.onended = (event) => {
-            console.log('ENDED!!!!!');
-            // console.log('this', this);
-            // console.log('Event', event);
-            // console.log('playing', playerState.isPlaying);
-            // console.log('key', playerState.currentTrackKey);
-            // const {currentTrackKey} = playerState;
-            // const nextTrackKey = (currentTrackKey + 1) % filteredTracks.length;
-            // event.target.src = filteredTracks[nextTrackKey].src;
-            // audioState.audioContext.resume();
-            // event.target.play();
-            // setPlayerState(prevState => ({
-            //     ...prevState,
-            //     isPlaying: true,
-            //     currentTrackKey: nextTrackKey,
-            //     currentId: filteredTracks[nextTrackKey].id,
-            // }));
+        audioRef.current.onended = function() {
+            console.log('Ended');
+            // Todo: Somehow find the next track to play and start playing it.
         };
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
@@ -169,6 +153,10 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         audioRef.current.src = filteredTracks[i].src;
         audioState.audioContext.resume();
         audioRef.current.play();
+        audioRef.current.onended = () => {
+            console.log('Ended');
+            // Todo: Somehow find the next track to play and start playing it.
+        };
         setRunningTime(0);
         setPlayerState(prevState => ({
             ...prevState,
