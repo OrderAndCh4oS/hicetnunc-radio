@@ -4,6 +4,7 @@ import './app.module.css';
 import { publicUrl } from './constants';
 
 function App() {
+    console.log('pu', publicUrl)
     return (
         <BrowserRouter basename={`/${publicUrl}`}>
             <Switch>
