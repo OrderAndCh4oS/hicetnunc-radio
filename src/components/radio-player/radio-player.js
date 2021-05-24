@@ -129,15 +129,15 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         return playerState.currentTrackKey;
     };
 
-    const playAudio = async () => {
+    const playAudio = async() => {
         try {
             audioContext.resume();
             await audio.play();
         } catch(e) {
-            console.log('W!@£$R`t')
+            console.log('W!@£$R`t');
             setError('Failed to play track, possibly unsupported media.');
             setTimeout(() => {
-                setError(null)
+                setError(null);
             }, 4000);
             console.log(e);
         }
@@ -252,8 +252,8 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                         handleMute={handleMute}
                         handleUnmute={handleUnmute}
                     />
-                    <div className={styles.runningTime}>{getPlayTime(runningTime)}</div>
                 </div>
+                <div className={styles.runningTime}>{getPlayTime(runningTime)}</div>
             </div>
             <div className={styles.nextPrevControls}>
                 <button

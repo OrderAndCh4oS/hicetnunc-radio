@@ -1,5 +1,4 @@
 .radioPlayerContainer {
-    width: 90%;
     max-width: 764px;
 }
 
@@ -11,6 +10,7 @@
 .controlsHolder {
     display: flex;
     align-content: center;
+    width: 100%;
 }
 
 .button_playerControl {
@@ -52,12 +52,12 @@
 
 .playerBar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     padding: 8px 0;
 }
 
 .runningTime {
-    margin-left: 8px;
     padding-top: 4px;
 }
 
@@ -183,4 +183,16 @@ input[type="range"].radioRange:focus::-ms-fill-lower {
 
 input[type="range"].radioRange:focus::-ms-fill-upper {
     background: #151515;
+}
+
+@media screen and (min-width: 600px) {
+    .controlsHolder {
+        width: auto;
+    }
+    .playerBar {
+        flex-wrap: nowrap;
+    }
+    .runningTime {
+        margin-left: 8px;
+    }
 }

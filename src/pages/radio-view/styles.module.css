@@ -12,6 +12,23 @@
     margin-bottom: 8px;
 }
 
+.walletInput {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 6px 4px;
+    border: 1px solid #E5E5E5;
+}
+
 .button_getObjktData {
-    margin-left: 8px;
+    padding: 4px 3px;
+}
+
+@media screen and (min-width: 600px) {
+    .walletInput {
+        max-width: 320px;
+    }
+    .button_getObjktData {
+        margin-left: 8px;
+        padding: 4px 3px;
+    }
 }

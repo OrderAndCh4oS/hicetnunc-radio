@@ -8,8 +8,8 @@
 
 .trackRow_text {
     display: block;
-    font-size: 14px;
-    margin-left: 12px;
+    font-size: 11px;
+    margin-left: 8px;
 }
 
 .trackRow_link {
@@ -28,6 +28,7 @@
     overflow: hidden;
     border-radius: 13px;
     margin: 0 0 0 auto;
+    flex-shrink: 0;
 }
 
 .button {
@@ -62,6 +63,7 @@
 }
 
 .filterButton {
+    font-size: 11px;
     margin-right: 8px;
     border-right: none;
     border-bottom: none;
@@ -71,3 +73,14 @@
     font-weight: bold;
 }
 
+@media screen and (min-width: 600px) {
+    .trackRow_text {
+        display: block;
+        font-size: 14px;
+        margin-left: 12px;
+    }
+
+    .filterButton {
+        font-size: 14px;
+    }
+}
