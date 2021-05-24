@@ -8,7 +8,6 @@ const AudioProvider = ({children}) => {
     const audioContext = window.AudioContext
         ? new window.AudioContext()
         : new window.webkitAudioContext();
-    console.log(audioContext);
     const source = audioContext.createMediaElementSource(audio);
     const gain = audioContext.createGain();
     const analyser = audioContext.createAnalyser();

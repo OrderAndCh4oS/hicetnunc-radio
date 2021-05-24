@@ -63,7 +63,6 @@ const RadioProvider = ({children}) => {
 
     const handlePause = () => {
         if(!audio) return;
-        console.log('HERERERE');
         cancelAnimationFrame(rAF);
         audio.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
