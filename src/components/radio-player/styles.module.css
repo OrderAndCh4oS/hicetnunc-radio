@@ -83,6 +83,11 @@
 .button_prevTrack {
 }
 
+.errorText {
+    color: #cd0117;
+    font-size: 14px;
+}
+
 input[type="range"].radioRange {
     -webkit-appearance: none;
     background-color: transparent;

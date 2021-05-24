@@ -5,7 +5,8 @@ export const RadioContext = createContext({audioRef: null});
 const RadioProvider = ({children}) => {
     const audio = new Audio();
 
-    const audioContext = new AudioContext();
+    const audioContext = AudioContext ? new AudioContext() : new window.webkitAudioContext();
+    console.log(audioContext)
     const source = audioContext.createMediaElementSource(audio);
     const gain = audioContext.createGain();
     const analyser = audioContext.createAnalyser();
@@ -13,8 +14,8 @@ const RadioProvider = ({children}) => {
     source.connect(analyser);
     source.connect(gain);
     analyser.fftSize = 64;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Float32Array(bufferLength);
+    // const bufferLength = analyser.frequencyBinCount;
+    // const dataArray = new Float32Array(bufferLength);
 
     return (
         <RadioContext.Provider

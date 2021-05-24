@@ -34,6 +34,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const [filteredTracks, setFilteredTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
     const [creatorMetadata, setCreatorMetadata] = useState({});
+    const [error, setError] = useState(null);
 
     audio.onended = () => {
         // console.log('ENDED');
@@ -41,8 +42,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         // Todo: Somehow find the next track to play and start playing it.
         const nextTrackKey = (getCurrentTrackKey() + 1) % filteredTracks.length;
         audio.src = filteredTracks[nextTrackKey].src;
-        audioContext.resume();
-        audio.play();
+        playAudio();
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
@@ -129,12 +129,25 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         return playerState.currentTrackKey;
     };
 
+    const playAudio = async () => {
+        try {
+            audioContext.resume();
+            await audio.play();
+        } catch(e) {
+            console.log('W!@£$R`t')
+            setError('Failed to play track, possibly unsupported media.');
+            setTimeout(() => {
+                setError(null)
+            }, 4000);
+            console.log(e);
+        }
+    };
+
     const handlePlay = () => {
         if(!audio) return;
         cancelAnimationFrame(rAF);
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
-        audioContext.resume();
-        audio.play();
+        playAudio();
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
@@ -142,8 +155,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         cancelAnimationFrame(rAF);
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
         audio.src = filteredTracks[i].src;
-        audioContext.resume();
-        audio.play();
+        playAudio();
         setRunningTime(0);
         setPlayerState(prevState => ({
             ...prevState,
@@ -259,6 +271,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
                     : null}
             </div>
+            {error && <p className={styles.errorText}>{error}</p>}
             <TracksFilterBar filter={filter} setFilter={setFilter}/>
             <TrackList
                 filteredTracks={filteredTracks}
