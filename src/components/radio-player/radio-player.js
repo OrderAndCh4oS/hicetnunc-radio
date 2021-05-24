@@ -19,7 +19,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         isTrackPlaying,
         runningTime
     } = useRadio();
-    // console.log('RE-RENDERED');
 
     const [tracks, setTracks] = useState(null);
     const [filteredTracks, setFilteredTracks] = useState([]);
@@ -27,7 +26,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     const [creatorMetadata, setCreatorMetadata] = useState({});
 
     audio.onended = () => {
-        // console.log('ENDED');
         if(!filteredTracks.length) return;
         // Todo: Somehow find the next track to play and start playing it.
         const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
@@ -41,7 +39,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     };
 
     useEffect(() => {
-        // console.log('SET TRACKS');
         setTracks(audioObjkts.map(o => ({
             id: o.token_id,
             creator: o.token_info.creators[0],
@@ -52,7 +49,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [audioObjkts]);
 
     useEffect(() => {
-        // console.log('INIT AUDIO');
         if(!tracks?.length || !audio) return;
         if(audio.src) return;
         audio.crossOrigin = 'anonymous';
@@ -63,7 +59,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [tracks]);
 
     useEffect(() => {
-        // console.log('SET FILTER');
         if(!tracks) return;
         setFilteredTracks(tracks.filter(t => {
             switch(filter) {
@@ -81,7 +76,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [tracks, filter]);
 
     useEffect(() => {
-        // console.log('GET METADATA');
         if(!tracks) return;
         (async() => {
             const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
