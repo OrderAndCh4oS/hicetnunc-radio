@@ -5,7 +5,7 @@ export const RadioContext = createContext({audioRef: null});
 const RadioProvider = ({children}) => {
     const audio = new Audio();
 
-    const audioContext = AudioContext ? new AudioContext() : new window.webkitAudioContext();
+    const audioContext = window.AudioContext ? new window.AudioContext() : new window.webkitAudioContext();
     console.log(audioContext)
     const source = audioContext.createMediaElementSource(audio);
     const gain = audioContext.createGain();
