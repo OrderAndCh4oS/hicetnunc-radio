@@ -123,7 +123,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     />
                     <MuteButton/>
                 </div>
-                <div className={styles.runningTime}>{getAudioTime(runningTime)} of {getAudioTime(audio.duration || 0)}</div>
+                <div className={styles.runningTime}>{getAudioTime(runningTime)} of {getAudioTime(audio.duration)}</div>
             </div>
             <div className={styles.nextPrevControls}>
                 <button
