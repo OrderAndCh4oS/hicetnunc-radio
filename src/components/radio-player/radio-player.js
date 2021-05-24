@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { createRef } from 'react/cjs/react.production.min';
 import MuteButton from './mute-button';
 import PlayPauseButton from './play-pause-button';
 import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
 import TrackList from '../track-list/track-list';
 import FilterTypes from '../../enums/filter-types';
 import TracksFilterBar from '../track-list/tracks-filter-bar';
+import useRadio from '../../hooks/use-radio';
 
 let rAF;
 
@@ -17,30 +17,41 @@ const pad = (n, width, unit) => {
 };
 
 const RadioPlayer = ({audioObjkts, walletId}) => {
-    const [audioState, setAudioState] = useState({
-        audioContext: null,
-        source: null,
-        gain: null,
-        analyser: null,
-        bufferLength: null,
-        dataArray: null,
-    });
+    const {audio, audioContext} = useRadio();
+    // console.log('RE-RENDERED');
+
     const [playerState, setPlayerState] = useState({
         playing: false,
-        currentTrackKey: null,
+        currentTrackKey: 0,
         currentId: null,
         isPlaying: null,
         isMuted: false,
         volume: 0.5,
+        stateUpdatedBy: null,
     });
     const [runningTime, setRunningTime] = useState(0);
     const [tracks, setTracks] = useState(null);
     const [filteredTracks, setFilteredTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
     const [creatorMetadata, setCreatorMetadata] = useState({});
-    const audioRef = createRef(null);
+
+    audio.onended = () => {
+        // console.log('ENDED');
+        if(!filteredTracks.length) return;
+        // Todo: Somehow find the next track to play and start playing it.
+        const nextTrackKey = (getCurrentTrackKey() + 1) % filteredTracks.length;
+        audio.src = filteredTracks[nextTrackKey].src;
+        audioContext.resume();
+        audio.play();
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: nextTrackKey,
+            currentId: filteredTracks[nextTrackKey].id,
+        }));
+    };
 
     useEffect(() => {
+        // console.log('SET TRACKS');
         setTracks(audioObjkts.map(o => ({
             id: o.token_id,
             creator: o.token_info.creators[0],
@@ -51,40 +62,18 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [audioObjkts]);
 
     useEffect(() => {
-        if(!tracks?.length || !audioRef.current) return;
-        if(audioRef.current.src) return;
-        audioRef.current.crossOrigin = 'anonymous';
-        audioRef.current.src = tracks[0].src;
-        audioRef.current.volume = playerState.volume;
-        audioRef.current.mimeType = tracks[0].mimeType;
+        // console.log('INIT AUDIO');
+        if(!tracks?.length || !audio) return;
+        if(audio.src) return;
+        audio.crossOrigin = 'anonymous';
+        audio.src = tracks[0].src;
+        audio.volume = playerState.volume;
+        audio.mimeType = tracks[0].mimeType;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [audioState, tracks]);
+    }, [tracks]);
 
     useEffect(() => {
-        if(!audioRef.current) return;
-        if(audioState.audioContext) return;
-        const audioContext = new AudioContext();
-        const source = audioContext.createMediaElementSource(audioRef.current);
-        const gain = audioContext.createGain();
-        const analyser = audioContext.createAnalyser();
-        analyser.connect(audioContext.destination);
-        source.connect(analyser);
-        source.connect(gain);
-        analyser.fftSize = 64;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Float32Array(bufferLength);
-        setAudioState({
-            audioContext,
-            source,
-            gain,
-            analyser,
-            bufferLength,
-            dataArray,
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [audioRef]);
-
-    useEffect(() => {
+        // console.log('SET FILTER');
         if(!tracks) return;
         setFilteredTracks(tracks.filter(t => {
             switch(filter) {
@@ -102,6 +91,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     }, [tracks, filter]);
 
     useEffect(() => {
+        // console.log('GET METADATA');
         if(!tracks) return;
         (async() => {
             const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
@@ -135,28 +125,25 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         return `${minutes}.${pad(~~seconds, 2)}`;
     };
 
+    const getCurrentTrackKey = () => {
+        return playerState.currentTrackKey;
+    };
+
     const handlePlay = () => {
-        if(!audioRef.current) return;
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
-        audioState.audioContext.resume();
-        audioRef.current.play();
-        audioRef.current.onended = function() {
-            console.log('Ended');
-            // Todo: Somehow find the next track to play and start playing it.
-        };
+        if(!audio) return;
+        cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
+        audioContext.resume();
+        audio.play();
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
     const handleSelectTrack = i => () => {
         cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audioRef.current));
-        audioRef.current.src = filteredTracks[i].src;
-        audioState.audioContext.resume();
-        audioRef.current.play();
-        audioRef.current.onended = () => {
-            console.log('Ended');
-            // Todo: Somehow find the next track to play and start playing it.
-        };
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
+        audio.src = filteredTracks[i].src;
+        audioContext.resume();
+        audio.play();
         setRunningTime(0);
         setPlayerState(prevState => ({
             ...prevState,
@@ -167,38 +154,39 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
     };
 
     const handlePause = () => {
-        if(!audioRef.current) return;
+        if(!audio) return;
         cancelAnimationFrame(rAF);
-        audioRef.current.pause();
+        audio.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
     };
 
     const handleMute = () => {
-        if(!audioRef.current) return;
-        audioRef.current.volume = 0;
+        if(!audio) return;
+        audio.volume = 0;
         setPlayerState(prevState => ({...prevState, isMuted: true}));
     };
 
     const handleUnmute = () => {
-        if(!audioRef.current) return;
-        audioRef.current.volume = playerState.volume;
+        if(!audio) return;
+        audio.volume = playerState.volume;
         setPlayerState(prevState => ({...prevState, isMuted: false}));
     };
 
     const handleVolumeChange = (event) => {
-        if(!audioRef.current) return;
+        if(!audio) return;
         const volume = event.target.value;
-        audioRef.current.volume = volume;
+        audio.volume = volume;
         setPlayerState(prevState => ({...prevState, volume}));
     };
 
     const handleNext = () => {
         const {currentTrackKey} = playerState;
+        if(!filteredTracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % filteredTracks.length;
-        audioRef.current.src = filteredTracks[nextTrackKey].src;
+        audio.src = filteredTracks[nextTrackKey].src;
         if(playerState.isPlaying) {
-            audioState.audioContext.resume();
-            audioRef.current.play();
+            audioContext.resume();
+            audio.play();
         }
         setPlayerState(prevState => ({
             ...prevState,
@@ -209,12 +197,13 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
 
     const handlePrev = () => {
         const {currentTrackKey} = playerState;
+        if(!filteredTracks.length) return;
         let prevTrackKey = currentTrackKey - 1;
         if(prevTrackKey < 0) prevTrackKey = filteredTracks.length - 1;
-        audioRef.current.src = filteredTracks[prevTrackKey].src;
+        audio.src = filteredTracks[prevTrackKey].src;
         if(playerState.isPlaying) {
-            audioState.audioContext.resume();
-            audioRef.current.play();
+            audioContext.resume();
+            audio.play();
         }
         setPlayerState(prevState => ({
             ...prevState,
@@ -229,7 +218,6 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
 
     return (
         <div className={styles.radioPlayerContainer}>
-            <audio ref={audioRef}/>
             <div className={styles.playerBar}>
                 <div className={styles.controlsHolder}>
                     <PlayPauseButton

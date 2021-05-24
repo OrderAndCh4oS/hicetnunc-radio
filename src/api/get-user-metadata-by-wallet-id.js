@@ -4,4 +4,4 @@ import { tzktApi } from '../constants';
 const getUserMetadataByWalletId = (walletId) =>
     axios.get(`${tzktApi}/${walletId}/metadata`);
 
-export default getUserMetadataByWalletId
+export default getUserMetadataByWalletId;

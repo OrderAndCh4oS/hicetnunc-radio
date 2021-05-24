@@ -4,4 +4,4 @@ import { hicetnuncApi } from '../constants';
 const getObjktsByWalletId = (walletId) =>
     axios.get(`${hicetnuncApi}/tz?tz=${walletId}`);
 
-export default getObjktsByWalletId
+export default getObjktsByWalletId;

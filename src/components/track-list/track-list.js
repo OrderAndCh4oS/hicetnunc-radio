@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import PauseIcon from '../radio-player/pause-icon';
-import PlayIcon from '../radio-player/play-icon'
+import PlayIcon from '../radio-player/play-icon';
 
 const getCreator = creator => {
     return creator.slice(0, 5) + '...' + creator.slice(-5);

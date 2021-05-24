@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import RadioProvider from './context/radio-context';
+import { HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <HashRouter>
+            <RadioProvider>
+                <App/>
+            </RadioProvider>
+        </HashRouter>
     </React.StrictMode>,
     document.getElementById('root'),
 );

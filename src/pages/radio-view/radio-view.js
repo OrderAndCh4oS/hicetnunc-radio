@@ -45,7 +45,7 @@ const RadioView = () => {
 
     return (
         <div className={styles.radioView}>
-            <Logo />
+            <Logo/>
             <div className={styles.walletIdEntry}>
                 <input
                     value={walletIdInput}

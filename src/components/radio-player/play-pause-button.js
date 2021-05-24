@@ -1,13 +1,9 @@
 import styles from './styles.module.css';
 import PauseIcon from './pause-icon';
 import PlayIcon from './play-icon';
-import { useEffect } from 'react';
 
-const PlayPauseButton = ({isPlaying, handlePlay, handlePause}) => {
-    useEffect(() => {
-        console.log('isPlaying', isPlaying);
-    }, [isPlaying]);
-    return <>
+const PlayPauseButton = ({isPlaying, handlePlay, handlePause}) =>
+    <>
         {isPlaying ? (
             <button
                 className={`${styles.button} ${styles.button_play} ${styles.button_playerControl}`}
@@ -24,6 +20,5 @@ const PlayPauseButton = ({isPlaying, handlePlay, handlePause}) => {
             </button>
         )}
     </>;
-};
 
-export default PlayPauseButton
+export default PlayPauseButton;
