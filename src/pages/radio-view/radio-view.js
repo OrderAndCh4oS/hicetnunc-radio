@@ -41,8 +41,6 @@ const RadioView = () => {
     const filterAudio = (objkts) =>
         objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType));
 
-    if(!objktData) return <div className={styles.radioView}><p>Loading...</p></div>;
-
     return (
         <div className={styles.radioView}>
             <div className={styles.headerBar}>
@@ -51,7 +49,10 @@ const RadioView = () => {
                     className={styles.selectPlaylist}
                     onChange={handleWalletIDChange}
                 >
-                    {playlists.map(p => <option key={p.walletAddress} value={p.walletAddress}>{p.name}</option>)}
+                    {playlists.map(p => <option
+                        key={p.walletAddress}
+                        value={p.walletAddress}
+                    >{p.name}</option>)}
                 </select>
             </div>
             <div className={styles.walletIdEntry}>
@@ -68,10 +69,14 @@ const RadioView = () => {
                 >Get Tracks
                 </button>
             </div>
-            {isLoading ? <p>Loading...</p> : <RadioPlayer
-                audioObjkts={objktData}
-                walletId={walletId}
-            />}
+            {objktData ? (
+                <>
+                    {isLoading ? <p>Loading...</p> : <RadioPlayer
+                        audioObjkts={objktData}
+                        walletId={walletId}
+                    />}
+                </>
+            ) : (<p>Loading...</p>)}
             <Footer/>
         </div>
     );
