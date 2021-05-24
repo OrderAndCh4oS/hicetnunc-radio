@@ -2,11 +2,11 @@ import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import getObjktsByWalletId from '../../api/get-objkts-by-wallet-id';
 import RadioPlayer from '../../components/radio-player/radio-player';
-import { defaultWalletId } from '../../constants';
 import { useHistory, useParams } from 'react-router';
 import Footer from '../../components/footer/footer';
 import useTitle from '../../hooks/use-title';
 import Logo from '../../components/logo/logo';
+import { playlists } from '../../playlists/playlists';
 
 const audioMimeTypes = ['audio/ogg', 'audio/mpeg', 'audio/wav'];
 
@@ -17,7 +17,7 @@ const RadioView = () => {
     const [objktData, setObjktData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [walletIdInput, setWalletIdInput] = useState('');
-    const [walletId, setWalletId] = useState(tz || defaultWalletId);
+    const [walletId, setWalletId] = useState(tz || playlists[0].walletAddress);
 
     useEffect(() => {
         (async() => {
@@ -45,7 +45,15 @@ const RadioView = () => {
 
     return (
         <div className={styles.radioView}>
-            <Logo/>
+            <div className={styles.headerBar}>
+                <Logo/>
+                <select
+                    className={styles.selectPlaylist}
+                    onChange={handleWalletIDChange}
+                >
+                    {playlists.map(p => <option key={p.walletAddress} value={p.walletAddress}>{p.name}</option>)}
+                </select>
+            </div>
             <div className={styles.walletIdEntry}>
                 <input
                     className={styles.walletInput}

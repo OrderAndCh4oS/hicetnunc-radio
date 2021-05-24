@@ -1,27 +1,160 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
+import useAudio from '../hooks/use-audio';
 
 export const RadioContext = createContext({audioRef: null});
 
-const RadioProvider = ({children}) => {
-    const audio = new Audio();
+let rAF;
 
-    const audioContext = window.AudioContext ? new window.AudioContext() : new window.webkitAudioContext();
-    console.log(audioContext)
-    const source = audioContext.createMediaElementSource(audio);
-    const gain = audioContext.createGain();
-    const analyser = audioContext.createAnalyser();
-    analyser.connect(audioContext.destination);
-    source.connect(analyser);
-    source.connect(gain);
-    analyser.fftSize = 64;
-    // const bufferLength = analyser.frequencyBinCount;
-    // const dataArray = new Float32Array(bufferLength);
+const pad = (n, width, unit) => {
+    unit = unit || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
+};
+
+const RadioProvider = ({children}) => {
+    const {audio, audioContext} = useAudio();
+
+    const [playerState, setPlayerState] = useState({
+        playing: false,
+        currentTrackKey: 0,
+        currentId: null,
+        isPlaying: null,
+        isMuted: false,
+        volume: 0.5,
+        stateUpdatedBy: null,
+    });
+    const [runningTime, setRunningTime] = useState(0);
+    const [audioError, setAudioError] = useState(null);
+
+    const updateTrackPlayDuration = (audioEl) => () => {
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
+        setRunningTime(audioEl.currentTime);
+    };
+
+    const getPlayTime = () => {
+        const minutes = ~~(runningTime / 60);
+        const seconds = runningTime - minutes * 60;
+        return `${minutes}.${pad(~~seconds, 2)}`;
+    };
+
+    const playAudio = async() => {
+        try {
+            cancelAnimationFrame(rAF);
+            rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
+            await audioContext.resume();
+            await audio.play();
+        } catch(e) {
+            setAudioError('Failed to play track, possibly unsupported media.');
+            setTimeout(() => {
+                setAudioError(null);
+            }, 4000);
+            console.log(e);
+        }
+    };
+
+    const handlePlay = async() => {
+        if(!audio) return;
+        await playAudio();
+        setPlayerState(prevState => ({...prevState, isPlaying: true}));
+    };
+
+    const handleSelectTrack = (tracks) => i => () => {
+        cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
+        audio.src = tracks[i].src;
+        playAudio();
+        setRunningTime(0);
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: i,
+            currentId: tracks[i].id,
+            isPlaying: true,
+        }));
+    };
+
+    const handlePause = () => {
+        if(!audio) return;
+        console.log('HERERERE')
+        cancelAnimationFrame(rAF);
+        audio.pause();
+        setPlayerState(prevState => ({...prevState, isPlaying: false}));
+    };
+
+    const handleMute = () => {
+        if(!audio) return;
+        audio.volume = 0;
+        setPlayerState(prevState => ({...prevState, isMuted: true}));
+    };
+
+    const handleUnmute = () => {
+        if(!audio) return;
+        audio.volume = playerState.volume;
+        setPlayerState(prevState => ({...prevState, isMuted: false}));
+    };
+
+    const handleVolumeChange = (event) => {
+        if(!audio) return;
+        const volume = event.target.value;
+        audio.volume = volume;
+        setPlayerState(prevState => ({...prevState, volume}));
+    };
+
+    const handleNext = (tracks) => () => {
+        const {currentTrackKey} = playerState;
+        if(!tracks.length) return;
+        const nextTrackKey = (currentTrackKey + 1) % tracks.length;
+        audio.src = tracks[nextTrackKey].src;
+        if(playerState.isPlaying) {
+            audioContext.resume();
+            audio.play();
+        }
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: nextTrackKey,
+            currentId: tracks[nextTrackKey].id,
+        }));
+    };
+
+    const handlePrev = (tracks) => () => {
+        const {currentTrackKey} = playerState;
+        if(!tracks.length) return;
+        let prevTrackKey = currentTrackKey - 1;
+        if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
+        audio.src = tracks[prevTrackKey].src;
+        if(playerState.isPlaying) {
+            audioContext.resume();
+            audio.play();
+        }
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: prevTrackKey,
+            currentId: tracks[prevTrackKey].id,
+        }));
+    };
+
+    const isTrackPlaying = id => playerState.isPlaying && playerState.currentId === id;
 
     return (
         <RadioContext.Provider
             value={{
                 audio: audio,
                 audioContext,
+                audioError,
+                playerState,
+                setPlayerState,
+                isTrackPlaying,
+                runningTime,
+                getPlayTime,
+                controls: {
+                    play: handlePlay,
+                    pause: handlePause,
+                    mute: handleMute,
+                    unmute: handleUnmute,
+                    volume: handleVolumeChange,
+                    next: handleNext,
+                    previous: handlePrev,
+                    selectTrack: handleSelectTrack,
+                },
             }}
         >
             {children}

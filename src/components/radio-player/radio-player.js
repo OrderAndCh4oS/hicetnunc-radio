@@ -8,41 +8,30 @@ import FilterTypes from '../../enums/filter-types';
 import TracksFilterBar from '../track-list/tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
 
-let rAF;
-
-const pad = (n, width, unit) => {
-    unit = unit || '0';
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
-};
-
 const RadioPlayer = ({audioObjkts, walletId}) => {
-    const {audio, audioContext} = useRadio();
+    const {
+        audio,
+        audioError,
+        playerState,
+        setPlayerState,
+        controls,
+        isTrackPlaying,
+        getPlayTime,
+    } = useRadio();
     // console.log('RE-RENDERED');
 
-    const [playerState, setPlayerState] = useState({
-        playing: false,
-        currentTrackKey: 0,
-        currentId: null,
-        isPlaying: null,
-        isMuted: false,
-        volume: 0.5,
-        stateUpdatedBy: null,
-    });
-    const [runningTime, setRunningTime] = useState(0);
     const [tracks, setTracks] = useState(null);
     const [filteredTracks, setFilteredTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
     const [creatorMetadata, setCreatorMetadata] = useState({});
-    const [error, setError] = useState(null);
 
     audio.onended = () => {
         // console.log('ENDED');
         if(!filteredTracks.length) return;
         // Todo: Somehow find the next track to play and start playing it.
-        const nextTrackKey = (getCurrentTrackKey() + 1) % filteredTracks.length;
+        const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
         audio.src = filteredTracks[nextTrackKey].src;
-        playAudio();
+        controls.play();
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
@@ -114,129 +103,13 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks, filter]);
 
-    const updateTrackPlayDuration = (audioEl) => () => {
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
-        setRunningTime(audioEl.currentTime);
-    };
-
-    const getPlayTime = (time) => {
-        const minutes = ~~(time / 60);
-        const seconds = time - minutes * 60;
-        return `${minutes}.${pad(~~seconds, 2)}`;
-    };
-
-    const getCurrentTrackKey = () => {
-        return playerState.currentTrackKey;
-    };
-
-    const playAudio = async() => {
-        try {
-            audioContext.resume();
-            await audio.play();
-        } catch(e) {
-            console.log('W!@£$R`t');
-            setError('Failed to play track, possibly unsupported media.');
-            setTimeout(() => {
-                setError(null);
-            }, 4000);
-            console.log(e);
-        }
-    };
-
-    const handlePlay = () => {
-        if(!audio) return;
-        cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
-        playAudio();
-        setPlayerState(prevState => ({...prevState, isPlaying: true}));
-    };
-
-    const handleSelectTrack = i => () => {
-        cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
-        audio.src = filteredTracks[i].src;
-        playAudio();
-        setRunningTime(0);
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: i,
-            currentId: filteredTracks[i].id,
-            isPlaying: true,
-        }));
-    };
-
-    const handlePause = () => {
-        if(!audio) return;
-        cancelAnimationFrame(rAF);
-        audio.pause();
-        setPlayerState(prevState => ({...prevState, isPlaying: false}));
-    };
-
-    const handleMute = () => {
-        if(!audio) return;
-        audio.volume = 0;
-        setPlayerState(prevState => ({...prevState, isMuted: true}));
-    };
-
-    const handleUnmute = () => {
-        if(!audio) return;
-        audio.volume = playerState.volume;
-        setPlayerState(prevState => ({...prevState, isMuted: false}));
-    };
-
-    const handleVolumeChange = (event) => {
-        if(!audio) return;
-        const volume = event.target.value;
-        audio.volume = volume;
-        setPlayerState(prevState => ({...prevState, volume}));
-    };
-
-    const handleNext = () => {
-        const {currentTrackKey} = playerState;
-        if(!filteredTracks.length) return;
-        const nextTrackKey = (currentTrackKey + 1) % filteredTracks.length;
-        audio.src = filteredTracks[nextTrackKey].src;
-        if(playerState.isPlaying) {
-            audioContext.resume();
-            audio.play();
-        }
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: nextTrackKey,
-            currentId: filteredTracks[nextTrackKey].id,
-        }));
-    };
-
-    const handlePrev = () => {
-        const {currentTrackKey} = playerState;
-        if(!filteredTracks.length) return;
-        let prevTrackKey = currentTrackKey - 1;
-        if(prevTrackKey < 0) prevTrackKey = filteredTracks.length - 1;
-        audio.src = filteredTracks[prevTrackKey].src;
-        if(playerState.isPlaying) {
-            audioContext.resume();
-            audio.play();
-        }
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: prevTrackKey,
-            currentId: filteredTracks[prevTrackKey].id,
-        }));
-    };
-
-    const isTrackPlaying = id => playerState.isPlaying && playerState.currentId === id;
-
     if(!tracks) return <p>Loading...</p>;
 
     return (
         <div className={styles.radioPlayerContainer}>
             <div className={styles.playerBar}>
                 <div className={styles.controlsHolder}>
-                    <PlayPauseButton
-                        isPlaying={playerState.isPlaying}
-                        handlePlay={handlePlay}
-                        handlePause={handlePause}
-                    />
+                    <PlayPauseButton/>
                     <input
                         className={styles.radioRange}
                         title="volume"
@@ -245,39 +118,37 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                         min="0"
                         max="1"
                         step="0.01"
-                        onChange={handleVolumeChange}
+                        onChange={controls.volume}
                     />
-                    <MuteButton
-                        isMuted={playerState.isMuted}
-                        handleMute={handleMute}
-                        handleUnmute={handleUnmute}
-                    />
+                    <MuteButton/>
                 </div>
-                <div className={styles.runningTime}>{getPlayTime(runningTime)}</div>
+                <div className={styles.runningTime}>{getPlayTime()}</div>
             </div>
             <div className={styles.nextPrevControls}>
                 <button
                     className={styles.button_prevTrack}
-                    onClick={handlePrev}
+                    onClick={controls.previous(filteredTracks)}
                 >Prev
                 </button>
                 <button
                     className={styles.button_nextTrack}
-                    onClick={handleNext}
+                    onClick={controls.next(filteredTracks)}
                 >Next
                 </button>
                 {playerState.currentTrackKey !== null
-                    ?
-                    <div className={styles.currentTrack}>{tracks[playerState.currentTrackKey].name}</div>
-                    : null}
+                    ? (
+                        <div className={styles.currentTrack}>
+                            {tracks[playerState.currentTrackKey].name}
+                        </div>
+                    ) : null}
             </div>
-            {error && <p className={styles.errorText}>{error}</p>}
+            {audioError && <p className={styles.errorText}>{audioError}</p>}
             <TracksFilterBar filter={filter} setFilter={setFilter}/>
             <TrackList
                 filteredTracks={filteredTracks}
                 isTrackPlaying={isTrackPlaying}
-                handlePause={handlePause}
-                handleSelectTrack={handleSelectTrack}
+                handlePause={controls.pause}
+                handleSelectTrack={controls.selectTrack(filteredTracks)}
                 creatorMetadata={creatorMetadata}
             />
         </div>

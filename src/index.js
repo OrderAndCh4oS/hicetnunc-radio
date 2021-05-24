@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RadioProvider from './context/radio-context';
 import { HashRouter } from 'react-router-dom';
+import AudioProvider from './context/audio-context';
 
 ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
-            <RadioProvider>
-                <App/>
-            </RadioProvider>
+            <AudioProvider>
+                <RadioProvider>
+                    <App/>
+                </RadioProvider>
+            </AudioProvider>
         </HashRouter>
     </React.StrictMode>,
     document.getElementById('root'),

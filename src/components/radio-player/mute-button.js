@@ -1,20 +1,25 @@
 import styles from './styles.module.css';
 import UnmuteIcon from './unmute-icon';
 import MuteIcon from './mute-icon';
+import useRadio from '../../hooks/use-radio';
 
-const MuteButton = ({isMuted, handleMute, handleUnmute}) => {
+const MuteButton = () => {
+    const {
+        controls,
+        playerState,
+    } = useRadio();
     return <>
-        {isMuted ? (
+        {playerState.isMuted ? (
             <button
                 className={`${styles.button} ${styles.button_unmute} ${styles.button_playerControl}`}
-                onClick={handleUnmute}
+                onClick={controls.unmute}
             >
                 <UnmuteIcon/>
             </button>
         ) : (
             <button
                 className={`${styles.button} ${styles.button_mute} ${styles.button_playerControl}`}
-                onClick={handleMute}
+                onClick={controls.mute}
             >
                 <MuteIcon/>
             </button>

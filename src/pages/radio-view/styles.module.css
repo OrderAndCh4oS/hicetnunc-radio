@@ -7,6 +7,11 @@
     padding: 40px;
 }
 
+.headerBar {
+    display: flex;
+    justify-content: space-between;
+}
+
 .walletIdEntry {
     padding: 0;
     margin-bottom: 8px;
@@ -15,6 +20,13 @@
 .walletInput {
     width: 100%;
     margin-bottom: 8px;
+    padding: 6px 4px;
+    border: 1px solid #E5E5E5;
+}
+
+.selectPlaylist {
+    margin-left: auto;
+    align-self: flex-start;
     padding: 6px 4px;
     border: 1px solid #E5E5E5;
 }
