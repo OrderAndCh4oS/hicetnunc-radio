@@ -5,12 +5,6 @@ export const RadioContext = createContext({audioRef: null});
 
 let rAF;
 
-const pad = (n, width, unit) => {
-    unit = unit || '0';
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(unit) + n;
-};
-
 const RadioProvider = ({children}) => {
     const {audio, audioContext} = useAudio();
 
@@ -29,12 +23,6 @@ const RadioProvider = ({children}) => {
     const updateTrackPlayDuration = (audioEl) => () => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
         setRunningTime(audioEl.currentTime);
-    };
-
-    const getPlayTime = () => {
-        const minutes = ~~(runningTime / 60);
-        const seconds = runningTime - minutes * 60;
-        return `${minutes}.${pad(~~seconds, 2)}`;
     };
 
     const playAudio = async() => {
@@ -58,11 +46,12 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
-    const handleSelectTrack = (tracks) => i => () => {
+    const handleSelectTrack = (tracks) => i => async() => {
         cancelAnimationFrame(rAF);
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
         audio.src = tracks[i].src;
-        playAudio();
+        audio.mimeType = tracks[i].mimeType;
+        await playAudio();
         setRunningTime(0);
         setPlayerState(prevState => ({
             ...prevState,
@@ -74,7 +63,7 @@ const RadioProvider = ({children}) => {
 
     const handlePause = () => {
         if(!audio) return;
-        console.log('HERERERE')
+        console.log('HERERERE');
         cancelAnimationFrame(rAF);
         audio.pause();
         setPlayerState(prevState => ({...prevState, isPlaying: false}));
@@ -104,6 +93,7 @@ const RadioProvider = ({children}) => {
         if(!tracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % tracks.length;
         audio.src = tracks[nextTrackKey].src;
+        audio.mimeType = tracks[nextTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();
@@ -121,6 +111,7 @@ const RadioProvider = ({children}) => {
         let prevTrackKey = currentTrackKey - 1;
         if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
         audio.src = tracks[prevTrackKey].src;
+        audio.mimeType = tracks[prevTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();
@@ -144,7 +135,6 @@ const RadioProvider = ({children}) => {
                 setPlayerState,
                 isTrackPlaying,
                 runningTime,
-                getPlayTime,
                 controls: {
                     play: handlePlay,
                     pause: handlePause,

@@ -7,6 +7,7 @@ import TrackList from '../track-list/track-list';
 import FilterTypes from '../../enums/filter-types';
 import TracksFilterBar from '../track-list/tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
+import getAudioTime from '../../utilities/get-audio-time';
 
 const RadioPlayer = ({audioObjkts, walletId}) => {
     const {
@@ -16,7 +17,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         setPlayerState,
         controls,
         isTrackPlaying,
-        getPlayTime,
+        runningTime
     } = useRadio();
     // console.log('RE-RENDERED');
 
@@ -122,7 +123,7 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
                     />
                     <MuteButton/>
                 </div>
-                <div className={styles.runningTime}>{getPlayTime()}</div>
+                <div className={styles.runningTime}>{getAudioTime(runningTime)} of {getAudioTime(audio.duration || 0)}</div>
             </div>
             <div className={styles.nextPrevControls}>
                 <button
