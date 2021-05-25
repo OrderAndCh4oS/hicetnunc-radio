@@ -85,7 +85,7 @@
 
 .errorText {
     color: #cd0117;
-    font-size: 14px;
+    font-size: 11px;
 }
 
 input[type="range"].radioRange {
@@ -194,5 +194,9 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
     }
     .runningTime {
         margin-left: 8px;
+    }
+    .errorText {
+        color: #cd0117;
+        font-size: 14px;
     }
 }

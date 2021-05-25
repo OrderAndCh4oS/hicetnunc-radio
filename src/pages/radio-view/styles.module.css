@@ -35,6 +35,11 @@
     padding: 4px 3px;
 }
 
+.errorText {
+    color: #cd0117;
+    font-size: 11px;
+}
+
 @media screen and (min-width: 600px) {
     .walletInput {
         max-width: 320px;
@@ -42,5 +47,9 @@
     .button_getObjktData {
         margin-left: 8px;
         padding: 4px 3px;
+    }
+    .errorText {
+        color: #cd0117;
+        font-size: 14px;
     }
 }

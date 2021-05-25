@@ -18,12 +18,19 @@ const RadioView = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [walletIdInput, setWalletIdInput] = useState('');
     const [walletId, setWalletId] = useState(tz || playlists[0].walletAddress);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         (async() => {
-            const response = await getObjktsByWalletId(walletId);
-            setIsLoading(false);
-            setObjktData(filterAudio(response?.data?.result || []));
+            try {
+                const response = await getObjktsByWalletId(walletId);
+                setObjktData(filterAudio(response?.data?.result || []));
+            } catch(e) {
+                setError('Failed to load wallet id');
+                setTimeout(() => setError(null), 3000);
+            } finally {
+                setIsLoading(false);
+            }
         })();
     }, [walletId]);
 
@@ -69,6 +76,7 @@ const RadioView = () => {
                 >Get Tracks
                 </button>
             </div>
+            {error && <p className={styles.errorText}>{error}</p>}
             {objktData ? (
                 <>
                     {isLoading ? <p>Loading...</p> : <RadioPlayer
