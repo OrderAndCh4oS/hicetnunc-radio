@@ -11,15 +11,15 @@ const getAlias = (t, creatorMetadata) => t.creator in creatorMetadata
     : '';
 
 const TrackList = ({
-    filteredTracks,
+    tracks,
     isTrackPlaying,
     handlePause,
     handleSelectTrack,
     creatorMetadata,
 }) => <>
-    {!filteredTracks.length ? <p>No audio tracks available</p> : (
+    {!tracks.length ? <p>No audio tracks available</p> : (
         <div>
-            {filteredTracks.map((t, i) =>
+            {tracks.map((t, i) =>
                 <div key={t.id} className={styles.trackRow}>
                     {isTrackPlaying(t.id)
                         ? (

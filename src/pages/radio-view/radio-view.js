@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import getObjktsByWalletId from '../../api/get-objkts-by-wallet-id';
-import RadioPlayer from '../../components/radio-player/radio-player';
+import WalletPlayer from '../../components/radio-player/radio-player';
 import { useHistory, useParams } from 'react-router';
 import Footer from '../../components/footer/footer';
 import useTitle from '../../hooks/use-title';
@@ -17,16 +17,17 @@ const RadioView = () => {
     const [objktData, setObjktData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [walletIdInput, setWalletIdInput] = useState('');
-    const [walletId, setWalletId] = useState(tz || playlists[0].walletAddress);
+    const [walletId, setWalletId] = useState(tz || null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        if(!walletId) return;
         (async() => {
             try {
                 const response = await getObjktsByWalletId(walletId);
                 setObjktData(filterAudio(response?.data?.result || []));
             } catch(e) {
-                setError('Failed to load wallet id');
+                setError('Failed to load wallet address');
                 setTimeout(() => setError(null), 3000);
             } finally {
                 setIsLoading(false);
@@ -66,25 +67,24 @@ const RadioView = () => {
                 <input
                     className={styles.walletInput}
                     value={walletIdInput}
-                    placeholder={'Enter a wallet id'}
+                    placeholder={'Enter a wallet address'}
                     onChange={handleWalletIDChange}
                 />
                 <button
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
                     disabled={!walletIdInput}
-                >Get Tracks
-                </button>
+                >Get Tracks</button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
             {objktData ? (
                 <>
-                    {isLoading ? <p>Loading...</p> : <RadioPlayer
+                    {isLoading ? <p>Loading...</p> : <WalletPlayer
                         audioObjkts={objktData}
                         walletId={walletId}
                     />}
                 </>
-            ) : (<p>Loading...</p>)}
+            ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <Footer/>
         </div>
     );

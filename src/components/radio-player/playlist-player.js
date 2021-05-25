@@ -9,7 +9,7 @@ import TracksFilterBar from '../track-list/tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
 import getAudioTime from '../../utilities/get-audio-time';
 
-const RadioPlayer = ({audioObjkts, walletId}) => {
+const PlaylistPlayer = ({playlist}) => {
     const {
         audio,
         audioError,
@@ -20,63 +20,33 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
         runningTime
     } = useRadio();
 
-    const [tracks, setTracks] = useState(null);
-    const [filteredTracks, setFilteredTracks] = useState([]);
-    const [filter, setFilter] = useState(FilterTypes.ALL);
     const [creatorMetadata, setCreatorMetadata] = useState({});
 
     audio.onended = () => {
-        if(!filteredTracks.length) return;
+        if(!playlist.tracks.length) return;
         // Todo: Somehow find the next track to play and start playing it.
-        const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
-        audio.src = filteredTracks[nextTrackKey].src;
+        const nextTrackKey = (playerState.currentTrackKey + 1) % playlist.tracks.length;
+        audio.src = playlist.tracks[nextTrackKey].src;
         controls.play();
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: filteredTracks[nextTrackKey].id,
+            currentId: playlist.tracks[nextTrackKey].id,
         }));
     };
 
     useEffect(() => {
-        setTracks(audioObjkts.map(o => ({
-            id: o.token_id,
-            creator: o.token_info.creators[0],
-            name: o.token_info.name,
-            src: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
-            mimeType: o.token_info.formats[0].mimeType,
-        })));
-    }, [audioObjkts]);
-
-    useEffect(() => {
-        if(!tracks?.length || !audio) return;
+        if(!playlist.tracks?.length || !audio) return;
         if(audio.src) return;
         audio.crossOrigin = 'anonymous';
-        audio.src = tracks[0].src;
+        audio.src = playlist.tracks[0].src;
         audio.volume = playerState.volume;
-        audio.mimeType = tracks[0].mimeType;
+        audio.mimeType = playlist.tracks[0].mimeType;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks]);
+    }, [playlist.tracks]);
 
     useEffect(() => {
-        if(!tracks) return;
-        setFilteredTracks(tracks.filter(t => {
-            switch(filter) {
-                case FilterTypes.ALL:
-                    return true;
-                case FilterTypes.CREATIONS:
-                    return t.creator === walletId;
-                case FilterTypes.COLLECTIONS:
-                    return t.creator !== walletId;
-                default:
-                    return true;
-            }
-        }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks, filter]);
-
-    useEffect(() => {
-        if(!tracks) return;
+        if(!playlist.tracks) return;
         (async() => {
             const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
             const nextCreatorMetadata = (await Promise.allSettled(
@@ -96,9 +66,9 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
             setCreatorMetadata(nextCreatorMetadata);
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks, filter]);
+    }, [playlist]);
 
-    if(!tracks) return <p>Loading...</p>;
+    if(!playlist.tracks) return <p>Loading...</p>;
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -122,32 +92,31 @@ const RadioPlayer = ({audioObjkts, walletId}) => {
             <div className={styles.nextPrevControls}>
                 <button
                     className={styles.button_prevTrack}
-                    onClick={controls.previous(filteredTracks)}
+                    onClick={controls.previous(playlist.tracks)}
                 >Prev
                 </button>
                 <button
                     className={styles.button_nextTrack}
-                    onClick={controls.next(filteredTracks)}
+                    onClick={controls.next(playlist.tracks)}
                 >Next
                 </button>
                 {playerState.currentTrackKey !== null
                     ? (
                         <div className={styles.currentTrack}>
-                            {tracks[playerState.currentTrackKey].name}
+                            {playlist.tracks[playerState.currentTrackKey].name}
                         </div>
                     ) : null}
             </div>
             {audioError && <p className={styles.errorText}>{audioError}</p>}
-            <TracksFilterBar filter={filter} setFilter={setFilter}/>
             <TrackList
-                filteredTracks={filteredTracks}
+                filteredTracks={playlist.tracks}
                 isTrackPlaying={isTrackPlaying}
                 handlePause={controls.pause}
-                handleSelectTrack={controls.selectTrack(filteredTracks)}
+                handleSelectTrack={controls.selectTrack(playlist.tracks)}
                 creatorMetadata={creatorMetadata}
             />
         </div>
     );
 };
 
-export default RadioPlayer;
+export default PlaylistPlayer;
