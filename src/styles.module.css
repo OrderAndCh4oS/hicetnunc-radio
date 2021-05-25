@@ -1,0 +1,22 @@
+.radioView {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: auto 20px;
+    padding: 40px;
+}
+
+.headerBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navBar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navBar_link {
+    margin-left: 24px;
+}
