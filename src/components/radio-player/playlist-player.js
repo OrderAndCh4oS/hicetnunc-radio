@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react';
-import styles from './styles.module.css';
-import MuteButton from './mute-button';
-import PlayPauseButton from './play-pause-button';
 import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
 import TrackList from '../track-list/track-list';
-import FilterTypes from '../../enums/filter-types';
-import TracksFilterBar from '../track-list/tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
-import getAudioTime from '../../utilities/get-audio-time';
+import RadioPlayer from './radio-player';
 
 const PlaylistPlayer = ({playlist}) => {
     const {
         audio,
-        audioError,
         playerState,
         setPlayerState,
         controls,
         isTrackPlaying,
-        runningTime
     } = useRadio();
 
     const [creatorMetadata, setCreatorMetadata] = useState({});
@@ -48,7 +41,7 @@ const PlaylistPlayer = ({playlist}) => {
     useEffect(() => {
         if(!playlist.tracks) return;
         (async() => {
-            const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
+            const uniqueCreatorWalletIds = new Set(playlist.tracks.map(t => t.creator));
             const nextCreatorMetadata = (await Promise.allSettled(
                 [...uniqueCreatorWalletIds]
                     .map(id => getUserMetadataByWalletId(id)),
@@ -71,51 +64,16 @@ const PlaylistPlayer = ({playlist}) => {
     if(!playlist.tracks) return <p>Loading...</p>;
 
     return (
-        <div className={styles.radioPlayerContainer}>
-            <div className={styles.playerBar}>
-                <div className={styles.controlsHolder}>
-                    <PlayPauseButton/>
-                    <input
-                        className={styles.radioRange}
-                        title="volume"
-                        type="range"
-                        value={playerState.volume}
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        onChange={controls.volume}
-                    />
-                    <MuteButton/>
-                </div>
-                <div className={styles.runningTime}>{getAudioTime(runningTime)} of {getAudioTime(audio.duration)}</div>
-            </div>
-            <div className={styles.nextPrevControls}>
-                <button
-                    className={styles.button_prevTrack}
-                    onClick={controls.previous(playlist.tracks)}
-                >Prev
-                </button>
-                <button
-                    className={styles.button_nextTrack}
-                    onClick={controls.next(playlist.tracks)}
-                >Next
-                </button>
-                {playerState.currentTrackKey !== null
-                    ? (
-                        <div className={styles.currentTrack}>
-                            {playlist.tracks[playerState.currentTrackKey].name}
-                        </div>
-                    ) : null}
-            </div>
-            {audioError && <p className={styles.errorText}>{audioError}</p>}
+        <>
+            <RadioPlayer tracks={playlist.tracks}/>
             <TrackList
-                filteredTracks={playlist.tracks}
+                tracks={playlist.tracks}
                 isTrackPlaying={isTrackPlaying}
                 handlePause={controls.pause}
                 handleSelectTrack={controls.selectTrack(playlist.tracks)}
                 creatorMetadata={creatorMetadata}
             />
-        </div>
+        </>
     );
 };
 

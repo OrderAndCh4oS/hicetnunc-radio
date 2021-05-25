@@ -3,19 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 import RadioProvider from './context/radio-context';
-import { HashRouter } from 'react-router-dom';
 import AudioProvider from './context/audio-context';
+import WalletProvider from './context/wallet-context';
 
 ReactDOM.render(
     <React.StrictMode>
-        <HashRouter>
-            <AudioProvider>
-                <RadioProvider>
-                    <App/>
-                </RadioProvider>
-            </AudioProvider>
-        </HashRouter>
+        <BrowserRouter>
+            <WalletProvider>
+                <AudioProvider>
+                    <RadioProvider>
+                        <App/>
+                    </RadioProvider>
+                </AudioProvider>
+            </WalletProvider>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'),
 );
