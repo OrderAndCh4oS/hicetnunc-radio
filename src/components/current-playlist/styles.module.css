@@ -1,0 +1,50 @@
+.currentPlaylistImage {
+    height: 160px;
+    width: 160px;
+}
+
+.currentPlaylistText {
+    font-size: 18px;
+    margin: 0;
+}
+
+.currentPlaylistArtist {
+    font-size: 14px;
+    margin: 0 0 16px 0;
+}
+
+.currentPlaylistDescription {
+    font-size: 14px;
+    margin: 0;
+}
+
+.currentPlaylistWrapper {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.currentPlaylistRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.currentPlaylistColumnImage {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 12em;
+}
+
+.currentPlaylistColumnInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 20em;
+    justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+    .currentPlaylistColumnInfo {
+        margin-top: 30px;
+    }
+}
