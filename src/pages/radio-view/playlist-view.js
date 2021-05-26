@@ -1,9 +1,9 @@
-import styles from './styles.module.css';
 import { useState } from 'react';
 import useTitle from '../../hooks/use-title';
 import { playlists } from '../../playlists/playlists';
 import PlaylistPlayer from '../../components/radio-player/playlist-player';
 import Playlists from '../../components/playlists/playlists';
+import CurrentPlaylist from '../../components/current-playlist/current-playlist';
 
 const PlaylistView = () => {
     useTitle(`H=N Radio Playlists`);
@@ -13,7 +13,7 @@ const PlaylistView = () => {
 
     return (
         <>
-            <p className={styles.currentPlaylistText}>Playlist: {selectedPlaylist.name}</p>
+            <CurrentPlaylist playlist={selectedPlaylist}/>
             <PlaylistPlayer playlist={selectedPlaylist}/>
             <Playlists handlePlaylistChange={handlePlaylistChange}/>
         </>

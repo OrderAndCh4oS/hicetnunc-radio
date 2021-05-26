@@ -2,6 +2,7 @@ export const playlists = [
     {
         name: 'H=N Radio One',
         curator: 'HEN Radio',
+        description: 'A cyber rasta dub reggae playlist for virtual zion',
         tracks: [
             {
                 id: 48594,
