@@ -1,7 +1,6 @@
 
 .playlistContainer {
     margin-top: 40px;
-    font-size: 14px;
     margin-bottom: 10px;
 }
 
@@ -48,3 +47,82 @@
     word-break: break-all;
     hyphens: auto;
 }
+
+.searchInput {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 6px 4px;
+    border: 1px solid #E5E5E5;
+}
+
+.filteredPlaylists {}
+
+.filteredPlaylists_row {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+.filteredPlaylists_info {
+    width: 100%;
+    margin-left: 12px;
+}
+
+.filteredPlaylists_title {
+    font-size: 14px;
+    margin: 0;
+}
+
+.filteredPlaylists_subTitle {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.filteredPlaylistsRow_tracks {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.trackRow {
+    display: flex;
+    width: 100%;
+    margin: 0 0 8px 0;
+    padding: 0 0 8px 0;
+    border-bottom: 1px solid #E5E5E5;
+    align-items: center;
+}
+
+.trackRow_text {
+    display: block;
+    font-size: 11px;
+}
+
+.trackRow_link {
+    color: #000;
+    text-decoration: none;
+}
+
+.trackRow_link:active, .trackRow_link:focus, .trackRow_link:visited {
+    color: #000;
+    text-decoration: underline;
+}
+
+.trackRow_avatar {
+    width: 26px;
+    height: auto;
+    overflow: hidden;
+    border-radius: 13px;
+    margin: 0 0 0 auto;
+    flex-shrink: 0;
+}
+
+@media screen and (min-width: 600px) {
+    .searchInput {
+        max-width: 320px;
+    }
+    .trackRow_text {
+        display: block;
+        font-size: 14px;
+    }
+}
+
