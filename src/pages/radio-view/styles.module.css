@@ -17,6 +17,7 @@
     border: 1px solid #E5E5E5;
 }
 
+
 .button_getObjktData {
     padding: 4px 3px;
 }
@@ -30,12 +31,18 @@
     .walletInput {
         max-width: 320px;
     }
+
     .button_getObjktData {
         margin-left: 8px;
         padding: 4px 3px;
     }
+
     .errorText {
         color: #cd0117;
         font-size: 14px;
     }
+}
+
+.currentPlaylistText {
+    font-size: 14px;
 }

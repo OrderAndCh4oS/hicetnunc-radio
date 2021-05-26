@@ -3,26 +3,23 @@ import { useState } from 'react';
 import useTitle from '../../hooks/use-title';
 import { playlists } from '../../playlists/playlists';
 import PlaylistPlayer from '../../components/radio-player/playlist-player';
+import Playlists from '../../components/playlists/playlists';
 
 const PlaylistView = () => {
     useTitle(`H=N Radio Playlists`);
     const [selectedPlaylist, setSelectedPlaylist] = useState(playlists[0]);
 
-    const handlePlaylistChange = (event) => setSelectedPlaylist(event.target.data);
+    const handlePlaylistChange = (playlist) => () => setSelectedPlaylist(playlist);
 
     return (
         <>
-            <div className={styles.walletIdEntry}>
-                <select
-                    className={styles.selectPlaylist}
-                    onChange={handlePlaylistChange}
-                >
-                    {playlists.map(p => <option key={p.name} value={p}>{p.name}</option>)}
-                </select>
-            </div>
+            <p className={styles.currentPlaylistText}>Playlist: {selectedPlaylist.name}</p>
             <PlaylistPlayer playlist={selectedPlaylist}/>
+            <Playlists handlePlaylistChange={handlePlaylistChange}/>
         </>
     );
 };
 
 export default PlaylistView;
+
+
