@@ -43,9 +43,65 @@
     }
 }
 
-.currentPlaylistText {
-    font-size: 14px;
+/* Here starts the code added */
+.currentPlaylistWrapper {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .currentPlaylistRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .currentPlaylistColumnImage {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 0 1 12em;
+  }
+
+  .currentPlaylistColumnInfo {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1 1 20em;
+    justify-content: center;
+  }
+  @media screen and (max-width: 631px) {
+    .currentPlaylistColumnInfo {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1 1 20em;
+        justify-content: center;
+        margin-top: 30px;
+    }
 }
+
+.currentPlaylistImage {
+    height: 160px;
+    width: 160px;
+}
+
+.currentPlaylistText {
+    font-size: 18px;
+    margin: 0;
+}
+
+.currentPlaylistArtist {
+    font-size: 14px;
+    margin: 0 0 16px 0;
+}
+
+.currentPlaylistDescription {
+    font-size: 14px;
+    margin: 0;    
+}
+
+/* Here it ends and begin playlist */
 
 .playlistContainer {
     margin-top: 40px;

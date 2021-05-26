@@ -13,7 +13,22 @@ const PlaylistView = () => {
 
     return (
         <>
-            <p className={styles.currentPlaylistText}>Playlist: {selectedPlaylist.name}</p>
+            <div className={styles.currentPlaylistWrapper}>
+                <div className={styles.currentPlaylistRow}>
+                    <div className={styles.currentPlaylistColumnImage}>
+                            <img
+                                    src="https://learnodo-newtonic.com/wp-content/uploads/2016/09/Composition-with-Large-Red-Plane-Yellow-Black-Gray-and-Blue-1921-Piet-Mondrian.jpg"
+                                    alt=""
+                                    className={styles.currentPlaylistImage}
+                            />
+                    </div>
+                    <div className={styles.currentPlaylistColumnInfo}>
+                        <h1 className={styles.currentPlaylistText}>{selectedPlaylist.name}</h1>
+                        <p className={styles.currentPlaylistArtist}>by:<a href="https://hicetnunc.xyz">{selectedPlaylist.curator}</a></p>
+                        <p className={styles.currentPlaylistDescription}>A cyber rasta dub reggae playlist for virtual zion</p>
+                    </div>
+                </div>
+            </div>
             <PlaylistPlayer playlist={selectedPlaylist}/>
             <div className={styles.playlistContainer}>
                 <h2 className={styles.playlistTitle}>Playlists</h2>
