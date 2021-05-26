@@ -2,6 +2,7 @@
   "name": "hicetnunc-radio-component",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hen.radio/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
