@@ -15,7 +15,7 @@ const CurrentPlaylist = ({playlist}) => {
                 <div className={styles.currentPlaylistColumnInfo}>
                     <h1 className={styles.currentPlaylistText}>{playlist.name}</h1>
                     <p className={styles.currentPlaylistArtist}>By <a href="https://hicetnunc.xyz">{playlist.curator}</a></p>
-                    <p className={styles.currentPlaylistDescription}>A cyber rasta dub reggae playlist for virtual zion</p>
+                    <p className={styles.currentPlaylistDescription}>{playlist.description}</p>
                 </div>
             </div>
         </div>
