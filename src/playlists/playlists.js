@@ -10,7 +10,13 @@ export const playlists = [
                 mimeType: 'audio/ogg',
                 creator: 'tz2EaL8HTqjZhVAWrQ3Ddp4wNCxPeE8CtM5f',
                 tags: ['music', 'psychedelic', 'hip hop', 'objkt4objkt']
-            },
+            }
+        ],
+    },
+    {
+        name: 'H=N Radio Two',
+        curator: 'hen-radio',
+        tracks: [
             {
                 id: 5302,
                 name: 'Dub Stars',
