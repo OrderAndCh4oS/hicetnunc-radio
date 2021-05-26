@@ -1,7 +1,7 @@
 export const playlists = [
     {
         name: 'H=N Radio One',
-        curator: 'hen-radio',
+        curator: 'HEN Radio',
         tracks: [
             {
                 id: 48594,
