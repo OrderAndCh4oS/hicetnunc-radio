@@ -17,6 +17,7 @@
     border: 1px solid #E5E5E5;
 }
 
+
 .button_getObjktData {
     padding: 4px 3px;
 }
@@ -38,4 +39,60 @@
         color: #cd0117;
         font-size: 14px;
     }
+}
+
+
+/* here starts the More Playlists object */
+
+/* Magrin between the whole component and the player*/
+.MorePlaylists{
+    margin-top: 90px;
+}
+
+/* definitions of the responsive grid */
+.boxPlaylists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    grid-auto-rows: 1fr;
+  }
+  
+.boxPlaylists::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+  
+  .boxPlaylists > *:first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+
+
+
+  /* Title of the component */
+  .morePlaylistsTitle{
+    margin-bottom: 10px;
+}
+
+
+/* Definitions of the boxes (image and title) */
+.boxImage{
+    height: 120px;
+    width: 120px;
+    border: 1px solid black;
+    background-color: black;
+}
+
+.boxImage2{
+    height: 120px;
+    width: 120px;
+}
+
+
+.boxText1{
+    text-align:center;
+    margin-top: 6px;
+    word-break: break-all;
 }
