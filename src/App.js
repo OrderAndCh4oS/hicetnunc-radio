@@ -15,16 +15,16 @@ function App() {
             <div className={styles.headerBar}>
                 <Logo/>
                 <div className={styles.navBar}>
-                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/'}>By Wallet</Link>
+                    <Link className={styles.navBar_link} to={'/'}>All Tracks</Link>
                     <Link className={styles.navBar_link} to={'/playlists'}>Playlists</Link>
-                    <Link className={styles.navBar_link} to={'/all-tracks'}>All Tracks</Link>
+                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>By Wallet</Link>
                 </div>
             </div>
             <Switch>
-                <Route exact path="/" component={WalletView}/>
+                <Route exact path="/" component={AllTracksView}/>
+                <Route exact path="/tz" component={WalletView}/>
                 <Route path="/tz/:tz" component={WalletView}/>
                 <Route path="/playlists" component={PlaylistView}/>
-                <Route path="/all-tracks" component={AllTracksView}/>
             </Switch>
             <Footer/>
         </div>
