@@ -1,0 +1,2746 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: query_root
+    subscription: subscription_root
+}
+
+"columns and relationships of \"hic_et_nunc.dipdup_state\""
+type hic_et_nunc_dipdup_state {
+    hash: String!
+    id: Int!
+    index_name: String!
+    "operation: operation\\nbig_map: big_map\\nblock: block\\nschema: schema"
+    index_type: String!
+    level: Int!
+}
+
+"aggregated selection of \"hic_et_nunc.dipdup_state\""
+type hic_et_nunc_dipdup_state_aggregate {
+    aggregate: hic_et_nunc_dipdup_state_aggregate_fields
+    nodes: [hic_et_nunc_dipdup_state!]!
+}
+
+"aggregate fields of \"hic_et_nunc.dipdup_state\""
+type hic_et_nunc_dipdup_state_aggregate_fields {
+    avg: hic_et_nunc_dipdup_state_avg_fields
+    count(columns: [hic_et_nunc_dipdup_state_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_dipdup_state_max_fields
+    min: hic_et_nunc_dipdup_state_min_fields
+    stddev: hic_et_nunc_dipdup_state_stddev_fields
+    stddev_pop: hic_et_nunc_dipdup_state_stddev_pop_fields
+    stddev_samp: hic_et_nunc_dipdup_state_stddev_samp_fields
+    sum: hic_et_nunc_dipdup_state_sum_fields
+    var_pop: hic_et_nunc_dipdup_state_var_pop_fields
+    var_samp: hic_et_nunc_dipdup_state_var_samp_fields
+    variance: hic_et_nunc_dipdup_state_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_dipdup_state_avg_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_dipdup_state_max_fields {
+    hash: String
+    id: Int
+    index_name: String
+    index_type: String
+    level: Int
+}
+
+"aggregate min on columns"
+type hic_et_nunc_dipdup_state_min_fields {
+    hash: String
+    id: Int
+    index_name: String
+    index_type: String
+    level: Int
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_dipdup_state_stddev_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_dipdup_state_stddev_pop_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_dipdup_state_stddev_samp_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_dipdup_state_sum_fields {
+    id: Int
+    level: Int
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_dipdup_state_var_pop_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_dipdup_state_var_samp_fields {
+    id: Float
+    level: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_dipdup_state_variance_fields {
+    id: Float
+    level: Float
+}
+
+"columns and relationships of \"hic_et_nunc.holder\""
+type hic_et_nunc_holder {
+    address: String!
+    "An array relationship"
+    holders_token(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): [hic_et_nunc_token_holder!]!
+    "An aggregated array relationship"
+    holders_token_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): hic_et_nunc_token_holder_aggregate!
+    "An array relationship"
+    purchases(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "An aggregated array relationship"
+    purchases_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+    "An array relationship"
+    sales(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "An aggregated array relationship"
+    sales_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+    "An array relationship"
+    swaps(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): [hic_et_nunc_swap!]!
+    "An aggregated array relationship"
+    swaps_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): hic_et_nunc_swap_aggregate!
+    "An array relationship"
+    tokens(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): [hic_et_nunc_token!]!
+    "An aggregated array relationship"
+    tokens_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): hic_et_nunc_token_aggregate!
+}
+
+"aggregated selection of \"hic_et_nunc.holder\""
+type hic_et_nunc_holder_aggregate {
+    aggregate: hic_et_nunc_holder_aggregate_fields
+    nodes: [hic_et_nunc_holder!]!
+}
+
+"aggregate fields of \"hic_et_nunc.holder\""
+type hic_et_nunc_holder_aggregate_fields {
+    count(columns: [hic_et_nunc_holder_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_holder_max_fields
+    min: hic_et_nunc_holder_min_fields
+}
+
+"aggregate max on columns"
+type hic_et_nunc_holder_max_fields {
+    address: String
+}
+
+"aggregate min on columns"
+type hic_et_nunc_holder_min_fields {
+    address: String
+}
+
+"columns and relationships of \"hic_et_nunc.swap\""
+type hic_et_nunc_swap {
+    amount: bigint!
+    amount_left: bigint!
+    "An object relationship"
+    creator: hic_et_nunc_holder!
+    creator_id: String!
+    id: bigint!
+    level: bigint!
+    price: bigint!
+    "ACTIVE: 0\\nFINISHED: 1\\nCANCELED: 2"
+    status: smallint!
+    timestamp: timestamptz!
+    "An object relationship"
+    token: hic_et_nunc_token!
+    token_id: bigint!
+    "An array relationship"
+    trades(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "An aggregated array relationship"
+    trades_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+}
+
+"aggregated selection of \"hic_et_nunc.swap\""
+type hic_et_nunc_swap_aggregate {
+    aggregate: hic_et_nunc_swap_aggregate_fields
+    nodes: [hic_et_nunc_swap!]!
+}
+
+"aggregate fields of \"hic_et_nunc.swap\""
+type hic_et_nunc_swap_aggregate_fields {
+    avg: hic_et_nunc_swap_avg_fields
+    count(columns: [hic_et_nunc_swap_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_swap_max_fields
+    min: hic_et_nunc_swap_min_fields
+    stddev: hic_et_nunc_swap_stddev_fields
+    stddev_pop: hic_et_nunc_swap_stddev_pop_fields
+    stddev_samp: hic_et_nunc_swap_stddev_samp_fields
+    sum: hic_et_nunc_swap_sum_fields
+    var_pop: hic_et_nunc_swap_var_pop_fields
+    var_samp: hic_et_nunc_swap_var_samp_fields
+    variance: hic_et_nunc_swap_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_swap_avg_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_swap_max_fields {
+    amount: bigint
+    amount_left: bigint
+    creator_id: String
+    id: bigint
+    level: bigint
+    price: bigint
+    status: smallint
+    timestamp: timestamptz
+    token_id: bigint
+}
+
+"aggregate min on columns"
+type hic_et_nunc_swap_min_fields {
+    amount: bigint
+    amount_left: bigint
+    creator_id: String
+    id: bigint
+    level: bigint
+    price: bigint
+    status: smallint
+    timestamp: timestamptz
+    token_id: bigint
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_swap_stddev_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_swap_stddev_pop_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_swap_stddev_samp_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_swap_sum_fields {
+    amount: bigint
+    amount_left: bigint
+    id: bigint
+    level: bigint
+    price: bigint
+    status: smallint
+    token_id: bigint
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_swap_var_pop_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_swap_var_samp_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_swap_variance_fields {
+    amount: Float
+    amount_left: Float
+    id: Float
+    level: Float
+    price: Float
+    status: Float
+    token_id: Float
+}
+
+"columns and relationships of \"hic_et_nunc.tag\""
+type hic_et_nunc_tag {
+    id: bigint!
+    tag: String!
+    "An array relationship"
+    tag_tokens(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): [hic_et_nunc_token_tag!]!
+    "An aggregated array relationship"
+    tag_tokens_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): hic_et_nunc_token_tag_aggregate!
+}
+
+"aggregated selection of \"hic_et_nunc.tag\""
+type hic_et_nunc_tag_aggregate {
+    aggregate: hic_et_nunc_tag_aggregate_fields
+    nodes: [hic_et_nunc_tag!]!
+}
+
+"aggregate fields of \"hic_et_nunc.tag\""
+type hic_et_nunc_tag_aggregate_fields {
+    avg: hic_et_nunc_tag_avg_fields
+    count(columns: [hic_et_nunc_tag_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_tag_max_fields
+    min: hic_et_nunc_tag_min_fields
+    stddev: hic_et_nunc_tag_stddev_fields
+    stddev_pop: hic_et_nunc_tag_stddev_pop_fields
+    stddev_samp: hic_et_nunc_tag_stddev_samp_fields
+    sum: hic_et_nunc_tag_sum_fields
+    var_pop: hic_et_nunc_tag_var_pop_fields
+    var_samp: hic_et_nunc_tag_var_samp_fields
+    variance: hic_et_nunc_tag_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_tag_avg_fields {
+    id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_tag_max_fields {
+    id: bigint
+    tag: String
+}
+
+"aggregate min on columns"
+type hic_et_nunc_tag_min_fields {
+    id: bigint
+    tag: String
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_tag_stddev_fields {
+    id: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_tag_stddev_pop_fields {
+    id: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_tag_stddev_samp_fields {
+    id: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_tag_sum_fields {
+    id: bigint
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_tag_var_pop_fields {
+    id: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_tag_var_samp_fields {
+    id: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_tag_variance_fields {
+    id: Float
+}
+
+"columns and relationships of \"hic_et_nunc.token\""
+type hic_et_nunc_token {
+    artifact_uri: String!
+    "An object relationship"
+    creator: hic_et_nunc_holder!
+    creator_id: String!
+    description: String!
+    display_uri: String!
+    id: bigint!
+    level: bigint!
+    mime: String!
+    royalties: bigint!
+    supply: bigint!
+    "An array relationship"
+    swaps(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): [hic_et_nunc_swap!]!
+    "An aggregated array relationship"
+    swaps_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): hic_et_nunc_swap_aggregate!
+    thumbnail_uri: String!
+    timestamp: timestamptz!
+    title: String!
+    "An array relationship"
+    token_holders(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): [hic_et_nunc_token_holder!]!
+    "An aggregated array relationship"
+    token_holders_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): hic_et_nunc_token_holder_aggregate!
+    "An array relationship"
+    token_tags(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): [hic_et_nunc_token_tag!]!
+    "An aggregated array relationship"
+    token_tags_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): hic_et_nunc_token_tag_aggregate!
+    "An array relationship"
+    trades(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "An aggregated array relationship"
+    trades_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+}
+
+"aggregated selection of \"hic_et_nunc.token\""
+type hic_et_nunc_token_aggregate {
+    aggregate: hic_et_nunc_token_aggregate_fields
+    nodes: [hic_et_nunc_token!]!
+}
+
+"aggregate fields of \"hic_et_nunc.token\""
+type hic_et_nunc_token_aggregate_fields {
+    avg: hic_et_nunc_token_avg_fields
+    count(columns: [hic_et_nunc_token_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_token_max_fields
+    min: hic_et_nunc_token_min_fields
+    stddev: hic_et_nunc_token_stddev_fields
+    stddev_pop: hic_et_nunc_token_stddev_pop_fields
+    stddev_samp: hic_et_nunc_token_stddev_samp_fields
+    sum: hic_et_nunc_token_sum_fields
+    var_pop: hic_et_nunc_token_var_pop_fields
+    var_samp: hic_et_nunc_token_var_samp_fields
+    variance: hic_et_nunc_token_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_token_avg_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"columns and relationships of \"hic_et_nunc.token_holder\""
+type hic_et_nunc_token_holder {
+    "An object relationship"
+    holder: hic_et_nunc_holder!
+    holder_id: String!
+    id: Int!
+    quantity: bigint!
+    "An object relationship"
+    token: hic_et_nunc_token!
+    token_id: bigint!
+}
+
+"aggregated selection of \"hic_et_nunc.token_holder\""
+type hic_et_nunc_token_holder_aggregate {
+    aggregate: hic_et_nunc_token_holder_aggregate_fields
+    nodes: [hic_et_nunc_token_holder!]!
+}
+
+"aggregate fields of \"hic_et_nunc.token_holder\""
+type hic_et_nunc_token_holder_aggregate_fields {
+    avg: hic_et_nunc_token_holder_avg_fields
+    count(columns: [hic_et_nunc_token_holder_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_token_holder_max_fields
+    min: hic_et_nunc_token_holder_min_fields
+    stddev: hic_et_nunc_token_holder_stddev_fields
+    stddev_pop: hic_et_nunc_token_holder_stddev_pop_fields
+    stddev_samp: hic_et_nunc_token_holder_stddev_samp_fields
+    sum: hic_et_nunc_token_holder_sum_fields
+    var_pop: hic_et_nunc_token_holder_var_pop_fields
+    var_samp: hic_et_nunc_token_holder_var_samp_fields
+    variance: hic_et_nunc_token_holder_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_token_holder_avg_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_token_holder_max_fields {
+    holder_id: String
+    id: Int
+    quantity: bigint
+    token_id: bigint
+}
+
+"aggregate min on columns"
+type hic_et_nunc_token_holder_min_fields {
+    holder_id: String
+    id: Int
+    quantity: bigint
+    token_id: bigint
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_token_holder_stddev_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_token_holder_stddev_pop_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_token_holder_stddev_samp_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_token_holder_sum_fields {
+    id: Int
+    quantity: bigint
+    token_id: bigint
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_token_holder_var_pop_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_token_holder_var_samp_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_token_holder_variance_fields {
+    id: Float
+    quantity: Float
+    token_id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_token_max_fields {
+    artifact_uri: String
+    creator_id: String
+    description: String
+    display_uri: String
+    id: bigint
+    level: bigint
+    mime: String
+    royalties: bigint
+    supply: bigint
+    thumbnail_uri: String
+    timestamp: timestamptz
+    title: String
+}
+
+"aggregate min on columns"
+type hic_et_nunc_token_min_fields {
+    artifact_uri: String
+    creator_id: String
+    description: String
+    display_uri: String
+    id: bigint
+    level: bigint
+    mime: String
+    royalties: bigint
+    supply: bigint
+    thumbnail_uri: String
+    timestamp: timestamptz
+    title: String
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_token_stddev_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_token_stddev_pop_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_token_stddev_samp_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_token_sum_fields {
+    id: bigint
+    level: bigint
+    royalties: bigint
+    supply: bigint
+}
+
+"columns and relationships of \"hic_et_nunc.token_tag\""
+type hic_et_nunc_token_tag {
+    id: Int!
+    "An object relationship"
+    tag: hic_et_nunc_tag!
+    tag_id: bigint!
+    "An object relationship"
+    token: hic_et_nunc_token!
+    token_id: bigint!
+}
+
+"aggregated selection of \"hic_et_nunc.token_tag\""
+type hic_et_nunc_token_tag_aggregate {
+    aggregate: hic_et_nunc_token_tag_aggregate_fields
+    nodes: [hic_et_nunc_token_tag!]!
+}
+
+"aggregate fields of \"hic_et_nunc.token_tag\""
+type hic_et_nunc_token_tag_aggregate_fields {
+    avg: hic_et_nunc_token_tag_avg_fields
+    count(columns: [hic_et_nunc_token_tag_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_token_tag_max_fields
+    min: hic_et_nunc_token_tag_min_fields
+    stddev: hic_et_nunc_token_tag_stddev_fields
+    stddev_pop: hic_et_nunc_token_tag_stddev_pop_fields
+    stddev_samp: hic_et_nunc_token_tag_stddev_samp_fields
+    sum: hic_et_nunc_token_tag_sum_fields
+    var_pop: hic_et_nunc_token_tag_var_pop_fields
+    var_samp: hic_et_nunc_token_tag_var_samp_fields
+    variance: hic_et_nunc_token_tag_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_token_tag_avg_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_token_tag_max_fields {
+    id: Int
+    tag_id: bigint
+    token_id: bigint
+}
+
+"aggregate min on columns"
+type hic_et_nunc_token_tag_min_fields {
+    id: Int
+    tag_id: bigint
+    token_id: bigint
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_token_tag_stddev_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_token_tag_stddev_pop_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_token_tag_stddev_samp_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_token_tag_sum_fields {
+    id: Int
+    tag_id: bigint
+    token_id: bigint
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_token_tag_var_pop_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_token_tag_var_samp_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_token_tag_variance_fields {
+    id: Float
+    tag_id: Float
+    token_id: Float
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_token_var_pop_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_token_var_samp_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_token_variance_fields {
+    id: Float
+    level: Float
+    royalties: Float
+    supply: Float
+}
+
+"columns and relationships of \"hic_et_nunc.trade\""
+type hic_et_nunc_trade {
+    amount: bigint!
+    "An object relationship"
+    buyer: hic_et_nunc_holder!
+    buyer_id: String!
+    id: bigint!
+    level: bigint!
+    "An object relationship"
+    seller: hic_et_nunc_holder!
+    seller_id: String!
+    "An object relationship"
+    swap: hic_et_nunc_swap!
+    swap_id: bigint!
+    timestamp: timestamptz!
+    "An object relationship"
+    token: hic_et_nunc_token!
+    token_id: bigint!
+}
+
+"aggregated selection of \"hic_et_nunc.trade\""
+type hic_et_nunc_trade_aggregate {
+    aggregate: hic_et_nunc_trade_aggregate_fields
+    nodes: [hic_et_nunc_trade!]!
+}
+
+"aggregate fields of \"hic_et_nunc.trade\""
+type hic_et_nunc_trade_aggregate_fields {
+    avg: hic_et_nunc_trade_avg_fields
+    count(columns: [hic_et_nunc_trade_select_column!], distinct: Boolean): Int
+    max: hic_et_nunc_trade_max_fields
+    min: hic_et_nunc_trade_min_fields
+    stddev: hic_et_nunc_trade_stddev_fields
+    stddev_pop: hic_et_nunc_trade_stddev_pop_fields
+    stddev_samp: hic_et_nunc_trade_stddev_samp_fields
+    sum: hic_et_nunc_trade_sum_fields
+    var_pop: hic_et_nunc_trade_var_pop_fields
+    var_samp: hic_et_nunc_trade_var_samp_fields
+    variance: hic_et_nunc_trade_variance_fields
+}
+
+"aggregate avg on columns"
+type hic_et_nunc_trade_avg_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate max on columns"
+type hic_et_nunc_trade_max_fields {
+    amount: bigint
+    buyer_id: String
+    id: bigint
+    level: bigint
+    seller_id: String
+    swap_id: bigint
+    timestamp: timestamptz
+    token_id: bigint
+}
+
+"aggregate min on columns"
+type hic_et_nunc_trade_min_fields {
+    amount: bigint
+    buyer_id: String
+    id: bigint
+    level: bigint
+    seller_id: String
+    swap_id: bigint
+    timestamp: timestamptz
+    token_id: bigint
+}
+
+"aggregate stddev on columns"
+type hic_et_nunc_trade_stddev_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate stddev_pop on columns"
+type hic_et_nunc_trade_stddev_pop_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate stddev_samp on columns"
+type hic_et_nunc_trade_stddev_samp_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate sum on columns"
+type hic_et_nunc_trade_sum_fields {
+    amount: bigint
+    id: bigint
+    level: bigint
+    swap_id: bigint
+    token_id: bigint
+}
+
+"aggregate var_pop on columns"
+type hic_et_nunc_trade_var_pop_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate var_samp on columns"
+type hic_et_nunc_trade_var_samp_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"aggregate variance on columns"
+type hic_et_nunc_trade_variance_fields {
+    amount: Float
+    id: Float
+    level: Float
+    swap_id: Float
+    token_id: Float
+}
+
+"query root"
+type query_root {
+    "fetch data from the table: \"hic_et_nunc.dipdup_state\""
+    hic_et_nunc_dipdup_state(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_dipdup_state_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_dipdup_state_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_dipdup_state_bool_exp
+    ): [hic_et_nunc_dipdup_state!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.dipdup_state\""
+    hic_et_nunc_dipdup_state_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_dipdup_state_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_dipdup_state_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_dipdup_state_bool_exp
+    ): hic_et_nunc_dipdup_state_aggregate!
+    "fetch data from the table: \"hic_et_nunc.dipdup_state\" using primary key columns"
+    hic_et_nunc_dipdup_state_by_pk(id: Int!): hic_et_nunc_dipdup_state
+    "fetch data from the table: \"hic_et_nunc.holder\""
+    hic_et_nunc_holder(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_holder_bool_exp
+    ): [hic_et_nunc_holder!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.holder\""
+    hic_et_nunc_holder_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_holder_bool_exp
+    ): hic_et_nunc_holder_aggregate!
+    "fetch data from the table: \"hic_et_nunc.holder\" using primary key columns"
+    hic_et_nunc_holder_by_pk(address: String!): hic_et_nunc_holder
+    "fetch data from the table: \"hic_et_nunc.swap\""
+    hic_et_nunc_swap(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): [hic_et_nunc_swap!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.swap\""
+    hic_et_nunc_swap_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): hic_et_nunc_swap_aggregate!
+    "fetch data from the table: \"hic_et_nunc.swap\" using primary key columns"
+    hic_et_nunc_swap_by_pk(id: bigint!): hic_et_nunc_swap
+    "fetch data from the table: \"hic_et_nunc.tag\""
+    hic_et_nunc_tag(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_tag_bool_exp
+    ): [hic_et_nunc_tag!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.tag\""
+    hic_et_nunc_tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_tag_bool_exp
+    ): hic_et_nunc_tag_aggregate!
+    "fetch data from the table: \"hic_et_nunc.tag\" using primary key columns"
+    hic_et_nunc_tag_by_pk(id: bigint!): hic_et_nunc_tag
+    "fetch data from the table: \"hic_et_nunc.token\""
+    hic_et_nunc_token(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): [hic_et_nunc_token!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token\""
+    hic_et_nunc_token_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): hic_et_nunc_token_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token\" using primary key columns"
+    hic_et_nunc_token_by_pk(id: bigint!): hic_et_nunc_token
+    "fetch data from the table: \"hic_et_nunc.token_holder\""
+    hic_et_nunc_token_holder(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): [hic_et_nunc_token_holder!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token_holder\""
+    hic_et_nunc_token_holder_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): hic_et_nunc_token_holder_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token_holder\" using primary key columns"
+    hic_et_nunc_token_holder_by_pk(id: Int!): hic_et_nunc_token_holder
+    "fetch data from the table: \"hic_et_nunc.token_tag\""
+    hic_et_nunc_token_tag(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): [hic_et_nunc_token_tag!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token_tag\""
+    hic_et_nunc_token_tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): hic_et_nunc_token_tag_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token_tag\" using primary key columns"
+    hic_et_nunc_token_tag_by_pk(id: Int!): hic_et_nunc_token_tag
+    "fetch data from the table: \"hic_et_nunc.trade\""
+    hic_et_nunc_trade(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.trade\""
+    hic_et_nunc_trade_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+    "fetch data from the table: \"hic_et_nunc.trade\" using primary key columns"
+    hic_et_nunc_trade_by_pk(id: bigint!): hic_et_nunc_trade
+}
+
+"subscription root"
+type subscription_root {
+    "fetch data from the table: \"hic_et_nunc.dipdup_state\""
+    hic_et_nunc_dipdup_state(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_dipdup_state_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_dipdup_state_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_dipdup_state_bool_exp
+    ): [hic_et_nunc_dipdup_state!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.dipdup_state\""
+    hic_et_nunc_dipdup_state_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_dipdup_state_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_dipdup_state_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_dipdup_state_bool_exp
+    ): hic_et_nunc_dipdup_state_aggregate!
+    "fetch data from the table: \"hic_et_nunc.dipdup_state\" using primary key columns"
+    hic_et_nunc_dipdup_state_by_pk(id: Int!): hic_et_nunc_dipdup_state
+    "fetch data from the table: \"hic_et_nunc.holder\""
+    hic_et_nunc_holder(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_holder_bool_exp
+    ): [hic_et_nunc_holder!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.holder\""
+    hic_et_nunc_holder_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_holder_bool_exp
+    ): hic_et_nunc_holder_aggregate!
+    "fetch data from the table: \"hic_et_nunc.holder\" using primary key columns"
+    hic_et_nunc_holder_by_pk(address: String!): hic_et_nunc_holder
+    "fetch data from the table: \"hic_et_nunc.swap\""
+    hic_et_nunc_swap(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): [hic_et_nunc_swap!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.swap\""
+    hic_et_nunc_swap_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_swap_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_swap_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_swap_bool_exp
+    ): hic_et_nunc_swap_aggregate!
+    "fetch data from the table: \"hic_et_nunc.swap\" using primary key columns"
+    hic_et_nunc_swap_by_pk(id: bigint!): hic_et_nunc_swap
+    "fetch data from the table: \"hic_et_nunc.tag\""
+    hic_et_nunc_tag(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_tag_bool_exp
+    ): [hic_et_nunc_tag!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.tag\""
+    hic_et_nunc_tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_tag_bool_exp
+    ): hic_et_nunc_tag_aggregate!
+    "fetch data from the table: \"hic_et_nunc.tag\" using primary key columns"
+    hic_et_nunc_tag_by_pk(id: bigint!): hic_et_nunc_tag
+    "fetch data from the table: \"hic_et_nunc.token\""
+    hic_et_nunc_token(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): [hic_et_nunc_token!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token\""
+    hic_et_nunc_token_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_bool_exp
+    ): hic_et_nunc_token_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token\" using primary key columns"
+    hic_et_nunc_token_by_pk(id: bigint!): hic_et_nunc_token
+    "fetch data from the table: \"hic_et_nunc.token_holder\""
+    hic_et_nunc_token_holder(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): [hic_et_nunc_token_holder!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token_holder\""
+    hic_et_nunc_token_holder_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_holder_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_holder_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_holder_bool_exp
+    ): hic_et_nunc_token_holder_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token_holder\" using primary key columns"
+    hic_et_nunc_token_holder_by_pk(id: Int!): hic_et_nunc_token_holder
+    "fetch data from the table: \"hic_et_nunc.token_tag\""
+    hic_et_nunc_token_tag(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): [hic_et_nunc_token_tag!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.token_tag\""
+    hic_et_nunc_token_tag_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_token_tag_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_token_tag_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_token_tag_bool_exp
+    ): hic_et_nunc_token_tag_aggregate!
+    "fetch data from the table: \"hic_et_nunc.token_tag\" using primary key columns"
+    hic_et_nunc_token_tag_by_pk(id: Int!): hic_et_nunc_token_tag
+    "fetch data from the table: \"hic_et_nunc.trade\""
+    hic_et_nunc_trade(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): [hic_et_nunc_trade!]!
+    "fetch aggregated fields from the table: \"hic_et_nunc.trade\""
+    hic_et_nunc_trade_aggregate(
+        "distinct select on columns"
+        distinct_on: [hic_et_nunc_trade_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [hic_et_nunc_trade_order_by!],
+        "filter the rows returned"
+        where: hic_et_nunc_trade_bool_exp
+    ): hic_et_nunc_trade_aggregate!
+    "fetch data from the table: \"hic_et_nunc.trade\" using primary key columns"
+    hic_et_nunc_trade_by_pk(id: bigint!): hic_et_nunc_trade
+}
+
+"select columns of table \"hic_et_nunc.dipdup_state\""
+enum hic_et_nunc_dipdup_state_select_column {
+    "column name"
+    hash
+    "column name"
+    id
+    "column name"
+    index_name
+    "column name"
+    index_type
+    "column name"
+    level
+}
+
+"select columns of table \"hic_et_nunc.holder\""
+enum hic_et_nunc_holder_select_column {
+    "column name"
+    address
+}
+
+"select columns of table \"hic_et_nunc.swap\""
+enum hic_et_nunc_swap_select_column {
+    "column name"
+    amount
+    "column name"
+    amount_left
+    "column name"
+    creator_id
+    "column name"
+    id
+    "column name"
+    level
+    "column name"
+    price
+    "column name"
+    status
+    "column name"
+    timestamp
+    "column name"
+    token_id
+}
+
+"select columns of table \"hic_et_nunc.tag\""
+enum hic_et_nunc_tag_select_column {
+    "column name"
+    id
+    "column name"
+    tag
+}
+
+"select columns of table \"hic_et_nunc.token_holder\""
+enum hic_et_nunc_token_holder_select_column {
+    "column name"
+    holder_id
+    "column name"
+    id
+    "column name"
+    quantity
+    "column name"
+    token_id
+}
+
+"select columns of table \"hic_et_nunc.token\""
+enum hic_et_nunc_token_select_column {
+    "column name"
+    artifact_uri
+    "column name"
+    creator_id
+    "column name"
+    description
+    "column name"
+    display_uri
+    "column name"
+    id
+    "column name"
+    level
+    "column name"
+    mime
+    "column name"
+    royalties
+    "column name"
+    supply
+    "column name"
+    thumbnail_uri
+    "column name"
+    timestamp
+    "column name"
+    title
+}
+
+"select columns of table \"hic_et_nunc.token_tag\""
+enum hic_et_nunc_token_tag_select_column {
+    "column name"
+    id
+    "column name"
+    tag_id
+    "column name"
+    token_id
+}
+
+"select columns of table \"hic_et_nunc.trade\""
+enum hic_et_nunc_trade_select_column {
+    "column name"
+    amount
+    "column name"
+    buyer_id
+    "column name"
+    id
+    "column name"
+    level
+    "column name"
+    seller_id
+    "column name"
+    swap_id
+    "column name"
+    timestamp
+    "column name"
+    token_id
+}
+
+"column ordering options"
+enum order_by {
+    "in the ascending order, nulls last"
+    asc
+    "in the ascending order, nulls first"
+    asc_nulls_first
+    "in the ascending order, nulls last"
+    asc_nulls_last
+    "in the descending order, nulls first"
+    desc
+    "in the descending order, nulls first"
+    desc_nulls_first
+    "in the descending order, nulls last"
+    desc_nulls_last
+}
+
+"expression to compare columns of type Int. All fields are combined with logical 'AND'."
+input Int_comparison_exp {
+    _eq: Int
+    _gt: Int
+    _gte: Int
+    _in: [Int!]
+    _is_null: Boolean
+    _lt: Int
+    _lte: Int
+    _neq: Int
+    _nin: [Int!]
+}
+
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    _ilike: String
+    _in: [String!]
+    _is_null: Boolean
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    _nilike: String
+    _nin: [String!]
+    _nlike: String
+    _nsimilar: String
+    _similar: String
+}
+
+"expression to compare columns of type bigint. All fields are combined with logical 'AND'."
+input bigint_comparison_exp {
+    _eq: bigint
+    _gt: bigint
+    _gte: bigint
+    _in: [bigint!]
+    _is_null: Boolean
+    _lt: bigint
+    _lte: bigint
+    _neq: bigint
+    _nin: [bigint!]
+}
+
+"order by aggregate values of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_aggregate_order_by {
+    avg: hic_et_nunc_dipdup_state_avg_order_by
+    count: order_by
+    max: hic_et_nunc_dipdup_state_max_order_by
+    min: hic_et_nunc_dipdup_state_min_order_by
+    stddev: hic_et_nunc_dipdup_state_stddev_order_by
+    stddev_pop: hic_et_nunc_dipdup_state_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_dipdup_state_stddev_samp_order_by
+    sum: hic_et_nunc_dipdup_state_sum_order_by
+    var_pop: hic_et_nunc_dipdup_state_var_pop_order_by
+    var_samp: hic_et_nunc_dipdup_state_var_samp_order_by
+    variance: hic_et_nunc_dipdup_state_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_avg_order_by {
+    id: order_by
+    level: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.dipdup_state\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_dipdup_state_bool_exp {
+    _and: [hic_et_nunc_dipdup_state_bool_exp]
+    _not: hic_et_nunc_dipdup_state_bool_exp
+    _or: [hic_et_nunc_dipdup_state_bool_exp]
+    hash: String_comparison_exp
+    id: Int_comparison_exp
+    index_name: String_comparison_exp
+    index_type: String_comparison_exp
+    level: Int_comparison_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_max_order_by {
+    hash: order_by
+    id: order_by
+    index_name: order_by
+    index_type: order_by
+    level: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_min_order_by {
+    hash: order_by
+    id: order_by
+    index_name: order_by
+    index_type: order_by
+    level: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_order_by {
+    hash: order_by
+    id: order_by
+    index_name: order_by
+    index_type: order_by
+    level: order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_pk_columns_input {
+    id: Int!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_stddev_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_stddev_pop_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_stddev_samp_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_sum_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_var_pop_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_var_samp_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.dipdup_state\""
+input hic_et_nunc_dipdup_state_variance_order_by {
+    id: order_by
+    level: order_by
+}
+
+"order by aggregate values of table \"hic_et_nunc.holder\""
+input hic_et_nunc_holder_aggregate_order_by {
+    count: order_by
+    max: hic_et_nunc_holder_max_order_by
+    min: hic_et_nunc_holder_min_order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.holder\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_holder_bool_exp {
+    _and: [hic_et_nunc_holder_bool_exp]
+    _not: hic_et_nunc_holder_bool_exp
+    _or: [hic_et_nunc_holder_bool_exp]
+    address: String_comparison_exp
+    holders_token: hic_et_nunc_token_holder_bool_exp
+    purchases: hic_et_nunc_trade_bool_exp
+    sales: hic_et_nunc_trade_bool_exp
+    swaps: hic_et_nunc_swap_bool_exp
+    tokens: hic_et_nunc_token_bool_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.holder\""
+input hic_et_nunc_holder_max_order_by {
+    address: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.holder\""
+input hic_et_nunc_holder_min_order_by {
+    address: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.holder\""
+input hic_et_nunc_holder_order_by {
+    address: order_by
+    holders_token_aggregate: hic_et_nunc_token_holder_aggregate_order_by
+    purchases_aggregate: hic_et_nunc_trade_aggregate_order_by
+    sales_aggregate: hic_et_nunc_trade_aggregate_order_by
+    swaps_aggregate: hic_et_nunc_swap_aggregate_order_by
+    tokens_aggregate: hic_et_nunc_token_aggregate_order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.holder\""
+input hic_et_nunc_holder_pk_columns_input {
+    address: String!
+}
+
+"order by aggregate values of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_aggregate_order_by {
+    avg: hic_et_nunc_swap_avg_order_by
+    count: order_by
+    max: hic_et_nunc_swap_max_order_by
+    min: hic_et_nunc_swap_min_order_by
+    stddev: hic_et_nunc_swap_stddev_order_by
+    stddev_pop: hic_et_nunc_swap_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_swap_stddev_samp_order_by
+    sum: hic_et_nunc_swap_sum_order_by
+    var_pop: hic_et_nunc_swap_var_pop_order_by
+    var_samp: hic_et_nunc_swap_var_samp_order_by
+    variance: hic_et_nunc_swap_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_avg_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.swap\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_swap_bool_exp {
+    _and: [hic_et_nunc_swap_bool_exp]
+    _not: hic_et_nunc_swap_bool_exp
+    _or: [hic_et_nunc_swap_bool_exp]
+    amount: bigint_comparison_exp
+    amount_left: bigint_comparison_exp
+    creator: hic_et_nunc_holder_bool_exp
+    creator_id: String_comparison_exp
+    id: bigint_comparison_exp
+    level: bigint_comparison_exp
+    price: bigint_comparison_exp
+    status: smallint_comparison_exp
+    timestamp: timestamptz_comparison_exp
+    token: hic_et_nunc_token_bool_exp
+    token_id: bigint_comparison_exp
+    trades: hic_et_nunc_trade_bool_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_max_order_by {
+    amount: order_by
+    amount_left: order_by
+    creator_id: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    timestamp: order_by
+    token_id: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_min_order_by {
+    amount: order_by
+    amount_left: order_by
+    creator_id: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    timestamp: order_by
+    token_id: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_order_by {
+    amount: order_by
+    amount_left: order_by
+    creator: hic_et_nunc_holder_order_by
+    creator_id: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    timestamp: order_by
+    token: hic_et_nunc_token_order_by
+    token_id: order_by
+    trades_aggregate: hic_et_nunc_trade_aggregate_order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_pk_columns_input {
+    id: bigint!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_stddev_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_stddev_pop_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_stddev_samp_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_sum_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_var_pop_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_var_samp_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.swap\""
+input hic_et_nunc_swap_variance_order_by {
+    amount: order_by
+    amount_left: order_by
+    id: order_by
+    level: order_by
+    price: order_by
+    status: order_by
+    token_id: order_by
+}
+
+"order by aggregate values of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_aggregate_order_by {
+    avg: hic_et_nunc_tag_avg_order_by
+    count: order_by
+    max: hic_et_nunc_tag_max_order_by
+    min: hic_et_nunc_tag_min_order_by
+    stddev: hic_et_nunc_tag_stddev_order_by
+    stddev_pop: hic_et_nunc_tag_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_tag_stddev_samp_order_by
+    sum: hic_et_nunc_tag_sum_order_by
+    var_pop: hic_et_nunc_tag_var_pop_order_by
+    var_samp: hic_et_nunc_tag_var_samp_order_by
+    variance: hic_et_nunc_tag_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_avg_order_by {
+    id: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.tag\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_tag_bool_exp {
+    _and: [hic_et_nunc_tag_bool_exp]
+    _not: hic_et_nunc_tag_bool_exp
+    _or: [hic_et_nunc_tag_bool_exp]
+    id: bigint_comparison_exp
+    tag: String_comparison_exp
+    tag_tokens: hic_et_nunc_token_tag_bool_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_max_order_by {
+    id: order_by
+    tag: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_min_order_by {
+    id: order_by
+    tag: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_order_by {
+    id: order_by
+    tag: order_by
+    tag_tokens_aggregate: hic_et_nunc_token_tag_aggregate_order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_pk_columns_input {
+    id: bigint!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_stddev_order_by {
+    id: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_stddev_pop_order_by {
+    id: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_stddev_samp_order_by {
+    id: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_sum_order_by {
+    id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_var_pop_order_by {
+    id: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_var_samp_order_by {
+    id: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.tag\""
+input hic_et_nunc_tag_variance_order_by {
+    id: order_by
+}
+
+"order by aggregate values of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_aggregate_order_by {
+    avg: hic_et_nunc_token_avg_order_by
+    count: order_by
+    max: hic_et_nunc_token_max_order_by
+    min: hic_et_nunc_token_min_order_by
+    stddev: hic_et_nunc_token_stddev_order_by
+    stddev_pop: hic_et_nunc_token_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_token_stddev_samp_order_by
+    sum: hic_et_nunc_token_sum_order_by
+    var_pop: hic_et_nunc_token_var_pop_order_by
+    var_samp: hic_et_nunc_token_var_samp_order_by
+    variance: hic_et_nunc_token_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_avg_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.token\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_token_bool_exp {
+    _and: [hic_et_nunc_token_bool_exp]
+    _not: hic_et_nunc_token_bool_exp
+    _or: [hic_et_nunc_token_bool_exp]
+    artifact_uri: String_comparison_exp
+    creator: hic_et_nunc_holder_bool_exp
+    creator_id: String_comparison_exp
+    description: String_comparison_exp
+    display_uri: String_comparison_exp
+    id: bigint_comparison_exp
+    level: bigint_comparison_exp
+    mime: String_comparison_exp
+    royalties: bigint_comparison_exp
+    supply: bigint_comparison_exp
+    swaps: hic_et_nunc_swap_bool_exp
+    thumbnail_uri: String_comparison_exp
+    timestamp: timestamptz_comparison_exp
+    title: String_comparison_exp
+    token_holders: hic_et_nunc_token_holder_bool_exp
+    token_tags: hic_et_nunc_token_tag_bool_exp
+    trades: hic_et_nunc_trade_bool_exp
+}
+
+"order by aggregate values of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_aggregate_order_by {
+    avg: hic_et_nunc_token_holder_avg_order_by
+    count: order_by
+    max: hic_et_nunc_token_holder_max_order_by
+    min: hic_et_nunc_token_holder_min_order_by
+    stddev: hic_et_nunc_token_holder_stddev_order_by
+    stddev_pop: hic_et_nunc_token_holder_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_token_holder_stddev_samp_order_by
+    sum: hic_et_nunc_token_holder_sum_order_by
+    var_pop: hic_et_nunc_token_holder_var_pop_order_by
+    var_samp: hic_et_nunc_token_holder_var_samp_order_by
+    variance: hic_et_nunc_token_holder_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_avg_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.token_holder\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_token_holder_bool_exp {
+    _and: [hic_et_nunc_token_holder_bool_exp]
+    _not: hic_et_nunc_token_holder_bool_exp
+    _or: [hic_et_nunc_token_holder_bool_exp]
+    holder: hic_et_nunc_holder_bool_exp
+    holder_id: String_comparison_exp
+    id: Int_comparison_exp
+    quantity: bigint_comparison_exp
+    token: hic_et_nunc_token_bool_exp
+    token_id: bigint_comparison_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_max_order_by {
+    holder_id: order_by
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_min_order_by {
+    holder_id: order_by
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_order_by {
+    holder: hic_et_nunc_holder_order_by
+    holder_id: order_by
+    id: order_by
+    quantity: order_by
+    token: hic_et_nunc_token_order_by
+    token_id: order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_pk_columns_input {
+    id: Int!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_stddev_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_stddev_pop_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_stddev_samp_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_sum_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_var_pop_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_var_samp_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.token_holder\""
+input hic_et_nunc_token_holder_variance_order_by {
+    id: order_by
+    quantity: order_by
+    token_id: order_by
+}
+
+"order by max() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_max_order_by {
+    artifact_uri: order_by
+    creator_id: order_by
+    description: order_by
+    display_uri: order_by
+    id: order_by
+    level: order_by
+    mime: order_by
+    royalties: order_by
+    supply: order_by
+    thumbnail_uri: order_by
+    timestamp: order_by
+    title: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_min_order_by {
+    artifact_uri: order_by
+    creator_id: order_by
+    description: order_by
+    display_uri: order_by
+    id: order_by
+    level: order_by
+    mime: order_by
+    royalties: order_by
+    supply: order_by
+    thumbnail_uri: order_by
+    timestamp: order_by
+    title: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.token\""
+input hic_et_nunc_token_order_by {
+    artifact_uri: order_by
+    creator: hic_et_nunc_holder_order_by
+    creator_id: order_by
+    description: order_by
+    display_uri: order_by
+    id: order_by
+    level: order_by
+    mime: order_by
+    royalties: order_by
+    supply: order_by
+    swaps_aggregate: hic_et_nunc_swap_aggregate_order_by
+    thumbnail_uri: order_by
+    timestamp: order_by
+    title: order_by
+    token_holders_aggregate: hic_et_nunc_token_holder_aggregate_order_by
+    token_tags_aggregate: hic_et_nunc_token_tag_aggregate_order_by
+    trades_aggregate: hic_et_nunc_trade_aggregate_order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.token\""
+input hic_et_nunc_token_pk_columns_input {
+    id: bigint!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_stddev_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_stddev_pop_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_stddev_samp_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_sum_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by aggregate values of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_aggregate_order_by {
+    avg: hic_et_nunc_token_tag_avg_order_by
+    count: order_by
+    max: hic_et_nunc_token_tag_max_order_by
+    min: hic_et_nunc_token_tag_min_order_by
+    stddev: hic_et_nunc_token_tag_stddev_order_by
+    stddev_pop: hic_et_nunc_token_tag_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_token_tag_stddev_samp_order_by
+    sum: hic_et_nunc_token_tag_sum_order_by
+    var_pop: hic_et_nunc_token_tag_var_pop_order_by
+    var_samp: hic_et_nunc_token_tag_var_samp_order_by
+    variance: hic_et_nunc_token_tag_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_avg_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.token_tag\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_token_tag_bool_exp {
+    _and: [hic_et_nunc_token_tag_bool_exp]
+    _not: hic_et_nunc_token_tag_bool_exp
+    _or: [hic_et_nunc_token_tag_bool_exp]
+    id: Int_comparison_exp
+    tag: hic_et_nunc_tag_bool_exp
+    tag_id: bigint_comparison_exp
+    token: hic_et_nunc_token_bool_exp
+    token_id: bigint_comparison_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_max_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_min_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_order_by {
+    id: order_by
+    tag: hic_et_nunc_tag_order_by
+    tag_id: order_by
+    token: hic_et_nunc_token_order_by
+    token_id: order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_pk_columns_input {
+    id: Int!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_stddev_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_stddev_pop_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_stddev_samp_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_sum_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_var_pop_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_var_samp_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.token_tag\""
+input hic_et_nunc_token_tag_variance_order_by {
+    id: order_by
+    tag_id: order_by
+    token_id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_var_pop_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_var_samp_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.token\""
+input hic_et_nunc_token_variance_order_by {
+    id: order_by
+    level: order_by
+    royalties: order_by
+    supply: order_by
+}
+
+"order by aggregate values of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_aggregate_order_by {
+    avg: hic_et_nunc_trade_avg_order_by
+    count: order_by
+    max: hic_et_nunc_trade_max_order_by
+    min: hic_et_nunc_trade_min_order_by
+    stddev: hic_et_nunc_trade_stddev_order_by
+    stddev_pop: hic_et_nunc_trade_stddev_pop_order_by
+    stddev_samp: hic_et_nunc_trade_stddev_samp_order_by
+    sum: hic_et_nunc_trade_sum_order_by
+    var_pop: hic_et_nunc_trade_var_pop_order_by
+    var_samp: hic_et_nunc_trade_var_samp_order_by
+    variance: hic_et_nunc_trade_variance_order_by
+}
+
+"order by avg() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_avg_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"Boolean expression to filter rows from the table \"hic_et_nunc.trade\". All fields are combined with a logical 'AND'."
+input hic_et_nunc_trade_bool_exp {
+    _and: [hic_et_nunc_trade_bool_exp]
+    _not: hic_et_nunc_trade_bool_exp
+    _or: [hic_et_nunc_trade_bool_exp]
+    amount: bigint_comparison_exp
+    buyer: hic_et_nunc_holder_bool_exp
+    buyer_id: String_comparison_exp
+    id: bigint_comparison_exp
+    level: bigint_comparison_exp
+    seller: hic_et_nunc_holder_bool_exp
+    seller_id: String_comparison_exp
+    swap: hic_et_nunc_swap_bool_exp
+    swap_id: bigint_comparison_exp
+    timestamp: timestamptz_comparison_exp
+    token: hic_et_nunc_token_bool_exp
+    token_id: bigint_comparison_exp
+}
+
+"order by max() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_max_order_by {
+    amount: order_by
+    buyer_id: order_by
+    id: order_by
+    level: order_by
+    seller_id: order_by
+    swap_id: order_by
+    timestamp: order_by
+    token_id: order_by
+}
+
+"order by min() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_min_order_by {
+    amount: order_by
+    buyer_id: order_by
+    id: order_by
+    level: order_by
+    seller_id: order_by
+    swap_id: order_by
+    timestamp: order_by
+    token_id: order_by
+}
+
+"ordering options when selecting data from \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_order_by {
+    amount: order_by
+    buyer: hic_et_nunc_holder_order_by
+    buyer_id: order_by
+    id: order_by
+    level: order_by
+    seller: hic_et_nunc_holder_order_by
+    seller_id: order_by
+    swap: hic_et_nunc_swap_order_by
+    swap_id: order_by
+    timestamp: order_by
+    token: hic_et_nunc_token_order_by
+    token_id: order_by
+}
+
+"primary key columns input for table: \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_pk_columns_input {
+    id: bigint!
+}
+
+"order by stddev() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_stddev_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by stddev_pop() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_stddev_pop_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by stddev_samp() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_stddev_samp_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by sum() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_sum_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by var_pop() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_var_pop_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by var_samp() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_var_samp_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"order by variance() on columns of table \"hic_et_nunc.trade\""
+input hic_et_nunc_trade_variance_order_by {
+    amount: order_by
+    id: order_by
+    level: order_by
+    swap_id: order_by
+    token_id: order_by
+}
+
+"expression to compare columns of type smallint. All fields are combined with logical 'AND'."
+input smallint_comparison_exp {
+    _eq: smallint
+    _gt: smallint
+    _gte: smallint
+    _in: [smallint!]
+    _is_null: Boolean
+    _lt: smallint
+    _lte: smallint
+    _neq: smallint
+    _nin: [smallint!]
+}
+
+"expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+    _eq: timestamptz
+    _gt: timestamptz
+    _gte: timestamptz
+    _in: [timestamptz!]
+    _is_null: Boolean
+    _lt: timestamptz
+    _lte: timestamptz
+    _neq: timestamptz
+    _nin: [timestamptz!]
+}
+
+
+scalar bigint
+
+scalar smallint
+
+scalar timestamptz
