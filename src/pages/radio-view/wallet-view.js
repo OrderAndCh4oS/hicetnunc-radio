@@ -37,15 +37,10 @@ const WalletView = () => {
                     .map(id => getUserMetadataByWalletId(id)),
             ))
                 .filter(res => res.status === 'fulfilled')
-                .map((res) => {
-                    console.log('res', res);
-                    const result = {
-                        ...res.value.data,
-                        walletId: res.value.config.url.split('/')[5],
-                    };
-                    console.log(result);
-                    return result;
-                });
+                .map((res) => ({
+                    ...res.value.data,
+                    walletId: res.value.config.url.split('/')[5],
+                }));
             setWalletsWithAudio(nextCreatorMetadata);
         })();
     }, []);
