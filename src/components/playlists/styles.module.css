@@ -6,6 +6,7 @@
 
 .playlistGrid {
     display: grid;
+    align-items: flex-start;
     grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
     grid-auto-rows: 1fr;
 }

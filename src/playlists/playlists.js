@@ -1,10 +1,11 @@
-import { playlistCoverOne } from '../assets/images';
+import { playlistCoverZero, playlistCoverOne, playlistCoverTwo } from '../assets/images';
 
 export const playlists = [
     {
         name: 'Hicathon Dev',
         curator: 'HEN Radio',
         description: 'The tracks that made hen.radio, listened to on repeat for hackday development',
+        img: playlistCoverZero,
         tracks: [
             {
                 id: 48594,
@@ -54,34 +55,6 @@ export const playlists = [
                 src: `https://ipfs.io/ipfs/QmYRADeeCDWyayLm8jrePE7EzVo9NXTBgXSfpshQcMuCEm`,
                 mimeType: 'audio/mpeg',
                 creator: 'tz1iG2tUSgBhUHnjNKnrNVrdtFhZEq9FzPEp',
-            },
-        ],
-    },
-    {
-        name: 'Ambient Atmosphere',
-        curator: 'HEN Radio',
-        description: 'Ambient Future Atmosphere',
-        tracks: [
-            {
-                id: 8577,
-                name: 'Geometrical Psychology #8',
-                src: 'https://ipfs.io/ipfs/QmfHLRCnhFY5oBsmE9gKH6xjFUpbjNcqRG8XKTm52jaiHa',
-                mimeType: 'audio/mpeg',
-                creator: 'tz1TA2GsoJmC6G57DZfMw9cj5Z8ztviGBzU7',
-            },
-            {
-                id: 6337,
-                name: 'Eurorack ambient jam #1',
-                src: 'https://ipfs.io/ipfs/QmUmhLsTPKRjwJN3eNfYAJ9Hw1SaRbC8gQTky9MBPfWcr1',
-                mimeType: 'audio/mpeg',
-                creator: 'tz1etmVTu5kPrSZjQPNF2nE79xyKddjwguyz',
-            },
-            {
-                id: 10045,
-                name: 'Eurorack ambient jam #4',
-                src: 'https://ipfs.io/ipfs/QmVdoqKAQNQNJ8YBGTk6pXsrXNZqvErHNzxKFg7cnPn9xj',
-                mimeType: 'audio/mpeg',
-                creator: 'tz1etmVTu5kPrSZjQPNF2nE79xyKddjwguyz',
             },
         ],
     },
@@ -146,6 +119,35 @@ export const playlists = [
                 src: `https://ipfs.io/ipfs/Qmb92ifujVsctJL5R8X25prWjNjjuDCWScysEXiAZSrD2v`,
                 mimeType: 'audio/mpeg',
                 creator: 'tz2MR9zog3QaSKRMsxMRqYtDevwoRKVvMQX7',
+            },
+        ],
+    },
+    {
+        name: 'Ambient Atmosphere',
+        curator: 'HEN Radio',
+        description: 'Ambient Future Atmosphere',
+        img: playlistCoverTwo,
+        tracks: [
+            {
+                id: 8577,
+                name: 'Geometrical Psychology #8',
+                src: 'https://ipfs.io/ipfs/QmfHLRCnhFY5oBsmE9gKH6xjFUpbjNcqRG8XKTm52jaiHa',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1TA2GsoJmC6G57DZfMw9cj5Z8ztviGBzU7',
+            },
+            {
+                id: 6337,
+                name: 'Eurorack ambient jam #1',
+                src: 'https://ipfs.io/ipfs/QmUmhLsTPKRjwJN3eNfYAJ9Hw1SaRbC8gQTky9MBPfWcr1',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1etmVTu5kPrSZjQPNF2nE79xyKddjwguyz',
+            },
+            {
+                id: 10045,
+                name: 'Eurorack ambient jam #4',
+                src: 'https://ipfs.io/ipfs/QmVdoqKAQNQNJ8YBGTk6pXsrXNZqvErHNzxKFg7cnPn9xj',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1etmVTu5kPrSZjQPNF2nE79xyKddjwguyz',
             },
         ],
     },
