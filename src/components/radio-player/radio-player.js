@@ -3,8 +3,9 @@ import PlayPauseButton from './play-pause-button';
 import MuteButton from './mute-button';
 import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
+import usePlaylist from '../../hooks/use-playlist';
 
-const RadioPlayer = ({tracks}) => {
+const RadioPlayer = () => {
     const {
         audio,
         audioError,
@@ -12,6 +13,9 @@ const RadioPlayer = ({tracks}) => {
         controls,
         runningTime
     } = useRadio();
+    const {tracks} = usePlaylist();
+
+    if(!tracks) return null;
 
     return (
         <div className={styles.radioPlayerContainer}>

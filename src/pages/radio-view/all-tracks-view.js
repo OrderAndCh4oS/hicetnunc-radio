@@ -1,36 +1,37 @@
 import useTitle from '../../hooks/use-title';
-import RadioPlayer from '../../components/radio-player/radio-player';
 import TrackList from '../../components/track-list/track-list';
 import useRadio from '../../hooks/use-radio';
 import { useEffect, useState } from 'react';
 import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
 import { gql, request } from 'graphql-request';
+import usePlaylist from '../../hooks/use-playlist';
+
 const query = gql`
-query AudioObjktData {
-    hic_et_nunc_token(where: {
-        mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]}, 
-        _and: {
-            token_holders: {
-                quantity: {_gt: "0"}, 
-                _and: {_not: {holder_id: {_eq: "tz1burnburnburnburnburnburnburjAYjjX"}}}
+    query AudioObjktData {
+        hic_et_nunc_token(where: {
+            mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]},
+            _and: {
+                token_holders: {
+                    quantity: {_gt: "0"},
+                    _and: {_not: {holder_id: {_eq: "tz1burnburnburnburnburnburnburjAYjjX"}}}
+                }
             }
+        }) {
+            id
+            display_uri
+            level
+            description
+            title
+            token_holders {
+                holder_id
+                quantity
+            }
+            thumbnail_uri
+            mime
+            creator_id
+            artifact_uri
         }
-    }) {
-        id
-        display_uri
-        level
-        description
-        title
-        token_holders {
-            holder_id
-            quantity
-        }
-        thumbnail_uri
-        mime
-        creator_id
-        artifact_uri
     }
-}
 `;
 
 const AllTracksView = () => {
@@ -42,8 +43,8 @@ const AllTracksView = () => {
         controls,
         isTrackPlaying,
     } = useRadio();
+    const {tracks, setTracks} = usePlaylist();
 
-    const [tracks, setTracks] = useState(null);
     const [creatorMetadata, setCreatorMetadata] = useState({});
 
     audio.onended = () => {
@@ -62,7 +63,6 @@ const AllTracksView = () => {
     useEffect(() => {
         (async() => {
             const data = await request('https://api.hicdex.com/v1/graphql', query);
-            console.log(data);
             setTracks(data?.hic_et_nunc_token?.map(o => ({
                 id: o.id,
                 creator: o.creator_id,
@@ -110,7 +110,6 @@ const AllTracksView = () => {
 
     return (
         <>
-            <RadioPlayer tracks={tracks}/>
             <TrackList
                 tracks={tracks}
                 isTrackPlaying={isTrackPlaying}

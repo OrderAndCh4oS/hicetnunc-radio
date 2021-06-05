@@ -142,7 +142,7 @@ const RadioProvider = ({children}) => {
                     volume: handleVolumeChange,
                     next: handleNext,
                     previous: handlePrev,
-                    selectTrack: handleSelectTrack,
+                    selectTrack: handleSelectTrack
                 },
             }}
         >

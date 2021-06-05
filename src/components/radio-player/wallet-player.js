@@ -4,7 +4,7 @@ import TrackList from '../track-list/track-list';
 import FilterTypes from '../../enums/filter-types';
 import TracksFilterBar from '../track-list/tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
-import RadioPlayer from './radio-player';
+import usePlaylist from '../../hooks/use-playlist';
 
 const WalletPlayer = ({audioObjkts, walletId}) => {
     const {
@@ -15,7 +15,8 @@ const WalletPlayer = ({audioObjkts, walletId}) => {
         isTrackPlaying,
     } = useRadio();
 
-    const [tracks, setTracks] = useState(null);
+    const {tracks, setTracks} = usePlaylist();
+
     const [filteredTracks, setFilteredTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
     const [creatorMetadata, setCreatorMetadata] = useState({});
@@ -97,7 +98,6 @@ const WalletPlayer = ({audioObjkts, walletId}) => {
 
     return (
         <>
-            <RadioPlayer tracks={filteredTracks}/>
             <TracksFilterBar filter={filter} setFilter={setFilter}/>
             <TrackList
                 tracks={filteredTracks}

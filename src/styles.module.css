@@ -20,3 +20,8 @@
 .navBar_link {
     margin-left: 24px;
 }
+
+.radioPlayerBar {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e5e5e5;
+}

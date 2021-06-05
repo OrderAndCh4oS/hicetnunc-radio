@@ -7,6 +7,7 @@ import Logo from './components/logo/logo';
 import Footer from './components/footer/footer';
 import useWallet from './hooks/use-wallet';
 import AllTracksView from './pages/radio-view/all-tracks-view';
+import RadioPlayer from './components/radio-player/radio-player';
 
 function App() {
     const {walletId} = useWallet()
@@ -19,6 +20,9 @@ function App() {
                     <Link className={styles.navBar_link} to={'/playlists'}>Playlists</Link>
                     <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>By Wallet</Link>
                 </div>
+            </div>
+            <div className={styles.radioPlayerBar}>
+                <RadioPlayer/>
             </div>
             <Switch>
                 <Route exact path="/" component={AllTracksView}/>

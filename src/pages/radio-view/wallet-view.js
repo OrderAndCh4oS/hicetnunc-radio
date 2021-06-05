@@ -31,7 +31,6 @@ const WalletView = () => {
 
     useEffect(() => {
         if(!tz || tz === walletId) return;
-        console.log('tz', tz);
         setWalletId(tz);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tz]);
@@ -73,6 +72,16 @@ const WalletView = () => {
 
     return (
         <>
+            {objktData ? (
+                <>
+                    {isLoading ? <p>Loading...</p> : <>
+                        <WalletPlayer
+                            audioObjkts={objktData}
+                            walletId={walletId}
+                        />
+                    </>}
+                </>
+            ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <div className={styles.walletIdEntry}>
                 <input
                     className={styles.walletInput}
@@ -88,16 +97,6 @@ const WalletView = () => {
                 </button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
-            {objktData ? (
-                <>
-                    {isLoading ? <p>Loading...</p> : <>
-                        <WalletPlayer
-                            audioObjkts={objktData}
-                            walletId={walletId}
-                        />
-                    </>}
-                </>
-            ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <div>
                 <h2 className={styles.walletTitle}>Wallets</h2>
                 {walletsWithAudio.map((w) => (
