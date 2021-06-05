@@ -9,7 +9,15 @@ import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id'
 
 const query = gql`
     query AudioObjktData {
-        hic_et_nunc_token(where: {mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]}}) {
+        hic_et_nunc_token(where: {
+            mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]},
+            _and: {
+                token_holders: {
+                    quantity: {_gt: "0"},
+                    _and: {_not: {holder_id: {_eq: "tz1burnburnburnburnburnburnburjAYjjX"}}}
+                }
+            }
+        }) {
             creator_id
         }
     }

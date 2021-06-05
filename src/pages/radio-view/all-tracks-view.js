@@ -5,25 +5,32 @@ import useRadio from '../../hooks/use-radio';
 import { useEffect, useState } from 'react';
 import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id';
 import { gql, request } from 'graphql-request';
-
 const query = gql`
-    query AudioObjktData {
-        hic_et_nunc_token(where: {mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]}}) {
-            id
-            display_uri
-            level
-            description
-            title
-            token_holders {
-                holder_id
-                quantity
+query AudioObjktData {
+    hic_et_nunc_token(where: {
+        mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]}, 
+        _and: {
+            token_holders: {
+                quantity: {_gt: "0"}, 
+                _and: {_not: {holder_id: {_eq: "tz1burnburnburnburnburnburnburjAYjjX"}}}
             }
-            thumbnail_uri
-            mime
-            creator_id
-            artifact_uri
         }
+    }) {
+        id
+        display_uri
+        level
+        description
+        title
+        token_holders {
+            holder_id
+            quantity
+        }
+        thumbnail_uri
+        mime
+        creator_id
+        artifact_uri
     }
+}
 `;
 
 const AllTracksView = () => {
