@@ -51,7 +51,7 @@ const RadioPlayer = () => {
                 {playerState.currentTrackKey !== null
                     ? (
                         <div className={styles.currentTrack}>
-                            {tracks[playerState.currentTrackKey]?.name || ''}
+                            {playerState.currentTrack?.name || ''}
                         </div>
                     ) : null}
             </div>
