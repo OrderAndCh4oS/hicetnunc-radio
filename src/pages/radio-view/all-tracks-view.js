@@ -12,7 +12,7 @@ const query = gql`
             _and: {
                 token_holders: {
                     quantity: {_gt: "0"},
-                    _and: {_not: {holder_id: {_eq: "tz1burnburnburnburnburnburnburjAYjjX"}}}
+                    _and: {holder_id: {_neq: "tz1burnburnburnburnburnburnburjAYjjX"}}
                 }
             }
         }) {
