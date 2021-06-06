@@ -4,6 +4,7 @@ import MuteButton from './mute-button';
 import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
+import { getCreator } from '../../utilities/general';
 
 const RadioPlayer = () => {
     const {
@@ -11,11 +12,13 @@ const RadioPlayer = () => {
         audioError,
         playerState,
         controls,
-        runningTime
+        runningTime,
     } = useRadio();
     const {tracks} = usePlaylist();
 
     if(!tracks) return null;
+
+    const track = playerState.currentTrack;
 
     return (
         <div className={styles.radioPlayerContainer}>
@@ -34,30 +37,37 @@ const RadioPlayer = () => {
                     />
                     <MuteButton/>
                 </div>
-                <div className={styles.runningTime}>{getAudioTime(runningTime)} of {getAudioTime(
-                    audio.duration)}</div>
+                <div className={styles.runningTime}>
+                    {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
+                </div>
             </div>
             <div className={styles.nextPrevControls}>
                 <button
                     className={styles.button_prevTrack}
                     onClick={controls.previous(tracks)}
-                >Prev
-                </button>
+                >Prev</button>
                 <button
                     className={styles.button_nextTrack}
                     onClick={controls.next(tracks)}
-                >Next
-                </button>
-                {playerState.currentTrackKey !== null
+                >Next</button>
+                {playerState.currentTrack !== null
                     ? (
                         <div className={styles.currentTrack}>
-                            {playerState.currentTrack?.name || ''}
+                            <span className={styles.trackRow_text}>
+                        <a
+                            href={`https://hicetnunc.xyz/objkt/${track.id}`}
+                            className={styles.trackRow_link}
+                        >#{track.id} {track.name}</a>
+                        <br/>
+                        By <a href={`https://hicetnunc.xyz/tz/${track.creator}`}
+                              className={styles.trackRow_link}>{getCreator(track.creator)}}</a>
+                            </span>
                         </div>
                     ) : null}
             </div>
             {audioError && <p className={styles.errorText}>{audioError}</p>}
         </div>
-    )
-}
+    );
+};
 
-export default RadioPlayer
+export default RadioPlayer;

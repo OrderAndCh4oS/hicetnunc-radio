@@ -32,13 +32,13 @@
 
 .walletRow {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column-reverse;
     padding: 6px 0;
     border-bottom: 1px solid #E5E5E5;
 }
 
 .walletRow_alias {
-    margin-left: 16px;
     font-size: 14px;
 }
 
@@ -50,13 +50,27 @@
     height: auto;
     overflow: hidden;
     border-radius: 13px;
-    margin: 0 0 0 auto;
     flex-shrink: 0;
 }
 
 @media screen and (min-width: 600px) {
     .walletInput {
         max-width: 320px;
+    }
+
+    .walletRow {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+
+    .walletRow_alias {
+        margin-left: 16px;
+    }
+
+    .walletRow_avatar {
+        margin: 0 0 0 auto;
     }
 
     .button_getObjktData {
