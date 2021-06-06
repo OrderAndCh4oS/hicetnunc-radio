@@ -100,7 +100,7 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentTrack: tracks[nextTrackKey]
+            currentTrack: tracks[nextTrackKey],
         }));
     };
 
@@ -142,7 +142,7 @@ const RadioProvider = ({children}) => {
                     volume: handleVolumeChange,
                     next: handleNext,
                     previous: handlePrev,
-                    selectTrack: handleSelectTrack
+                    selectTrack: handleSelectTrack,
                 },
             }}
         >

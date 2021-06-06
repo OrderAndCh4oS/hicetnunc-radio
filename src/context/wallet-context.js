@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import getObjktsByWalletId from '../api/get-objkts-by-wallet-id';
 import { audioMimeTypes } from '../constants';
 
@@ -9,7 +9,7 @@ const WalletProvider = ({children}) => {
 
     const [objktData, setObjktData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if(!walletId) return;
@@ -28,7 +28,6 @@ const WalletProvider = ({children}) => {
 
     const filterAudio = (objkts) =>
         objkts.filter(o => audioMimeTypes.includes(o.token_info.formats[0].mimeType));
-
 
     return (
         <WalletContext.Provider

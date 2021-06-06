@@ -109,8 +109,10 @@ const WalletView = () => {
                             onClick={handleWalletIdSelect(w.walletId)}
                         >{w.walletId}</button>
                         {w.twitter ? <div>
-                            <a className={styles.walletRow_alias}
-                               href={`https://twitter.com/${w.twitter}`}>
+                            <a
+                                className={styles.walletRow_alias}
+                                href={`https://twitter.com/${w.twitter}`}
+                            >
                                 @{w.twitter}
                             </a>
                         </div> : null}

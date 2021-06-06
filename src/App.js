@@ -10,7 +10,7 @@ import AllTracksView from './pages/radio-view/all-tracks-view';
 import RadioPlayer from './components/radio-player/radio-player';
 
 function App() {
-    const {walletId} = useWallet()
+    const {walletId} = useWallet();
     return (
         <div className={styles.radioView}>
             <div className={styles.headerBar}>
@@ -18,7 +18,8 @@ function App() {
                 <div className={styles.navBar}>
                     <Link className={styles.navBar_link} to={'/'}>All Tracks</Link>
                     <Link className={styles.navBar_link} to={'/playlists'}>Playlists</Link>
-                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>By Wallet</Link>
+                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>By
+                                                                                                   Wallet</Link>
                 </div>
             </div>
             <div className={styles.radioPlayerBar}>

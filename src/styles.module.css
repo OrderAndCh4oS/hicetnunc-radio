@@ -34,11 +34,13 @@
         justify-content: space-between;
         flex-direction: row;
     }
+
     .navBar {
         display: flex;
         justify-content: flex-end;
         flex-direction: row;
     }
+
     .navBar_link {
         margin-left: 24px;
     }

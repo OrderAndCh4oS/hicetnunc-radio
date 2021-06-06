@@ -205,12 +205,15 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
     .controlsHolder {
         width: auto;
     }
+
     .playerBar {
         flex-wrap: nowrap;
     }
+
     .runningTime {
         margin-left: 8px;
     }
+
     .errorText {
         color: #cd0117;
         font-size: 14px;

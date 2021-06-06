@@ -10,4 +10,4 @@ const getAudioTime = (time) => {
     return `${minutes}.${pad(~~seconds, 2)}`;
 };
 
-export default getAudioTime
+export default getAudioTime;

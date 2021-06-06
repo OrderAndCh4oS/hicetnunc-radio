@@ -4,7 +4,7 @@ import MuteButton from './mute-button';
 import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
-import { getCreator } from '../../utilities/general';
+import { getAlias, getCreator } from '../../utilities/general';
 
 const RadioPlayer = () => {
     const {
@@ -14,7 +14,7 @@ const RadioPlayer = () => {
         controls,
         runningTime,
     } = useRadio();
-    const {tracks} = usePlaylist();
+    const {tracks, creatorMetadata} = usePlaylist();
 
     if(!tracks) return null;
 
@@ -45,11 +45,13 @@ const RadioPlayer = () => {
                 <button
                     className={styles.button_prevTrack}
                     onClick={controls.previous(tracks)}
-                >Prev</button>
+                >Prev
+                </button>
                 <button
                     className={styles.button_nextTrack}
                     onClick={controls.next(tracks)}
-                >Next</button>
+                >Next
+                </button>
                 {playerState.currentTrack !== null
                     ? (
                         <div className={styles.currentTrack}>
@@ -59,8 +61,10 @@ const RadioPlayer = () => {
                             className={styles.trackRow_link}
                         >#{track.id} {track.name}</a>
                         <br/>
-                        By <a href={`https://hicetnunc.xyz/tz/${track.creator}`}
-                              className={styles.trackRow_link}>{getCreator(track.creator)}}</a>
+                        By <a
+                                href={`https://hicetnunc.xyz/tz/${track.creator}`}
+                                className={styles.trackRow_link}
+                            >{getCreator(track.creator)} {getAlias(track, creatorMetadata)}</a>
                             </span>
                         </div>
                     ) : null}

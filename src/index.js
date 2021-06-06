@@ -13,13 +13,13 @@ ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
             <WalletProvider>
-                <PlaylistProvider>
-                    <AudioProvider>
-                        <RadioProvider>
+                <AudioProvider>
+                    <RadioProvider>
+                        <PlaylistProvider>
                             <App/>
-                        </RadioProvider>
-                    </AudioProvider>
-                </PlaylistProvider>
+                        </PlaylistProvider>
+                    </RadioProvider>
+                </AudioProvider>
             </WalletProvider>
         </HashRouter>
     </React.StrictMode>,
