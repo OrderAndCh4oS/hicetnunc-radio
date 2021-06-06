@@ -1,4 +1,5 @@
 import {
+    playlistCoverFour,
     playlistCoverOne,
     playlistCoverThree,
     playlistCoverTwo,
@@ -182,6 +183,42 @@ export const playlists = [
                 src: `https://ipfs.io/ipfs/QmQJ86BBKZKmoM8bJDSZ2AohKeWv1atP21CrudQhukfU8D`,
                 mimeType: 'audio/mpeg',
                 creator: 'tz1QJF39YnffgHKHMryknBWABVtmSKmPhJ6S',
+            },
+        ],
+    },
+    {
+        name: 'House',
+        curator: 'HEN Radio',
+        description: 'House on the soft side',
+        img: playlistCoverFour,
+        tracks: [
+            {
+                id: 56836,
+                name: 'Walking Home',
+                src: 'https://ipfs.io/ipfs/QmatrNGiVEo5RjNkV27CS2WgwhQkN7i4xN7azLrUewycXB',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1ceWH6Sd1iM15LPHUjYBFrmjeufirPzjhX',
+            },
+            {
+                id: 52492,
+                name: 'Stronger (Yeti Tears Remix)',
+                src: 'https://ipfs.io/ipfs/QmWHAQEhYuWka4hXx5MQx773tW8ZY76rdJ2io6VfrFECnV',
+                mimeType: 'audio/mpeg',
+                creator: 'ttz1ceWH6Sd1iM15LPHUjYBFrmjeufirPzjhX',
+            },
+            {
+                id: 40382,
+                name: 'The Portal',
+                src: 'https://ipfs.io/ipfs/QmWRJpiSnDcu76NvUq9CkY1U2cVaP8Z75G3nArnqbQ1eGa',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1ceWH6Sd1iM15LPHUjYBFrmjeufirPzjhX',
+            },
+            {
+                id: 35832,
+                name: 'Aerophobia',
+                src: 'https://ipfs.io/ipfs/QmekqLeahzokRF8S6PoRUj6mvXn3xJWErr6oMePkq8pQUX',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1ceWH6Sd1iM15LPHUjYBFrmjeufirPzjhX',
             },
         ],
     },
