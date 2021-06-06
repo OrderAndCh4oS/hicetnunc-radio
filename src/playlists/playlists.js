@@ -1,4 +1,9 @@
-import { playlistCoverZero, playlistCoverOne, playlistCoverTwo } from '../assets/images';
+import {
+    playlistCoverOne,
+    playlistCoverThree,
+    playlistCoverTwo,
+    playlistCoverZero,
+} from '../assets/images';
 
 export const playlists = [
     {
@@ -148,6 +153,35 @@ export const playlists = [
                 src: 'https://ipfs.io/ipfs/QmVdoqKAQNQNJ8YBGTk6pXsrXNZqvErHNzxKFg7cnPn9xj',
                 mimeType: 'audio/mpeg',
                 creator: 'tz1etmVTu5kPrSZjQPNF2nE79xyKddjwguyz',
+            },
+        ],
+    },
+    {
+        name: 'Experimental Brazil',
+        curator: 'HEN Radio',
+        description: 'Experimental Brazil',
+        img: playlistCoverThree,
+        tracks: [
+            {
+                id: 44945,
+                name: 'Bface - Touch Ya!',
+                src: 'https://ipfs.io/ipfs/Qmf9BCvmWyTwXjFiyTTswRehfSmBF2JPowYutDH1um4akG',
+                mimeType: 'audio/mpeg',
+                creator: 'tz1QJF39YnffgHKHMryknBWABVtmSKmPhJ6S',
+            },
+            {
+                id: 45003,
+                name: 'Bface - 70skrl',
+                src: `https://ipfs.io/ipfs/QmaWPAQjpotsgbv66aECT2SbbSXKDhjF9FxGrozVP2DYyn`,
+                mimeType: 'audio/mpeg',
+                creator: 'tz1QJF39YnffgHKHMryknBWABVtmSKmPhJ6S',
+            },
+            {
+                id: 44984,
+                name: 'Bface - Vida Severina',
+                src: `https://ipfs.io/ipfs/QmQJ86BBKZKmoM8bJDSZ2AohKeWv1atP21CrudQhukfU8D`,
+                mimeType: 'audio/mpeg',
+                creator: 'tz1QJF39YnffgHKHMryknBWABVtmSKmPhJ6S',
             },
         ],
     },
