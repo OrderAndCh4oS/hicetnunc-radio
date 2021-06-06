@@ -11,13 +11,11 @@ const query = gql`
     query AudioObjktData {
         hic_et_nunc_token(where: {
             mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]},
-            _and: {
-                token_holders: {
-                    quantity: {_gt: "0"},
-                    _and: {holder_id: {_neq: "tz1burnburnburnburnburnburnburjAYjjX"}}
-                }
+            token_holders: {
+                quantity: {_gt: "0"},
+                holder_id: {_neq: "tz1burnburnburnburnburnburnburjAYjjX"}
             }
-        }) {
+        }, order_by: {creator_id: asc}) {
             creator_id
         }
     }
