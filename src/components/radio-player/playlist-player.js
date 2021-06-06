@@ -25,7 +25,7 @@ const PlaylistPlayer = ({playlist}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: tracks[nextTrackKey].id,
+            currentTrack: tracks[nextTrackKey],
         }));
     };
 

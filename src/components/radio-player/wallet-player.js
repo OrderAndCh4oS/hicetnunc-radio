@@ -28,7 +28,7 @@ const WalletPlayer = ({audioObjkts, walletId}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: filteredTracks[nextTrackKey].id,
+            currentTrack: filteredTracks[nextTrackKey],
         }));
     };
 

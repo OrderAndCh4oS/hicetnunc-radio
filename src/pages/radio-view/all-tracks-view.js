@@ -44,14 +44,13 @@ const AllTracksView = () => {
 
     audio.onended = () => {
         if(!tracks.length) return;
-        // Todo: Somehow find the next track to play and start playing it.
         const nextTrackKey = (playerState.currentTrackKey + 1) % tracks.length;
         audio.src = tracks[nextTrackKey].src;
         controls.play();
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: tracks[nextTrackKey].id,
+            currentTrack: tracks[nextTrackKey],
         }));
     };
 
