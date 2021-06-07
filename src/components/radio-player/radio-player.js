@@ -53,6 +53,7 @@ const RadioPlayer = () => {
                     onClick={controls.next(tracks)}
                 >Next
                 </button>
+                {track ? <AddToPlaylist track={track}/> : null}
                 {playerState.currentTrack !== null
                     ? (
                         <div className={styles.currentTrack}>
@@ -70,7 +71,6 @@ const RadioPlayer = () => {
                         </div>
                     ) : null}
             </div>
-            {track ? <AddToPlaylist track={track}/> : null}
             {audioError && <p className={styles.errorText}>{audioError}</p>}
         </div>
     );

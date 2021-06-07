@@ -12,6 +12,7 @@
     padding: 12px 6px;
     border-radius: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .addToPlaylist_button {
@@ -20,6 +21,10 @@
     padding: 8px 0;
     border: none;
     border-bottom: 1px solid #E5E5E5;
+}
+
+.addToPlaylist_addToggle {
+    font-size: 14px;
 }
 
 .addToPlaylist_button:hover {

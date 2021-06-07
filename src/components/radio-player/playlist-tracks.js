@@ -3,7 +3,7 @@ import TrackList from '../track-list/track-list';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 
-const PlaylistPlayer = ({playlist}) => {
+const PlaylistTracks = ({playlist}) => {
     const {
         audio,
         playerState,
@@ -39,9 +39,10 @@ const PlaylistPlayer = ({playlist}) => {
                 handlePause={controls.pause}
                 handleSelectTrack={controls.selectTrack(tracks)}
                 creatorMetadata={creatorMetadata}
+                playlist={playlist}
             />
         </>
     );
-};
+}
 
-export default PlaylistPlayer;
+export default PlaylistTracks;

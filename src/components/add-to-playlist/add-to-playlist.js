@@ -18,7 +18,11 @@ const AddToPlaylist = ({track}) => {
 
     return (
         <div className={styles.addToPlaylist_container}>
-            <button onClick={toggleAddToPlaylist}>{!showList ? 'Add to Playlist' : 'Close'}</button>
+            <button
+                onClick={toggleAddToPlaylist}
+                className={styles.addToPlaylist_addToggle}
+                title='Add to Playlist'
+            >{!showList ? '+' : '×'}</button>
             {showList ? <div className={styles.addToPlaylist_list}>
                 {userPlaylists.length
                     ? userPlaylists.map(up => (

@@ -41,7 +41,6 @@ const UserPlaylistProvider = ({children}) => {
                     break;
                 }
             }
-            console.log('np', nextPlaylists);
             return setLocalStorage('user-playlists', [...nextPlaylists, ...prevState]);
         });
     };
@@ -51,11 +50,11 @@ const UserPlaylistProvider = ({children}) => {
             const nextPlaylists = [];
             while(prevState.length) {
                 const playlist = prevState.shift();
+                nextPlaylists.push(playlist);
                 if(playlist.name === playlistName) {
                     playlist.tracks = playlist.tracks.filter(t => t.name !== track.name);
                     break;
                 }
-                nextPlaylists.push(playlist);
             }
             return setLocalStorage('user-playlists', [...nextPlaylists, ...prevState]);
         });
