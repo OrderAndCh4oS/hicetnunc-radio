@@ -1,10 +1,9 @@
 import styles from './styles.module.css';
-import { playlists } from '../../playlists/playlists';
 import { playlistDefault } from '../../assets/images';
 import { useState } from 'react';
 import { getCreator } from '../../utilities/general';
 
-const Playlists = ({handlePlaylistChange}) => {
+const Playlists = ({handlePlaylistChange, playlists}) => {
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
 
     const handleSearch = (event) => {

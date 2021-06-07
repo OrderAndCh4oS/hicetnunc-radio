@@ -3,7 +3,7 @@ import getUserMetadataByWalletId from '../api/get-user-metadata-by-wallet-id';
 import useAudio from '../hooks/use-audio';
 import useRadio from '../hooks/use-radio';
 
-export const PlaylistContext = createContext({audioRef: null});
+export const PlaylistContext = createContext(null);
 
 const PlaylistProvider = ({children}) => {
     const [tracks, setTracks] = useState([]);
