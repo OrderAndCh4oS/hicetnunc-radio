@@ -5,6 +5,7 @@ import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 import { getAlias, getCreator } from '../../utilities/general';
+import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 
 const RadioPlayer = () => {
     const {
@@ -69,6 +70,7 @@ const RadioPlayer = () => {
                         </div>
                     ) : null}
             </div>
+            {track ? <AddToPlaylist track={track}/> : null}
             {audioError && <p className={styles.errorText}>{audioError}</p>}
         </div>
     );

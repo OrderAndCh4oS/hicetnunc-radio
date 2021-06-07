@@ -1,5 +1,6 @@
 .radioPlayerContainer {
     max-width: 764px;
+    margin-bottom: 32px;
 }
 
 .button {
@@ -73,7 +74,7 @@
     align-items: center;
     align-content: center;
     padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 8px;
 }
 
 .button_nextTrack {

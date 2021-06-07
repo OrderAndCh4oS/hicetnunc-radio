@@ -30,16 +30,18 @@ const UserPlaylistProvider = ({children}) => {
     };
 
     const addTrack = (playlistName, track) => {
+        console.log('t', track);
         setUserPlaylists(prevState => {
             const nextPlaylists = [];
             while(prevState.length) {
                 const playlist = prevState.shift();
+                nextPlaylists.push(playlist);
                 if(playlist.name === playlistName) {
                     playlist.tracks.push(track);
                     break;
                 }
-                nextPlaylists.push(playlist);
             }
+            console.log('np', nextPlaylists);
             return setLocalStorage('user-playlists', [...nextPlaylists, ...prevState]);
         });
     };

@@ -5,6 +5,7 @@ import PlaylistPlayer from '../../components/radio-player/playlist-player';
 import Playlists from '../../components/playlists/playlists';
 import CurrentPlaylist from '../../components/current-playlist/current-playlist';
 import useUserPlaylists from '../../hooks/use-user-playlists';
+import styles from './styles.module.css';
 
 const PlaylistView = () => {
     useTitle(`H=N Radio Playlists`);
@@ -33,10 +34,10 @@ const PlaylistView = () => {
             <CurrentPlaylist playlist={selectedPlaylist}/>
             <PlaylistPlayer playlist={selectedPlaylist}/>
             <Playlists handlePlaylistChange={handlePlaylistChange} playlists={playlists}/>
-            <div>
-                <label htmlFor='create-playlist'>Playlist Name</label>
-                <input id='create-playlist' ref={createPlaylistRef}/>
-                <button onClick={handleCreatePlaylist}>Create</button>
+            <div className={styles.createPlaylist_form}>
+                <label className={styles.createPlaylist_label} htmlFor='create-playlist'>Create Playlist</label>
+                <input className={styles.createPlaylist_input} id='create-playlist' ref={createPlaylistRef}/>
+                <button className={styles.createPlaylist_button} onClick={handleCreatePlaylist}>Create</button>
             </div>
         </>
     );
