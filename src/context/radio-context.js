@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import useAudio from '../hooks/use-audio';
+import { useEffect } from 'react/cjs/react.production.min';
 
 export const RadioContext = createContext({audioRef: null});
 
@@ -87,6 +88,20 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({...prevState, volume}));
     };
 
+    const handleVolumeUp = () => {
+        if(!audio) return;
+        const volume = playerState.volume + 0.05;
+        audio.volume = volume;
+        setPlayerState(prevState => ({...prevState, volume}));
+    };
+
+    const handleVolumeDown = () => {
+        if(!audio) return;
+        const volume = playerState.volume - 0.05;
+        audio.volume = volume;
+        setPlayerState(prevState => ({...prevState, volume}));
+    };
+
     const handleNext = (tracks) => () => {
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
@@ -140,6 +155,8 @@ const RadioProvider = ({children}) => {
                     mute: handleMute,
                     unmute: handleUnmute,
                     volume: handleVolumeChange,
+                    volumeUp: handleVolumeUp,
+                    volumeDown: handleVolumeDown,
                     next: handleNext,
                     previous: handlePrev,
                     selectTrack: handleSelectTrack,

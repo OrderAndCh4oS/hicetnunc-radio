@@ -6,6 +6,7 @@ import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 import { getAlias, getCreator } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
+import { useEffect } from 'react';
 
 const RadioPlayer = () => {
     const {
@@ -16,6 +17,40 @@ const RadioPlayer = () => {
         runningTime,
     } = useRadio();
     const {tracks, creatorMetadata} = usePlaylist();
+
+    useEffect(() => {
+        const keyUpListener = document.addEventListener('keydown', async(event) => {
+            if(!tracks) return;
+            switch(event) {
+                case 'MediaPlayPause':
+                    if(!playerState.isPlaying) { await controls.play(); } else { await controls.pause(); }
+                    break;
+                case 'MediaStop':
+                    await controls.pause();
+                    break;
+                case 'MediaTrackPrevious':
+                    await controls.previous(tracks);
+                    break;
+                case 'MediaTrackNext':
+                    await controls.next(tracks);
+                    break;
+                case 'VolumeUp':
+                    await controls.volumeUp();
+                    break;
+                case 'VolumeDown':
+                    await controls.volumeDown();
+                    break;
+                case 'VolumeMute':
+                    if(playerState.isMuted) { await controls.unmute(); } else { await controls.mute(); }
+                    break;
+                default:
+                    return;
+            }
+        });
+        return () => {
+            document.removeEventListener('keydown', keyUpListener);
+        };
+    });
 
     if(!tracks) return null;
 
