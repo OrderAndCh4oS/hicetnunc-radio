@@ -53,22 +53,6 @@
     flex-shrink: 0;
 }
 
-.createPlaylist_form {
-    padding-top: 16px;
-    margin-bottom: 40px
-}
-
-.createPlaylist_input {
-    padding: 6px 4px;
-    border: 1px solid #E5E5E5;
-    margin-bottom: 0;
-}
-
-.createPlaylist_button {
-    margin-left: 8px;
-    margin-bottom: 0;
-}
-
 .createPlaylist_label {
     display: block;
     font-weight: bold;

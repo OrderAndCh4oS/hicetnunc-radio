@@ -1,10 +1,20 @@
 import styles from './styles.module.css';
 import { playlistDefault } from '../../assets/images';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { getCreator } from '../../utilities/general';
+import useUserPlaylists from '../../hooks/use-user-playlists';
 
 const Playlists = ({handlePlaylistChange, playlists}) => {
+    const {createUserPlaylist} = useUserPlaylists();
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
+    const createPlaylistRef = createRef();
+
+    const handleCreatePlaylist = () => {
+        if(!createPlaylistRef.current) return;
+        if(!createPlaylistRef.current.value) alert('Enter a playlist name');
+        createUserPlaylist(createPlaylistRef.current.value);
+        createPlaylistRef.current.value = '';
+    };
 
     const handleSearch = (event) => {
         const search = event.target.value.toLowerCase();
@@ -24,7 +34,28 @@ const Playlists = ({handlePlaylistChange, playlists}) => {
 
     return <div className={styles.playlistContainer}>
         <h2 className={styles.playlistTitle}>Playlists</h2>
-        <input className={styles.searchInput} onKeyUp={handleSearch}/>
+        <div className={styles.playlistInputBar}>
+            <div className={styles.createPlaylist_form}>
+                <input
+                    className={styles.createPlaylist_input}
+                    id='create-playlist'
+                    ref={createPlaylistRef}
+                    title='Create Playlist'
+                    placeholder='Playlist Title'
+                />
+                <button
+                    className={styles.createPlaylist_button}
+                    onClick={handleCreatePlaylist}
+                >Create Playlist</button>
+            </div>
+            <div className={styles.searchInput_container}>
+                <input
+                    className={styles.searchInput}
+                    placeholder={'Search Playlists'}
+                    onKeyUp={handleSearch}
+                />
+            </div>
+        </div>
         {!filteredPlaylists.length
             ? (
                 <div className={styles.playlistGrid}>
