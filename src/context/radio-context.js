@@ -11,7 +11,7 @@ const RadioProvider = ({children}) => {
     const [playerState, setPlayerState] = useState({
         playing: false,
         currentTrackKey: 0,
-        currentId: null,
+        currentTrack: null,
         isPlaying: null,
         isMuted: false,
         volume: 0.5,
@@ -56,7 +56,7 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: i,
-            currentId: tracks[i].id,
+            currentTrack: tracks[i],
             isPlaying: true,
         }));
     };
@@ -100,7 +100,7 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: nextTrackKey,
-            currentId: tracks[nextTrackKey].id,
+            currentTrack: tracks[nextTrackKey],
         }));
     };
 
@@ -118,11 +118,11 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({
             ...prevState,
             currentTrackKey: prevTrackKey,
-            currentId: tracks[prevTrackKey].id,
+            currentTrack: tracks[prevTrackKey],
         }));
     };
 
-    const isTrackPlaying = id => playerState.isPlaying && playerState.currentId === id;
+    const isTrackPlaying = id => playerState.isPlaying && playerState.currentTrack?.id === id;
 
     return (
         <RadioContext.Provider

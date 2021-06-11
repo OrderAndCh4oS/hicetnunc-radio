@@ -1,5 +1,6 @@
 .radioPlayerContainer {
     max-width: 764px;
+    margin-bottom: 32px;
 }
 
 .button {
@@ -73,11 +74,12 @@
     align-items: center;
     align-content: center;
     padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 8px;
 }
 
 .button_nextTrack {
     margin-left: 8px;
+    margin-right: 8px;
 }
 
 .button_prevTrack {
@@ -185,16 +187,35 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
     background: #151515;
 }
 
+.trackRow_text {
+    display: block;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.trackRow_link {
+    color: #000;
+    text-decoration: none;
+}
+
+.trackRow_link:active, .trackRow_link:focus, .trackRow_link:visited {
+    color: #000;
+    text-decoration: underline;
+}
+
 @media screen and (min-width: 600px) {
     .controlsHolder {
         width: auto;
     }
+
     .playerBar {
         flex-wrap: nowrap;
     }
+
     .runningTime {
         margin-left: 8px;
     }
+
     .errorText {
         color: #cd0117;
         font-size: 14px;

@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { HashRouter } from 'react-router-dom';
 import RadioProvider from './context/radio-context';
 import AudioProvider from './context/audio-context';
+import PlaylistProvider from './context/playlist-context';
 import WalletProvider from './context/wallet-context';
+import UserPlaylistProvider from './context/user-playlists-context';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -14,7 +16,11 @@ ReactDOM.render(
             <WalletProvider>
                 <AudioProvider>
                     <RadioProvider>
-                        <App/>
+                        <UserPlaylistProvider>
+                            <PlaylistProvider>
+                                <App/>
+                            </PlaylistProvider>
+                        </UserPlaylistProvider>
                     </RadioProvider>
                 </AudioProvider>
             </WalletProvider>

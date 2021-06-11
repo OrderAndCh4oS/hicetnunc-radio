@@ -2,6 +2,8 @@ import styles from './styles.module.css';
 import PauseIcon from '../radio-player/pause-icon';
 import PlayIcon from '../radio-player/play-icon';
 import { getAlias, getCreator } from '../../utilities/general';
+import AddToPlaylist from '../add-to-playlist/add-to-playlist';
+import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 
 const TrackList = ({
     tracks,
@@ -9,6 +11,7 @@ const TrackList = ({
     handlePause,
     handleSelectTrack,
     creatorMetadata,
+    playlist,
 }) => <>
     {!tracks.length ? <p>No audio tracks available</p> : (
         <div>
@@ -26,6 +29,14 @@ const TrackList = ({
                                 onClick={handleSelectTrack(i)}
                             ><PlayIcon/></button>
                         )}
+                    {
+                        playlist?.curator === 'Mine'
+                            ? <RemoveFromPlaylist
+                                playlistName={playlist.name}
+                                track={t}
+                            />
+                            : <AddToPlaylist track={t}/>
+                    }
                     <span className={styles.trackRow_text}>
                         <a
                             href={`https://hicetnunc.xyz/objkt/${t.id}`}

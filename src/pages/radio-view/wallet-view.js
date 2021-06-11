@@ -9,7 +9,13 @@ import getUserMetadataByWalletId from '../../api/get-user-metadata-by-wallet-id'
 
 const query = gql`
     query AudioObjktData {
-        hic_et_nunc_token(where: {mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]}}) {
+        hic_et_nunc_token(where: {
+            mime: {_in: ["audio/ogg", "audio/wav", "audio/mpeg"]},
+            token_holders: {
+                quantity: {_gt: "0"},
+                holder_id: {_neq: "tz1burnburnburnburnburnburnburjAYjjX"}
+            }
+        }, order_by: {creator_id: asc}) {
             creator_id
         }
     }
@@ -23,7 +29,6 @@ const WalletView = () => {
 
     useEffect(() => {
         if(!tz || tz === walletId) return;
-        console.log('tz', tz);
         setWalletId(tz);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tz]);
@@ -65,6 +70,16 @@ const WalletView = () => {
 
     return (
         <>
+            {objktData ? (
+                <>
+                    {isLoading ? <p>Loading...</p> : <>
+                        <WalletPlayer
+                            audioObjkts={objktData}
+                            walletId={walletId}
+                        />
+                    </>}
+                </>
+            ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <div className={styles.walletIdEntry}>
                 <input
                     className={styles.walletInput}
@@ -80,16 +95,6 @@ const WalletView = () => {
                 </button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
-            {objktData ? (
-                <>
-                    {isLoading ? <p>Loading...</p> : <>
-                        <WalletPlayer
-                            audioObjkts={objktData}
-                            walletId={walletId}
-                        />
-                    </>}
-                </>
-            ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <div>
                 <h2 className={styles.walletTitle}>Wallets</h2>
                 {walletsWithAudio.map((w) => (
@@ -102,8 +107,10 @@ const WalletView = () => {
                             onClick={handleWalletIdSelect(w.walletId)}
                         >{w.walletId}</button>
                         {w.twitter ? <div>
-                            <a className={styles.walletRow_alias}
-                               href={`https://twitter.com/${w.twitter}`}>
+                            <a
+                                className={styles.walletRow_alias}
+                                href={`https://twitter.com/${w.twitter}`}
+                            >
                                 @{w.twitter}
                             </a>
                         </div> : null}
