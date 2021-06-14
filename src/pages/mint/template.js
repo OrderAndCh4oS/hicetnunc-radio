@@ -1,207 +1,20 @@
-const template = 
-
-
-`
-
-    <!doctype html>
+const template = `
+<!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="hen-audio-html-container">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta property="og:image" content="cover.jpg" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Plays on HEN.RADIO</title>
-    <style>
-        html,
-        body {
-            color: #1d1d1b;
-            background: #191919;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p {
-            margin: 0;
-            padding: 0;
-            font-size: 11px;
-        }
-
-        .button {
-            border: none;
-            background: none;
-        }
-
-        .controls-holder {
-            display: flex;
-            z-index: 1;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .button--player-control {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            margin: 0 6px;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            align-self: flex-end;
-        }
-
-
-        .button--play svg {
-            width: 16px;
-            height: auto;
-            margin-top: 10px;
-        }
-
-        .button--mute svg {
-            width: 24px;
-            height: auto;
-            margin-top: 8px
-        }
-
-        .button--unmute svg {
-            width: 24px;
-            height: auto;
-            margin-top: 7px;
-        }
-
-        .button--pause svg {
-            width: 17px;
-            height: auto;
-            margin-top: 10px;
-        }
-
-        .player-bar {
-            display: flex;
-            justify-content: center;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-        }
-
-        .logo-holder {
-            display: flex;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            background-color: transparent;
-            width: 100%;
-            position: relative;
-            top: -2px;
-            margin: 11.5px 0;
-        }
-
-        input[type="range"]:focus {
-            outline: none;
-        }
-
-        input[type="range"]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            /*  box-shadow: 1px 1px 1px rgba(7, 7, 17, 0.15), 0 0 1px rgba(79, 176, 81, 0.2);*/
-            background: #fff;
-            border-radius: 8px;
-            /*border: 0 solid rgba(79, 176, 81, 0.2);*/
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            /*box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);*/
-            height: 20px;
-            width: 6px;
-            border-radius: 4.5px;
-            background: #1d1d1b;
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -8px;
-        }
-
-        input[type="range"]:focus::-webkit-slider-runnable-track {
-            background: #fff;
-        }
-
-        input[type="range"]::-moz-range-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            box-shadow: 1px 1px 1px rgba(7, 7, 17, 0.15), 0 0 1px rgba(79, 176, 81, 0.2);
-            background: #fff;
-            border-radius: 8px;
-            border: 0 solid rgba(79, 176, 81, 0.2);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);
-            height: 20px;
-            width: 6px;
-            border-radius: 4.5px;
-            background: #1d1d1b;
-            cursor: pointer;
-        }
-
-        input[type="range"]::-ms-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: transparent;
-            border-color: transparent;
-            color: transparent;
-        }
-
-        input[type="range"]::-ms-fill-lower {
-            background: #fff;
-            border: 0 solid rgba(79, 176, 81, 0.2);
-            border-radius: 4.5px;
-            box-shadow: 1px 1px 1px rgba(7, 7, 17, 0.15), 0 0 1px rgba(79, 176, 81, 0.2);
-        }
-
-        input[type="range"]::-ms-fill-upper {
-            background: #fff;
-            border: 0 solid rgba(79, 176, 81, 0.2);
-            border-radius: 4.5px;
-            box-shadow: 1px 1px 1px rgba(79, 176, 81, 0.4), 0 0 1px rgba(79, 176, 81, 0.2);
-        }
-
-        input[type="range"]::-ms-thumb {
-            box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);
-            width: 6px;
-            border-radius: 4.5px;
-            background: #1d1d1b;
-            cursor: pointer;
-            height: 4px;
-        }
-
-        input[type="range"]:focus::-ms-fill-lower {
-            background: #fff;
-        }
-
-        input[type="range"]:focus::-ms-fill-upper {
-            background: #fff;
-        }
-    </style>
+    <title>Hic et Nunc: Audio Track</title>
+    <link type="text/css" rel="stylesheet" href="styles.css"/>
 </head>
-
 <body>
     <audio id="radio-stream" src="music.mp3"></audio>
+    <div class="cover-holder">
+        <img class="cover" src="cover.jpg" alt="">
+    </div>
     <div class="player-bar">
-        <div class="logo-holder">
-            <a href="https://hen.radio/" title="Visit Hen.Radio">
-                <img class="logo" src="cover.jpg" alt="Hen.Radio">
-            </a>
-        </div>
         <div class="controls-holder">
             <button id="play" class="button button--play button--player-control">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -223,7 +36,6 @@ const template =
         </div>
     </div>
     <script>
-        // https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API
         let currentVolume = 0.5;
 
         const playIcon = \`
@@ -276,51 +88,8 @@ const template =
         const play = document.getElementById('play');
         const mute = document.getElementById('mute');
         const volume = document.getElementById('volume');
-        // const canvas = document.getElementById('canvas');
-        const currentShowView = document.getElementById('current-show');
-        //let width = canvas.width = window.innerWidth;
-        //let height = canvas.height = 60;
-        //const context = canvas.getContext('2d');
         const isPlaying = makeToggle(false);
         const isMuted = makeToggle(false);
-        const currentShow = {
-            state: {
-                title: 'Loading...',
-                description: '',
-                presenters: [],
-                times: '',
-            },
-            set: (data, times) => {
-                this.state = {
-                    title: data.radio_show.name,
-                    description: data.radio_show.description,
-                    presenters: data.radio_show.presenters.map(p => p.name),
-                    times
-                }
-            },
-            get: () => this.state,
-            update: () => {
-                const holder = document.createElement('div');
-                const title = document.createElement('h2');
-                const description = document.createElement('p');
-                const presenters = document.createElement('p');
-                const times = document.createElement('p');
-                holder.classList.add('show-holder');
-                title.classList.add('show-title');
-                description.classList.add('show-description');
-                presenters.classList.add('show-presenters');
-                times.classList.add('show-times');
-                title.innerText = this.state.title;
-                description.innerText = this.state.description;
-                presenters.innerText = 'Presented by ' + this.state.presenters.join(', ');
-                times.innerText = this.state.times;
-                holder.append(title);
-                holder.append(presenters);
-                holder.append(times);
-                currentShowView.innerHTML = "";
-                currentShowView.append(holder);
-            }
-        };
 
         const padTime = (time) => {
             while (time.toString().length < 2) {
@@ -328,10 +97,6 @@ const template =
             }
             return time;
         }
-
-        const getTimes = (startTime, endTime) =>
-            \`\${startTime.getHours()}:\${padTime(startTime.getMinutes())}—\` +
-            \`\${endTime.getHours()}:\${padTime(endTime.getMinutes())}\`
 
         const initAudioContext = () => {
             if (!audioContext) {
@@ -380,16 +145,16 @@ const template =
         };
 
         const handleResize = () => {
-            //width = canvas.width = window.innerWidth;
+            // Todo: Implement resize handler
         };
 
         play.addEventListener('click', handlePlayClick);
         mute.addEventListener('click', handleMuteClick);
         volume.addEventListener('change', handleVolumeChange);
         window.addEventListener('resize', handleResize);
-
     </script>
 </body>
 
-</html>`
+</html>
+`
 export default template;

@@ -26,6 +26,7 @@ import {
 //for template
 import JSZip from 'jszip';
 import mintTemplate from './template';
+import styles from './styles.js';
 
 ///////////////////////////////////////////////////
 
@@ -176,10 +177,12 @@ const MintView = () => {
   }
 
   const zipAndSetFile = () => {
+    console.log(styles);
     var zip = new JSZip();
     zip.file("cover.jpg", audioCover);
     zip.file("music.mp3", audioFile);
     zip.file("index.html", mintTemplate);
+    zip.file("styles.css", styles);
 
     zip.generateAsync({ type: "blob" })
       .then(async (content) => {
