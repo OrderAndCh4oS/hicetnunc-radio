@@ -1,0 +1,37 @@
+@import '../../styles/layout.scss';
+
+.container {
+  display: flex;
+  flex-direction: column !important;
+
+  .media,
+  .info {
+    width: 100%;
+  }
+
+  .info {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  @include respond-to('tablet') {
+    flex-direction: initial;
+
+    .media,
+    .info {
+      width: 100%;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+
+      .title,
+      .description {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
