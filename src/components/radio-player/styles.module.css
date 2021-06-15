@@ -1,5 +1,5 @@
 .radioPlayerContainer {
-    max-width: 764px;
+    max-width: 600px;
     margin-bottom: 32px;
 }
 
@@ -60,6 +60,10 @@
 
 .runningTime {
     padding-top: 4px;
+}
+
+.scrubber {
+    margin-bottom: 12px;
 }
 
 .currentTrack {
@@ -201,6 +205,12 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
 .trackRow_link:active, .trackRow_link:focus, .trackRow_link:visited {
     color: #000;
     text-decoration: underline;
+}
+
+.waveform {
+    height: 50px;
+    width: 100%;
+    background-color: #ffffff;
 }
 
 @media screen and (min-width: 600px) {

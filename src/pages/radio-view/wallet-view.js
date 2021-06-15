@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
-import WalletPlayer from '../../components/radio-player/wallet-player';
+import WalletTrackList from '../../components/track-lists/wallet-track-list';
 import { useHistory, useParams } from 'react-router';
 import useTitle from '../../hooks/use-title';
 import useWallet from '../../hooks/use-wallet';
@@ -73,7 +73,7 @@ const WalletView = () => {
             {objktData ? (
                 <>
                     {isLoading ? <p>Loading...</p> : <>
-                        <WalletPlayer
+                        <WalletTrackList
                             audioObjkts={objktData}
                             walletId={walletId}
                         />

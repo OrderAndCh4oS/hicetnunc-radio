@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import TrackList from '../track-list/track-list';
+import TrackList from './track-list';
 import FilterTypes from '../../enums/filter-types';
-import TracksFilterBar from '../track-list/tracks-filter-bar';
+import TracksFilterBar from './tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 
-const WalletPlayer = ({audioObjkts, walletId}) => {
+const WalletTrackList = ({audioObjkts, walletId}) => {
     const {
         audio,
         playerState,
@@ -37,10 +37,10 @@ const WalletPlayer = ({audioObjkts, walletId}) => {
             id: o.token_id,
             creator: o.token_info.creators[0],
             name: o.token_info.name,
-            src: `https://cloudflare-ipfs.com/ipfs/${o.token_info.artifactUri.slice(7)}`,
+            src: `https://ipfs.io/ipfs/${o.token_info.artifactUri.slice(7)}`,
             mimeType: o.token_info.formats[0].mimeType,
         })));
-    }, [audioObjkts]);
+    }, [audioObjkts, setTracks]);
 
     useEffect(() => {
         if(!tracks) return;
@@ -67,12 +67,10 @@ const WalletPlayer = ({audioObjkts, walletId}) => {
             <TrackList
                 tracks={filteredTracks}
                 isTrackPlaying={isTrackPlaying}
-                handlePause={controls.pause}
-                handleSelectTrack={controls.selectTrack(filteredTracks)}
                 creatorMetadata={creatorMetadata}
             />
         </>
     );
 };
 
-export default WalletPlayer;
+export default WalletTrackList;

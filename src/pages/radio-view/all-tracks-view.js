@@ -1,5 +1,5 @@
 import useTitle from '../../hooks/use-title';
-import TrackList from '../../components/track-list/track-list';
+import TrackList from '../../components/track-lists/track-list';
 import useRadio from '../../hooks/use-radio';
 import { useEffect } from 'react';
 import { gql, request } from 'graphql-request';
@@ -61,7 +61,7 @@ const AllTracksView = () => {
                 id: o.id,
                 creator: o.creator_id,
                 name: o.title,
-                src: `https://cloudflare-ipfs.com/ipfs/${o.artifact_uri.slice(7)}`,
+                src: `https://ipfs.io/ipfs/${o.artifact_uri.slice(7)}`,
                 mimeType: o.mime,
             })));
         })();
@@ -75,8 +75,6 @@ const AllTracksView = () => {
             <TrackList
                 tracks={tracks}
                 isTrackPlaying={isTrackPlaying}
-                handlePause={controls.pause}
-                handleSelectTrack={controls.selectTrack(tracks)}
                 creatorMetadata={creatorMetadata}
             />
         </>

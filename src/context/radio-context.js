@@ -1,14 +1,14 @@
-import { createContext, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import useAudio from '../hooks/use-audio';
-import { useEffect } from 'react/cjs/react.production.min';
 
 export const RadioContext = createContext({audioRef: null});
 
 let rAF;
 
 const RadioProvider = ({children}) => {
-    const {audio, audioContext} = useAudio();
+    const scrubberRef = useRef();
 
+    const {audio, audioContext, fetchSrc} = useAudio();
     const [playerState, setPlayerState] = useState({
         playing: false,
         currentTrackKey: 0,
@@ -22,16 +22,16 @@ const RadioProvider = ({children}) => {
     const [audioError, setAudioError] = useState(null);
 
     const updateTrackPlayDuration = (audioEl) => () => {
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
         setRunningTime(audioEl.currentTime);
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audioEl));
     };
 
     const playAudio = async() => {
         try {
             cancelAnimationFrame(rAF);
-            rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
             await audioContext.resume();
             await audio.play();
+            rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
         } catch(e) {
             setAudioError('Failed to play track, possibly unsupported media.');
             setTimeout(() => {
@@ -49,9 +49,7 @@ const RadioProvider = ({children}) => {
 
     const handleSelectTrack = (tracks) => i => async() => {
         cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
-        audio.src = tracks[i].src;
-        audio.mimeType = tracks[i].mimeType;
+        await fetchSrc(tracks[i].src, tracks[i].mimeType);
         await playAudio();
         setRunningTime(0);
         setPlayerState(prevState => ({
@@ -60,6 +58,7 @@ const RadioProvider = ({children}) => {
             currentTrack: tracks[i],
             isPlaying: true,
         }));
+        rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
     };
 
     const handlePause = () => {
@@ -79,6 +78,25 @@ const RadioProvider = ({children}) => {
         if(!audio) return;
         audio.volume = playerState.volume;
         setPlayerState(prevState => ({...prevState, isMuted: false}));
+    };
+
+    let timer;
+    let throttle = 3;
+    let lastTime = +new Date();
+    const handleTimeChange = (event) => {
+        if(!audio) return;
+        const changeTime = () => {
+            const timePercent = event.target.value;
+            audio.currentTime = timePercent * audio.duration;
+        }
+        if(timer) clearTimeout(timer);
+        const now = +new Date();
+        if(now - lastTime > throttle) {
+            changeTime();
+            lastTime = now;
+            return;
+        }
+        timer = setTimeout(changeTime, 5);
     };
 
     const handleVolumeChange = (event) => {
@@ -149,12 +167,14 @@ const RadioProvider = ({children}) => {
                 setPlayerState,
                 isTrackPlaying,
                 runningTime,
+                scrubberRef,
                 controls: {
                     play: handlePlay,
                     pause: handlePause,
                     mute: handleMute,
                     unmute: handleUnmute,
                     volume: handleVolumeChange,
+                    time: handleTimeChange,
                     volumeUp: handleVolumeUp,
                     volumeDown: handleVolumeDown,
                     next: handleNext,

@@ -15,6 +15,7 @@ const RadioPlayer = () => {
         playerState,
         controls,
         runningTime,
+        scrubberRef,
     } = useRadio();
     const {tracks, creatorMetadata} = usePlaylist();
 
@@ -76,6 +77,19 @@ const RadioPlayer = () => {
                 <div className={styles.runningTime}>
                     {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
                 </div>
+            </div>
+            <div className={styles.scrubber}>
+                <input
+                    ref={scrubberRef}
+                    className={styles.radioRange}
+                    title="time"
+                    type="range"
+                    value={runningTime ? runningTime / audio.duration : 0}
+                    min="0"
+                    max="1"
+                    step="0.001"
+                    onChange={controls.time}
+                />
             </div>
             <div className={styles.nextPrevControls}>
                 <button

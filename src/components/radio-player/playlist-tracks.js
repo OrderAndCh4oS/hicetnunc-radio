@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import TrackList from '../track-list/track-list';
+import TrackList from '../track-lists/track-list';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 
@@ -32,16 +32,12 @@ const PlaylistTracks = ({playlist}) => {
     if(!tracks) return <p>Loading...</p>;
 
     return (
-        <>
             <TrackList
                 tracks={tracks}
                 isTrackPlaying={isTrackPlaying}
-                handlePause={controls.pause}
-                handleSelectTrack={controls.selectTrack(tracks)}
                 creatorMetadata={creatorMetadata}
                 playlist={playlist}
             />
-        </>
     );
 }
 
