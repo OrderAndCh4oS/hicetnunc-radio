@@ -407,5 +407,4 @@ class HicetnuncContextProviderClass extends Component {
   }
 }
 
-const HicetnuncContextProvider = HicetnuncContextProviderClass
-export default HicetnuncContextProvider
+export default HicetnuncContextProviderClass
