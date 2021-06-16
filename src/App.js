@@ -12,6 +12,7 @@ import RadioPlayer from './components/radio-player/radio-player';
 import HicetnuncContextProvider from './mint/context/HicetnuncContext'
 import MintView from './pages/mint/mint-view';
 
+
 function App() {
     const { walletId } = useWallet();
 

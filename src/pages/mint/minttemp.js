@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Compressor from 'compressorjs'
-
-import { HicetnuncContext } from '../../mint/context/HicetnuncContext'
-import { Page, Container, Padding } from '../../mint/components/layout'
-import { Input } from '../../mint/components/input'
-import { Button, Curate, Primary } from '../../mint/components/button'
-import { Upload } from '../../mint/components/upload'
-import { Preview } from '../../mint/components/preview'
-import { prepareFile, prepareDirectory } from '../../mint/data/ipfs'
-import { prepareFilesFromZIP } from '../../mint/utils/html'
+import { HicetnuncContext } from '../../context/HicetnuncContext'
+import { Page, Container, Padding } from '../../components/layout'
+import { Input } from '../../components/input'
+import { Button, Curate, Primary } from '../../components/button'
+import { Upload } from '../../components/upload'
+import { Preview } from '../../components/preview'
+import { prepareFile, prepareDirectory } from '../../data/ipfs'
+import { prepareFilesFromZIP } from '../../utils/html'
 import {
   ALLOWED_MIMETYPES,
   ALLOWED_FILETYPES_LABEL,
@@ -19,21 +18,7 @@ import {
   MAX_EDITIONS,
   MIN_ROYALTIES,
   MAX_ROYALTIES,
-} from '../../mint/constants'
-
-//for template
-import JSZip from 'jszip';
-import mintTemplate from './template';
-import styles from './styles.js';
-import { FeedbackComponent } from '../../mint/components/feedback'
-
-const ALLOWED_AUDIO_MIMETYPES = [
-  MIMETYPE.MP3,
-]
-const ALLOWED_AUDIO_FILETYPES_LABEL = ['mp3']
-
-///////////////////////////////////////////////////
-
+} from '../../constants'
 
 const coverOptions = {
   quality: 0.85,
@@ -50,8 +35,7 @@ const thumbnailOptions = {
 // @crzypathwork change to "true" to activate displayUri and thumbnailUri
 const GENERATE_DISPLAY_AND_THUMBNAIL = true
 
-const MintView = () => {
-  console.log(prepareFilesFromZIP)
+export const Mint = () => {
   const { mint, getAuth, acc, setAccount, setFeedback, syncTaquito } =
     useContext(HicetnuncContext)
   // const history = useHistory()
@@ -61,22 +45,13 @@ const MintView = () => {
   const [tags, setTags] = useState('')
   const [amount, setAmount] = useState()
   const [royalties, setRoyalties] = useState()
-  const [zipFile, setZipFile] = useState() // the uploaded file
-  const [cover, setCover] = useState() // the uploaded or generated cover image, as it appears in the collection
+  const [file, setFile] = useState() // the uploaded file
+  const [cover, setCover] = useState() // the uploaded or generated cover image
   const [thumbnail, setThumbnail] = useState() // the uploaded or generated cover image
-
-
-  ////////////////////////////////////////////////////
-
-  const [audioCover, setAudioCover] = useState(''); // the image displayed when we view the objkt
-  const [audioFile, setAudioFile] = useState('');
-
-  ///////////////////////////////////
+  const [needsCover, setNeedsCover] = useState(false)
 
   const handleMint = async () => {
-    console.log(acc)
     if (!acc) {
-      console.log('need syn wallet')
       // warning for sync
       setFeedback({
         visible: true,
@@ -84,19 +59,17 @@ const MintView = () => {
         progress: true,
         confirm: false,
       })
-      console.log('need syn wallet2')
+
       await syncTaquito()
-      console.log('need syn wallet3')
+
       setFeedback({
         visible: false,
       })
-      console.log('need syn wallet4')
     } else {
-      console.log(acc)
-      console.log('set wallet')
       await setAccount()
+
       // check mime type
-      if (ALLOWED_MIMETYPES.indexOf(zipFile.mimeType) === -1) {
+      if (ALLOWED_MIMETYPES.indexOf(file.mimeType) === -1) {
         // alert(
         //   `File format invalid. supported formats include: ${ALLOWED_FILETYPES_LABEL.toLocaleLowerCase()}`
         // )
@@ -115,7 +88,7 @@ const MintView = () => {
       }
 
       // check file size
-      const filesize = (zipFile.size / 1024 / 1024).toFixed(4)
+      const filesize = (file.file.size / 1024 / 1024).toFixed(4)
       if (filesize > MINT_FILESIZE) {
         // alert(
         //   `File too big (${filesize}). Limit is currently set at ${MINT_FILESIZE}MB`
@@ -148,14 +121,11 @@ const MintView = () => {
       // upload file(s)
       let nftCid
       if (
-        [MIMETYPE.ZIP, MIMETYPE.ZIP1, MIMETYPE.ZIP2].includes(zipFile.mimeType)
+        [MIMETYPE.ZIP, MIMETYPE.ZIP1, MIMETYPE.ZIP2].includes(file.mimeType)
       ) {
-        let uint8View = new Uint8Array(zipFile.buffer);
-        const files = await prepareFilesFromZIP(uint8View)
-console.log("here")
-console.log(cover)
-console.log(files)
-          nftCid = await prepareDirectory({
+        const files = await prepareFilesFromZIP(file.buffer)
+
+        nftCid = await prepareDirectory({
           name: title,
           description,
           tags,
@@ -172,8 +142,8 @@ console.log(files)
           description,
           tags,
           address: acc.address,
-          buffer: zipFile.buffer,
-          mimeType: zipFile.mimeType,
+          buffer: file.buffer,
+          mimeType: file.mimeType,
           cover,
           thumbnail,
           generateDisplayUri: GENERATE_DISPLAY_AND_THUMBNAIL,
@@ -184,27 +154,21 @@ console.log(files)
     }
   }
 
-  const zipAndSetFile = () => {
-    var zip = new JSZip();
-    zip.file("cover.jpg", audioCover);
-    zip.file("music.mp3", audioFile);
-    zip.file("index.html", mintTemplate);
-    zip.file("styles.css", styles);
-
-    zip.generateAsync({ type: "blob" })
-      .then(async (content) => {
-        const mimeType = "application/zip";
-        const buffer = await content.arrayBuffer();
-        const reader = await blobToDataURL(content);
-        setZipFile({ mimeType, buffer, reader, content })
-      });
-
-
+  const handlePreview = () => {
+    setStep(1)
   }
 
-  const handlePreview = () => {
+  const handleFileUpload = async (props) => {
+    setFile(props)
 
-    setStep(1)
+    if (GENERATE_DISPLAY_AND_THUMBNAIL) {
+      if (props.mimeType.indexOf('image') === 0) {
+        setNeedsCover(false)
+        await generateCoverAndThumbnail(props)
+      } else {
+        setNeedsCover(true)
+      }
+    }
   }
 
   const generateCompressedImage = async (props, options) => {
@@ -213,15 +177,6 @@ console.log(files)
     const buffer = await blob.arrayBuffer()
     const reader = await blobToDataURL(blob)
     return { mimeType, buffer, reader }
-    //const compressedImg = new File([blob], "cover")
-    //return compressedImg
-  }
-
-  const generateCompressedImgForZip = async (props, options) => {
-    const blob = await compressImage(props.file, options)
-
-    const compressedImg = new File([blob], "cover")
-    return compressedImg
   }
 
   const compressImage = (file, options) => {
@@ -247,14 +202,6 @@ console.log(files)
     })
   }
 
-  const handleAudioUpload = (props) => {
-    setAudioFile(props.file);
-  }
-
-  useEffect(() => {
-    if (audioCover && audioFile) { zipAndSetFile(); }
-  },[audioCover, audioFile]);
-
   const handleCoverUpload = async (props) => {
     await generateCoverAndThumbnail(props)
   }
@@ -264,15 +211,11 @@ console.log(files)
     if (props.mimeType === MIMETYPE.GIF) {
       setCover(props)
       setThumbnail(props)
-      setAudioCover(props)
       return
     }
 
     const cover = await generateCompressedImage(props, coverOptions)
     setCover(cover)
-
-    const zipImg = await generateCompressedImgForZip(props, coverOptions)
-    setAudioCover(zipImg)
 
     const thumb = await generateCompressedImage(props, thumbnailOptions)
     setThumbnail(thumb)
@@ -286,16 +229,27 @@ console.log(files)
   }
 
   const handleValidation = () => {
-    // display the preview btn once the zip is ready
-    return zipFile ? false :true;
-
+    if (
+      amount <= 0 ||
+      amount > MAX_EDITIONS ||
+      royalties < MIN_ROYALTIES ||
+      royalties > MAX_ROYALTIES ||
+      !file
+    ) {
+      return true
+    }
+    if (GENERATE_DISPLAY_AND_THUMBNAIL) {
+      if (cover && thumbnail) {
+        return false
+      }
+    } else {
+      return false
+    }
+    return true
   }
-
-
 
   return (
     <Page title="mint" large>
-                  <FeedbackComponent />
       {step === 0 && (
         <>
           <Container>
@@ -357,21 +311,28 @@ console.log(files)
           </Container>
 
           <Container>
-            <form>
+            <Padding>
               <Upload
-                label="Upload cover image"
-                allowedTypes={ALLOWED_COVER_MIMETYPES}
-                allowedTypesLabel={ALLOWED_COVER_FILETYPES_LABEL}
-                onChange={handleCoverUpload}
+                label="Upload OBJKT"
+                allowedTypesLabel={ALLOWED_FILETYPES_LABEL}
+                onChange={handleFileUpload}
               />
-              <Upload
-                label="Upload music file"
-                allowedTypes={ALLOWED_AUDIO_MIMETYPES}
-                allowedTypesLabel={ALLOWED_AUDIO_FILETYPES_LABEL}
-                onChange={handleAudioUpload}
-              />
-            </form>
+            </Padding>
           </Container>
+
+          {file && needsCover && (
+            <Container>
+              <Padding>
+                <Upload
+                  label="Upload cover image"
+                  allowedTypes={ALLOWED_COVER_MIMETYPES}
+                  allowedTypesLabel={ALLOWED_COVER_FILETYPES_LABEL}
+                  onChange={handleCoverUpload}
+                />
+              </Padding>
+            </Container>
+          )}
+
           <Container>
             <Padding>
               <Button onClick={handlePreview} fit disabled={handleValidation()}>
@@ -399,8 +360,8 @@ console.log(files)
           <Container>
             <Padding>
               <Preview
-                mimeType={zipFile.mimeType}
-                uri={zipFile.reader}
+                mimeType={file.mimeType}
+                previewUri={file.reader}
                 title={title}
                 description={description}
                 tags={tags}
@@ -427,5 +388,3 @@ console.log(files)
     </Page>
   )
 }
-
-export default MintView;

@@ -15,8 +15,15 @@ export const setBanBlockList = (data) => (banBlockList = data)
 export const getBanBlockList = () => banBlockList
 
 export const PATH = {
+  FEED: '/',
+  ISSUER: '/tz',
+  ABOUT: '/about',
+  FAQ: '/faq',
+  SYNC: '/sync',
   MINT: '/mint',
-
+  OBJKT: '/objkt',
+  GALLERY: '/gallery',
+  TAGS: '/tags',
 }
 
 export const MINT_MIN_LIMIT = 1
@@ -53,40 +60,26 @@ export const ALLOWED_MIMETYPES = Object.keys(MIMETYPE)
   .map((k) => MIMETYPE[k])
   .filter((e) => e !== MIMETYPE.GLTF) // disabling GLTF from new updates
 
-  /*
 export const ALLOWED_FILETYPES_LABEL = Object.entries(MIMETYPE)
   .filter((e) => ALLOWED_MIMETYPES.includes(e[1]))
   .filter((e) => !['ZIP1', 'ZIP2'].includes(e[0]))
   .map((e) => (e[0] === 'ZIP' ? 'HTML (ZIP ARCHIVE)' : e[0]))
-  .join(', ')*/
-
-export const ALLOWED_FILETYPES_LABEL = [
-  MIMETYPE.JPEG,
-  MIMETYPE.PNG,
-  MIMETYPE.GIF,
-  MIMETYPE.MP3,
-]
-
+  .join(', ')
 
 export const ALLOWED_COVER_MIMETYPES = [
   MIMETYPE.JPEG,
   MIMETYPE.PNG,
   MIMETYPE.GIF,
-]
-
-export const ALLOWED_AUDIO_MIMETYPES = [
-  MIMETYPE.MP3,
+  MIMETYPE.MP4,
 ]
 
 export const ALLOWED_COVER_FILETYPES_LABEL = ['jpeg, png, gif']
-export const ALLOWED_AUDIO_FILETYPES_LABEL = ['mp3']
 
-export const MAX_EDITIONS = 10000  // Limited by contract
+export const MAX_EDITIONS = 10000 // Limited by contract
 
-export const MIN_ROYALTIES = 10    // Limited by contract
+export const MIN_ROYALTIES = 10 // Limited by contract
 
-export const MAX_ROYALTIES = 25    // Limited by contract
+export const MAX_ROYALTIES = 25 // Limited by contract
 
-// ? the name of this should be IPFS_THUMBNAIL_URI
-export const IPFS_DISPLAY_URI_BLACKCIRCLE =
+export const IPFS_DEFAULT_THUMBNAIL_URI =
   'ipfs://QmNrhZHUaEqxhyLfqoq1mtHSipkWHeT31LNHb1QEbDHgnc'

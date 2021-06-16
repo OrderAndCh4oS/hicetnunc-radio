@@ -12,14 +12,15 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
-    "@airgap/beacon-sdk": "^2.2.8",
-    "@taquito/beacon-wallet": "^9.1.0",
+    "@airgap/beacon-sdk": "^2.2.9",
+    "@taquito/beacon-wallet": "^9.1.1",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "compressorjs": "^1.0.7",
     "cra-template": "1.1.2",
     "eztz-lib": "^0.1.2",
     "fflate": "^0.7.0",
+    "framer-motion": "^4.1.17",
     "gh-pages": "^3.1.0",
     "gql": "^1.1.2",
     "graphql": "^15.5.0",
