@@ -1,36 +1,65 @@
-import React from 'react'
-import { Tags } from '../tags'
-import { MIMETYPE } from '../../constants'
-import { renderMediaType } from '../media-types'
-import styles from './styles.module.scss'
 
-function isHTML(mimeType) {
-  return (
-    mimeType === MIMETYPE.ZIP ||
-    mimeType === MIMETYPE.ZIP1 ||
-    mimeType === MIMETYPE.ZIP2
-  )
-}
+import React, { useState, useEffect } from 'react'
+import styles from '../../../components/radio-player/styles.module.css';
+import PlayPauseButton from '../../../components/radio-player/play-pause-button';
+import MuteButton from '../../../components/radio-player/mute-button';
+import getAudioTime from '../../../utilities/get-audio-time';
+import useRadio from '../../../hooks/use-radio';
 
-export const Preview = ({ title, description, mimeType, uri, tags }) => {
-  const t = tags !== '' ? tags.replace(/\s/g, '').split(',') : []
+export const Preview = ({ title, description, coverImg, audioFile, tags }) => {
+  const [preview, setPreview] = useState();
+  const {
+    audio
+  } = useRadio();
+
+
+
+
+  useEffect(() => {
+
+    const reader = new FileReader();
+
+    const playFile = (file) => {
+
+      const url = window.URL.createObjectURL(file);
+      audio.src = url;
+
+    }
+
+    const displayImg = (img) => {
+      reader.onloadend = (e) => {
+        setPreview(e.target.result);
+      }
+
+      reader.readAsDataURL(img);
+    };
+
+    playFile(audioFile);
+    displayImg(coverImg);
+  }, []);
+
+
+
   return (
-    <div className={styles.container}>
-      <div className={styles.media}>
-        {renderMediaType({
-          mimeType,
-          uri,
-          interactive: true,
-          preview: true,
-        })}
+    <div className={styles.radioPlayerContainer}>
+      <div className={styles.playerBar}>
+        <div className={styles.controlsHolder}>
+          <PlayPauseButton />
+          <input
+            className={styles.radioRange}
+            title="volume"
+            type="range"
+
+            min="0"
+            max="1"
+            step="0.01"
+
+          />
+          <MuteButton />
+        </div>
       </div>
-      <div className={styles.info}>
-        <div>TITLE</div>
-        <div className={styles.title}>{title}</div>
-        <div>DESCRIPTION</div>
-        <div className={styles.description}>{description}</div>
-        <Tags tags={t} />
-      </div>
+
+      <img src={preview} alt=""></img>
     </div>
-  )
-}
+  );
+};

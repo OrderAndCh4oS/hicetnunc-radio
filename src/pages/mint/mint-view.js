@@ -22,7 +22,6 @@ import {
 } from '../../mint/constants'
 
 //for template
-import JSZip from 'jszip';
 import mintTemplate from './template';
 import styles from './styles.js';
 import { FeedbackComponent } from '../../mint/components/feedback'
@@ -51,7 +50,6 @@ const thumbnailOptions = {
 const GENERATE_DISPLAY_AND_THUMBNAIL = true
 
 const MintView = () => {
-  console.log(prepareFilesFromZIP)
   const { mint, getAuth, acc, setAccount, setFeedback, syncTaquito } =
     useContext(HicetnuncContext)
   // const history = useHistory()
@@ -84,13 +82,10 @@ const MintView = () => {
         progress: true,
         confirm: false,
       })
-      console.log('need syn wallet2')
       await syncTaquito()
-      console.log('need syn wallet3')
       setFeedback({
         visible: false,
       })
-      console.log('need syn wallet4')
     } else {
       console.log(acc)
       console.log('set wallet')
@@ -152,10 +147,8 @@ const MintView = () => {
       ) {
         let uint8View = new Uint8Array(zipFile.buffer);
         const files = await prepareFilesFromZIP(uint8View)
-console.log("here")
-console.log(cover)
-console.log(files)
-          nftCid = await prepareDirectory({
+
+        nftCid = await prepareDirectory({
           name: title,
           description,
           tags,
@@ -184,26 +177,8 @@ console.log(files)
     }
   }
 
-  const zipAndSetFile = () => {
-    var zip = new JSZip();
-    zip.file("cover.jpg", audioCover);
-    zip.file("music.mp3", audioFile);
-    zip.file("index.html", mintTemplate);
-    zip.file("styles.css", styles);
-
-    zip.generateAsync({ type: "blob" })
-      .then(async (content) => {
-        const mimeType = "application/zip";
-        const buffer = await content.arrayBuffer();
-        const reader = await blobToDataURL(content);
-        setZipFile({ mimeType, buffer, reader, content })
-      });
-
-
-  }
-
   const handlePreview = () => {
-
+console.log(audioFile)
     setStep(1)
   }
 
@@ -213,8 +188,7 @@ console.log(files)
     const buffer = await blob.arrayBuffer()
     const reader = await blobToDataURL(blob)
     return { mimeType, buffer, reader }
-    //const compressedImg = new File([blob], "cover")
-    //return compressedImg
+
   }
 
   const generateCompressedImgForZip = async (props, options) => {
@@ -251,10 +225,6 @@ console.log(files)
     setAudioFile(props.file);
   }
 
-  useEffect(() => {
-    if (audioCover && audioFile) { zipAndSetFile(); }
-  },[audioCover, audioFile]);
-
   const handleCoverUpload = async (props) => {
     await generateCoverAndThumbnail(props)
   }
@@ -286,8 +256,8 @@ console.log(files)
   }
 
   const handleValidation = () => {
-    // display the preview btn once the zip is ready
-    return zipFile ? false :true;
+
+    return audioCover && audioFile ? false : true;
 
   }
 
@@ -295,7 +265,7 @@ console.log(files)
 
   return (
     <Page title="mint" large>
-                  <FeedbackComponent />
+      <FeedbackComponent />
       {step === 0 && (
         <>
           <Container>
@@ -399,8 +369,8 @@ console.log(files)
           <Container>
             <Padding>
               <Preview
-                mimeType={zipFile.mimeType}
-                uri={zipFile.reader}
+                coverImg={audioCover}
+                audioFile={audioFile}
                 title={title}
                 description={description}
                 tags={tags}
