@@ -15,19 +15,20 @@ const MAX_HEIGHT = 2048;
 const Ipfs = () => {
     const [addedFileHash, setAddedFileHash] = useState(null);
     const [file, setFile] = useState(null);
-    const ipfs = ipfsHttpClient('');
+    const ipfs = ipfsHttpClient('/dns4/ipfs.infura.io/tcp/5001/https');
 
     const captureFile = async(event) => {
-        event.stopPropagation();
-        event.preventDefault();
         const files = event.target.files;
+        console.log(files);
         if(!files.length) return;
         const nextFile = files[0];
+        console.log('nextFile', nextFile);
         if(!nextFile)
             alert('Missing file');
-        if(nextFile.file.size / 1024 / 1024 > MAX_FILESIZE)
+        if(nextFile.size / 1024 / 1024 > MAX_FILESIZE)
             alert(`File is too large, max size: ${MAX_FILESIZE}Mb`);
-        if(!(nextFile.type.match('image.*') && ALLOWED_MIME_TYPES.includes(nextFile.mimeType)))
+        console.log(nextFile.type);
+        if(!ALLOWED_MIME_TYPES.includes(nextFile.type))
             alert('File type not allowed, must be bmp, jpeg, png, gif or webp');
 
         const img = new Image();
@@ -36,7 +37,7 @@ const Ipfs = () => {
         if(img.width > MAX_WIDTH || img.height > MAX_HEIGHT)
             alert(`Image exceeds maximum dimensions: ${MAX_WIDTH}x${MAX_HEIGHT}px`);
 
-        setFile(file);
+        setFile(nextFile);
     };
 
     const saveToIpfs = async() => {

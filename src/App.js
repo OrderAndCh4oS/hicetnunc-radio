@@ -8,11 +8,13 @@ import Footer from './components/footer/footer';
 import useWallet from './hooks/use-wallet';
 import AllTracksView from './pages/radio-view/all-tracks-view';
 import RadioPlayer from './components/radio-player/radio-player';
+import Ipfs from './components/ipfs/ipfs-upload';
 
 function App() {
     const {walletId} = useWallet();
     return (
         <div className={styles.radioView}>
+            <Ipfs />
             <div className={styles.headerBar}>
                 <Logo/>
                 <div className={styles.navBar}>
