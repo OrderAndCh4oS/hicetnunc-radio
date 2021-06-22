@@ -1,0 +1,19 @@
+.title {
+    font-size: 16px;
+}
+
+.formField {
+    margin-bottom: 8px;
+}
+
+.formLabel {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.textarea {
+    box-sizing: border-box;
+    padding: 6px 4px;
+    border: 1px solid #E5E5E5;
+    font-family: "Courier New", "Courier", monospace;
+}

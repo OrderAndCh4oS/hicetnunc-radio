@@ -9,21 +9,24 @@ import AudioProvider from './context/audio-context';
 import PlaylistProvider from './context/playlist-context';
 import WalletProvider from './context/wallet-context';
 import UserPlaylistProvider from './context/user-playlists-context';
+import UserProvider from './context/user-context';
 
 ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
-            <WalletProvider>
-                <AudioProvider>
-                    <RadioProvider>
-                        <UserPlaylistProvider>
-                            <PlaylistProvider>
-                                <App/>
-                            </PlaylistProvider>
-                        </UserPlaylistProvider>
-                    </RadioProvider>
-                </AudioProvider>
-            </WalletProvider>
+            <UserProvider>
+                <WalletProvider>
+                    <AudioProvider>
+                        <RadioProvider>
+                            <UserPlaylistProvider>
+                                <PlaylistProvider>
+                                    <App/>
+                                </PlaylistProvider>
+                            </UserPlaylistProvider>
+                        </RadioProvider>
+                    </AudioProvider>
+                </WalletProvider>
+            </UserProvider>
         </HashRouter>
     </React.StrictMode>,
     document.getElementById('root'),

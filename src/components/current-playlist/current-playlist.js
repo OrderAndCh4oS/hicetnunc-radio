@@ -1,5 +1,6 @@
 import styles from './styles.module.css';
 import { playlistDefault } from '../../assets/images';
+import SavePlaylist from '../ipfs/save-playlist';
 
 const CurrentPlaylist = ({playlist}) => {
     return (
@@ -18,7 +19,11 @@ const CurrentPlaylist = ({playlist}) => {
                     </p>
                     <p className={styles.currentPlaylistDescription}>{playlist.description}</p>
                 </div>
+                {playlist.curator === 'Me' || playlist.curator === 'Mine'
+                    ? <SavePlaylist playlist={playlist}/>
+                    : null}
             </div>
+
         </div>
     );
 };

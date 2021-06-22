@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
 import PauseIcon from '../radio-player/pause-icon';
 import PlayIcon from '../radio-player/play-icon';
-import { getAlias, getCreator } from '../../utilities/general';
+import { getAlias, trimWalletAddress } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
@@ -33,7 +33,7 @@ const TrackList = ({
                                 ><PlayIcon/></button>
                             )}
                         {
-                            playlist?.curator === 'Mine'
+                            playlist?.curator === 'Me'
                                 ? <RemoveFromPlaylist
                                     playlistName={playlist.name}
                                     track={t}
@@ -50,7 +50,7 @@ const TrackList = ({
                             href={`https://hicetnunc.xyz/tz/${t.creator}`}
                             className={styles.trackRow_link}
                         >
-                            {getCreator(t.creator)} {getAlias(t, creatorMetadata)}
+                            {trimWalletAddress(t.creator)} {getAlias(t, creatorMetadata)}
                         </a>
                                 </span>
                         <img

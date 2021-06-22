@@ -1,4 +1,4 @@
-export const getCreator = creator => {
+export const trimWalletAddress = creator => {
     return creator.slice(0, 5) + '...' + creator.slice(-5);
 };
 

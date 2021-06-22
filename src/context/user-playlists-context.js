@@ -22,7 +22,7 @@ const UserPlaylistProvider = ({children}) => {
             ...prevState,
             {
                 name,
-                curator: 'Mine',
+                curator: 'Me',
                 description: '',
                 tracks: [],
             },

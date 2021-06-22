@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 
-body, button, input {
+body, button, input, textarea {
     font-family: "Courier New", "Courier", monospace
 }
 

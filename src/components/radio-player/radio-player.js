@@ -4,7 +4,7 @@ import MuteButton from './mute-button';
 import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
-import { getAlias, getCreator } from '../../utilities/general';
+import { getAlias, trimWalletAddress } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import { useEffect } from 'react';
 
@@ -115,7 +115,7 @@ const RadioPlayer = () => {
                         By <a
                                 href={`https://hicetnunc.xyz/tz/${track.creator}`}
                                 className={styles.trackRow_link}
-                            >{getCreator(track.creator)} {getAlias(track, creatorMetadata)}</a>
+                            >{trimWalletAddress(track.creator)} {getAlias(track, creatorMetadata)}</a>
                             </span>
                         </div>
                     ) : null}
