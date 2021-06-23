@@ -22,8 +22,12 @@
     }
   }
 
+  audio {
+    position: absolute;
+    top: 300px;
+  }
+
   img {
-    display: none;
     width: 100%;
     height: auto;
   }

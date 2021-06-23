@@ -8,7 +8,7 @@ import { Button, Curate, Primary } from '../../mint/components/button'
 import { Upload } from '../../mint/components/upload'
 import { Preview } from '../../mint/components/preview'
 import { prepareFile, prepareDirectory } from '../../mint/data/ipfs'
-import { prepareFilesFromZIP } from '../../mint/utils/html'
+
 import {
   ALLOWED_MIMETYPES,
   ALLOWED_FILETYPES_LABEL,
@@ -59,15 +59,15 @@ const MintView = () => {
   const [tags, setTags] = useState('')
   const [amount, setAmount] = useState()
   const [royalties, setRoyalties] = useState()
-  const [zipFile, setZipFile] = useState() // the uploaded file
   const [cover, setCover] = useState() // the uploaded or generated cover image, as it appears in the collection
   const [thumbnail, setThumbnail] = useState() // the uploaded or generated cover image
 
 
   ////////////////////////////////////////////////////
 
-  const [audioCover, setAudioCover] = useState(''); // the image displayed when we view the objkt
+  //const [audioCover, setAudioCover] = useState(''); // the image displayed when we view the objkt
   const [audioFile, setAudioFile] = useState('');
+  const Buffer = require('buffer').Buffer
 
   ///////////////////////////////////
 
@@ -91,6 +91,7 @@ const MintView = () => {
       console.log('set wallet')
       await setAccount()
       // check mime type
+      /*
       if (ALLOWED_MIMETYPES.indexOf(zipFile.mimeType) === -1) {
         // alert(
         //   `File format invalid. supported formats include: ${ALLOWED_FILETYPES_LABEL.toLocaleLowerCase()}`
@@ -108,9 +109,9 @@ const MintView = () => {
 
         return
       }
-
+*/
       // check file size
-      const filesize = (zipFile.size / 1024 / 1024).toFixed(4)
+      const filesize = (audioFile.size / 1024 / 1024).toFixed(4)
       if (filesize > MINT_FILESIZE) {
         // alert(
         //   `File too big (${filesize}). Limit is currently set at ${MINT_FILESIZE}MB`
@@ -142,43 +143,26 @@ const MintView = () => {
 
       // upload file(s)
       let nftCid
-      if (
-        [MIMETYPE.ZIP, MIMETYPE.ZIP1, MIMETYPE.ZIP2].includes(zipFile.mimeType)
-      ) {
-        let uint8View = new Uint8Array(zipFile.buffer);
-        const files = await prepareFilesFromZIP(uint8View)
-
-        nftCid = await prepareDirectory({
-          name: title,
-          description,
-          tags,
-          address: acc.address,
-          files,
-          cover,
-          thumbnail,
-          generateDisplayUri: GENERATE_DISPLAY_AND_THUMBNAIL,
-        })
-      } else {
+      
         // process all other files
         nftCid = await prepareFile({
           name: title,
           description,
           tags,
           address: acc.address,
-          buffer: zipFile.buffer,
-          mimeType: zipFile.mimeType,
+          buffer: audioFile.buffer,
+          mimeType: audioFile.mimeType,
           cover,
           thumbnail,
           generateDisplayUri: GENERATE_DISPLAY_AND_THUMBNAIL,
         })
-      }
+      
 
       mint(getAuth(), amount, nftCid.path, royalties)
     }
   }
 
   const handlePreview = () => {
-console.log(audioFile)
     setStep(1)
   }
 
@@ -190,13 +174,13 @@ console.log(audioFile)
     return { mimeType, buffer, reader }
 
   }
-
+/*
   const generateCompressedImgForZip = async (props, options) => {
     const blob = await compressImage(props.file, options)
 
     const compressedImg = new File([blob], "cover")
     return compressedImg
-  }
+  }*/
 
   const compressImage = (file, options) => {
     return new Promise(async (resolve, reject) => {
@@ -221,8 +205,8 @@ console.log(audioFile)
     })
   }
 
-  const handleAudioUpload = (props) => {
-    setAudioFile(props.file);
+  const handleAudioUpload = async(props) => {
+    setAudioFile(props);
   }
 
   const handleCoverUpload = async (props) => {
@@ -234,15 +218,11 @@ console.log(audioFile)
     if (props.mimeType === MIMETYPE.GIF) {
       setCover(props)
       setThumbnail(props)
-      setAudioCover(props)
       return
     }
 
     const cover = await generateCompressedImage(props, coverOptions)
     setCover(cover)
-
-    const zipImg = await generateCompressedImgForZip(props, coverOptions)
-    setAudioCover(zipImg)
 
     const thumb = await generateCompressedImage(props, thumbnailOptions)
     setThumbnail(thumb)
@@ -257,7 +237,7 @@ console.log(audioFile)
 
   const handleValidation = () => {
 
-    return audioCover && audioFile ? false : true;
+    return cover && audioFile ? false : true;
 
   }
 
@@ -369,8 +349,9 @@ console.log(audioFile)
           <Container>
             <Padding>
               <Preview
-                coverImg={audioCover}
-                audioFile={audioFile}
+                mimeType={audioFile.mimeType}
+                displayUri={cover}
+                previewUri={audioFile.reader}
                 title={title}
                 description={description}
                 tags={tags}
