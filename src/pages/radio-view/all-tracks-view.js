@@ -64,6 +64,7 @@ const AllTracksView = () => {
                 src: `https://ipfs.io/ipfs/${o.artifact_uri.slice(7)}`,
                 mimeType: o.mime,
                 displayUri: o.display_uri,
+                thumbnailUri: o.thumbnail_uri
             })));
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps

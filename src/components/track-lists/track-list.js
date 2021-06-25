@@ -46,7 +46,7 @@ const TrackList = ({
         {!tracks.length ? <p>No audio tracks available</p> : (
             <div>
                 {tracks.map((t, i) =>{
-                    console.log(t.displayUri);
+                    console.log(t.thumbnailUri);
                     return <div key={t.id} className={styles.trackRow}>
                         {isTrackPlaying(t.id)
                             ? (
