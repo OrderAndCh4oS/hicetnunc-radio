@@ -12,7 +12,6 @@ const TrackList = ({
     creatorMetadata,
     playlist,
 }) => {
-
     const {controls} = useRadio()
     const handleSelectTrack = controls.selectTrack(tracks);
     return <>
