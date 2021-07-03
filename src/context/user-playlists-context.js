@@ -7,10 +7,6 @@ const UserPlaylistProvider = ({children}) => {
     const [userPlaylists, setUserPlaylists] = useState([]);
 
     useEffect(() => {
-        console.log('up', userPlaylists);
-    }, [userPlaylists])
-
-    useEffect(() => {
         const storedPlaylist = window.localStorage.getItem('user-playlists');
         if(!storedPlaylist) return;
         const initialPlaylists = JSON.parse(storedPlaylist);

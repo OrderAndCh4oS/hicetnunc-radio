@@ -244,6 +244,7 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
 
     .radioPlayerContainer {
         height: 160px;
+        align-items: center;
         flex-direction: row;
     }
 

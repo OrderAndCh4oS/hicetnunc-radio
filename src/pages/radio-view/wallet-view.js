@@ -23,7 +23,7 @@ const query = gql`
 
 const WalletView = () => {
     const {tz} = useParams();
-    const {walletId, setWalletId, objktData, isLoading, setIsLoading, error} = useWallet();
+    const {walletId, setWalletId, objkts, isLoading, setIsLoading, error} = useWallet();
     const [walletsWithAudio, setWalletsWithAudio] = useState([]);
     useTitle(`H=N Radio ${walletId ? `| ${walletId}` : ''}`);
 
@@ -70,14 +70,9 @@ const WalletView = () => {
 
     return (
         <>
-            {objktData ? (
+            {objkts ? (
                 <>
-                    {isLoading ? <p>Loading...</p> : <>
-                        <WalletTrackList
-                            audioObjkts={objktData}
-                            walletId={walletId}
-                        />
-                    </>}
+                    {isLoading ? <p>Loading...</p> : <WalletTrackList/>}
                 </>
             ) : (<>{isLoading ? <p>Loading...</p> : null}</>)}
             <div className={styles.walletIdEntry}>
@@ -91,8 +86,7 @@ const WalletView = () => {
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
                     disabled={!walletIdInput}
-                >Get Tracks
-                </button>
+                >Get Tracks</button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
             <div>
@@ -110,9 +104,7 @@ const WalletView = () => {
                             <a
                                 className={styles.walletRow_alias}
                                 href={`https://twitter.com/${w.twitter}`}
-                            >
-                                @{w.twitter}
-                            </a>
+                            >@{w.twitter}</a>
                         </div> : null}
                         <img
                             alt={'Artist\'s avatar'}
