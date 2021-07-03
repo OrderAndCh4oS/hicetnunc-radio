@@ -1,3 +1,7 @@
+img { 
+    max-width: 300px;
+}
+
 .radioPlayerContainer {
     max-width: 600px;
     margin-bottom: 32px;
