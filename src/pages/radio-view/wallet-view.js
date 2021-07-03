@@ -65,7 +65,7 @@ const WalletView = () => {
         setWalletId(walletIdInput);
         setWalletIdInput('');
         setIsLoading(true);
-        history.push(`/tz/${walletIdInput}`);
+        if(walletIdInput) history.push(`/tz/${walletIdInput}`);
     };
 
     return (

@@ -1,18 +1,20 @@
 import { createContext, useEffect, useState } from 'react';
 import getObjktsCreatedBy from '../api/get-objkts-created-by';
 import getObjktsOwnedBy from '../api/get-objkts-owned-by';
+import { useHistory } from 'react-router';
 
 export const WalletContext = createContext({tz: null});
 
 const WalletProvider = ({children}) => {
     const [walletId, setWalletId] = useState(null);
-
+    const history = useHistory();
     const [objkts, setObjkts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         if(!walletId) return;
+        history.push(`/tz/${walletId}`);
         (async() => {
             try {
                 const createdObjkts = await getObjktsCreatedBy(walletId);
