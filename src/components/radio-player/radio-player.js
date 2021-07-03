@@ -7,7 +7,7 @@ import usePlaylist from '../../hooks/use-playlist';
 import { getAlias, getCreator } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import { useEffect } from 'react';
-
+import { playlistDefault } from '../../assets/images';
 
 const RadioPlayer = () => {
     const {
@@ -18,14 +18,15 @@ const RadioPlayer = () => {
         runningTime,
         scrubberRef,
     } = useRadio();
-    const { tracks, creatorMetadata } = usePlaylist();
+    const {tracks, creatorMetadata} = usePlaylist();
 
+    // Todo: double check this actually works…
     useEffect(() => {
-        const keyUpListener = document.addEventListener('keydown', async (event) => {
-            if (!tracks) return;
-            switch (event) {
+        const keyUpListener = document.addEventListener('keydown', async(event) => {
+            if(!tracks) return;
+            switch(event) {
                 case 'MediaPlayPause':
-                    if (!playerState.isPlaying) { await controls.play(); } else { await controls.pause(); }
+                    if(!playerState.isPlaying) { await controls.play(); } else { await controls.pause(); }
                     break;
                 case 'MediaStop':
                     await controls.pause();
@@ -43,7 +44,7 @@ const RadioPlayer = () => {
                     await controls.volumeDown();
                     break;
                 case 'VolumeMute':
-                    if (playerState.isMuted) { await controls.unmute(); } else { await controls.mute(); }
+                    if(playerState.isMuted) { await controls.unmute(); } else { await controls.mute(); }
                     break;
                 default:
                     return;
@@ -54,78 +55,87 @@ const RadioPlayer = () => {
         };
     });
 
-    if (!tracks) return null;
+    if(!tracks) return null;
 
     const track = playerState.currentTrack;
 
     return (
         <div className={styles.radioPlayerContainer}>
-            <div className={styles.playerBar}>
-                <div className={styles.controlsHolder}>
-                    <PlayPauseButton />
-                    <input
-                        className={styles.radioRange}
-                        title="volume"
-                        type="range"
-                        value={playerState.volume}
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        onChange={controls.volume}
-                    />
-                    <MuteButton />
-                </div>
-                <div className={styles.runningTime}>
-                    {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
-                </div>
-            </div>
-            <div className={styles.scrubber}>
-                <input
-                    ref={scrubberRef}
-                    className={styles.radioRange}
-                    title="time"
-                    type="range"
-                    value={runningTime ? runningTime / audio.duration : 0}
-                    min="0"
-                    max="1"
-                    step="0.001"
-                    onChange={controls.time}
+            <div className={styles.currentPlaylistImageHolder}>
+                <img
+                    src={track?.displayUri
+                        ? `https://ipfs.io/ipfs/${track.displayUri.slice(7)}`
+                        : playlistDefault}
+                    alt=""
+                    className={styles.currentPlaylistImage}
                 />
             </div>
-            {playerState.currentTrack !== null
-                ? (
-                    <img src={track.displayUri.replace('ipfs://', 'https://cloudflare-ipfs.com/ipfs/')} alt="album cover" />) : null}
-            <div className={styles.nextPrevControls}>
-                <button
-                    className={styles.button_prevTrack}
-                    onClick={controls.previous(tracks)}
-                >Prev
-                </button>
-                <button
-                    className={styles.button_nextTrack}
-                    onClick={controls.next(tracks)}
-                >Next
-                </button>
-                {track ? <AddToPlaylist track={track} /> : null}
-                {playerState.currentTrack !== null
-                    ? (
-                        <div className={styles.currentTrack}>
+            <div>
+                <div className={styles.playerBar}>
+                    <div className={styles.controlsHolder}>
+                        <PlayPauseButton/>
+                        <input
+                            className={styles.radioRange}
+                            title="volume"
+                            type="range"
+                            value={playerState.volume}
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            onChange={controls.volume}
+                        />
+                        <MuteButton/>
+                    </div>
+                    <div className={styles.runningTime}>
+                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
+                    </div>
+                </div>
+                <div className={styles.scrubber}>
+                    <input
+                        ref={scrubberRef}
+                        className={styles.radioRange}
+                        title="time"
+                        type="range"
+                        value={runningTime ? runningTime / audio.duration : 0}
+                        min="0"
+                        max="1"
+                        step="0.001"
+                        onChange={controls.time}
+                    />
+                </div>
+                <div className={styles.nextPrevControls}>
+                    <button
+                        className={styles.button_prevTrack}
+                        onClick={controls.previous(tracks)}
+                    >Prev
+                    </button>
+                    <button
+                        className={styles.button_nextTrack}
+                        onClick={controls.next(tracks)}
+                    >Next
+                    </button>
+                    {track ? <AddToPlaylist track={track}/> : null}
+                    {playerState.currentTrack !== null
+                        ? (
+                            <div className={styles.currentTrack}>
                             <span className={styles.trackRow_text}>
                                 <a
                                     href={`https://hicetnunc.xyz/objkt/${track.id}`}
                                     className={styles.trackRow_link}
                                 >#{track.id} {track.name}</a>
-                                <br />
+                                <br/>
                                 By <a
-                                    href={`https://hicetnunc.xyz/tz/${track.creator}`}
-                                    className={styles.trackRow_link}
-                                >{getCreator(track.creator)} {getAlias(track, creatorMetadata)}</a>
+                                href={`https://hicetnunc.xyz/tz/${track.creator}`}
+                                className={styles.trackRow_link}
+                            >{getCreator(track.creator)} {getAlias(track, creatorMetadata)}</a>
                             </span>
-                        </div>
-                    ) : null}
+                            </div>
+                        ) : null}
+                </div>
+                {audioError && <p className={styles.errorText}>{audioError}</p>}
             </div>
-            {audioError && <p className={styles.errorText}>{audioError}</p>}
         </div>
+
     );
 };
 
