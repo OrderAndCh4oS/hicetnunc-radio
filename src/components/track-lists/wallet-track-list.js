@@ -4,6 +4,7 @@ import FilterTypes from '../../enums/filter-types';
 import TracksFilterBar from './tracks-filter-bar';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
+import { ipfsUrls } from '../../constants';
 
 const WalletTrackList = ({audioObjkts, walletId}) => {
     const {
@@ -37,8 +38,9 @@ const WalletTrackList = ({audioObjkts, walletId}) => {
             id: o.token_id,
             creator: o.token_info.creators[0],
             name: o.token_info.name,
-            src: `https://ipfs.io/ipfs/${o.token_info.artifactUri.slice(7)}`,
+            src: `${ipfsUrls[~~(Math.random() * ipfsUrls.length)]}/${o.token_info.artifactUri.slice(7)}`,
             mimeType: o.token_info.formats[0].mimeType,
+            displayUri: o.display_uri,
         })));
     }, [audioObjkts, setTracks]);
 

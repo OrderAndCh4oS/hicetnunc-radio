@@ -1,6 +1,4 @@
 import {
-    playlistCoverEight,
-    playlistCoverEleven,
     playlistCoverFive,
     playlistCoverFour,
     playlistCoverOne,
@@ -106,7 +104,7 @@ export const playlists = [
                 id: 101079,
                 name: 'Crypto Noise series #04',
                 src: 'https://ipfs.io/ipfs/QmatzMuSP2XAWDMpjUxmXeFDCSJAtePjhte7J58DE4ssKp',
-                mimeType: 'audio/vnd.wav',
+                mimeType: 'audio/wav',
                 creator: 'tz1cP6n3wsdGA57YRizTwk2ks6uKV2gNNGkC',
             },
             {
@@ -267,81 +265,6 @@ export const playlists = [
                 src: 'https://ipfs.io/ipfs/QmQpPXELuT88xHpKo7FF4F68pv2vDe7txkXMDYo6fH3nQ7',
                 mimeType: 'audio/mpeg',
                 creator: 'tz1MUcbDL1UbE4DTibDuDs8dLnih4u6Ka8uT',
-            },
-        ],
-    },
-    {
-        name: 'Sonic chimes',
-        curator: 'HEN Radio',
-        description: 'Generative sonic chimes',
-        img: playlistCoverEleven,
-        tracks: [
-
-            {
-                id: 46007,
-                name: 'O4O: ALEATORIC MUSIC PROJECT',
-                src: 'https://ipfs.io/ipfs/Qmf3qL2uSPq3HK7eRdFXjNixwpmJ4wAJ2CNR4uuBqMV4so',
-                mimeType: 'video/mp4',
-                creator: 'tz1XZUrksJeiAepsn3v7dgBNWouwfdev63Ss',
-            },
-            {
-                id: 25631,
-                name: 'NIHAVEND: ALEATORIC MUSIC PROJECT',
-                src: 'https://ipfs.io/ipfs/QmZUnPk4YEe8wNQea1yzMiosYqTKjnrEGz2aBDZUFQpxfH',
-                mimeType: 'video//mp4',
-                creator: 'tz1XZUrksJeiAepsn3v7dgBNWouwfdev63Ss',
-            },
-            {
-                id: 21688,
-                name: 'CHANCE:ALEATORIC MUSIC PROJECT',
-                src: 'https://ipfs.io/ipfs/QmQdSjNrb5yqQC1m9fvGndVm2teiWGX56nKupd1FMDdnqz',
-                mimeType: 'video/mp4',
-                creator: 'tz1XZUrksJeiAepsn3v7dgBNWouwfdev63Ss',
-            },
-            {
-                id: 56506,
-                name: 'LULLABY: ALEATORIC MUSIC PROJECT ',
-                src: 'https://ipfs.io/ipfs/QmUjnawto6QaKabAby8mBKgaW82azfVux5KE9Xxy6FFJ4N',
-                mimeType: 'video/mp4',
-                creator: 'tz1XZUrksJeiAepsn3v7dgBNWouwfdev63Ss',
-            },
-
-        ],
-    },
-    {
-        name: 'Improvisation',
-        curator: 'HEN Radio',
-        description: 'Improvisation ',
-        img: playlistCoverEight,
-        tracks: [
-
-            {
-                id: 19749,
-                name: 'Ex Nihilo Nihil Fit',
-                src: 'https://ipfs.io/ipfs/Qmc7rFFKmUzasjej9y3tkjc1kwrWQPjPWdK2gNdFFymdbu',
-                mimeType: 'video/mp4',
-                creator: 'tz1h4kQ41bKFSbT3ACbeXpFiUnkQA199eCer',
-            },
-            {
-                id: 23101,
-                name: 'Dubitando Ad Veritatem Pervenimus',
-                src: 'https://ipfs.io/ipfs/QmP3mvczKdCsNe21VDrEqdEPaiWKMXMp1kvYgD4tU5UjNq',
-                mimeType: 'video//mp4',
-                creator: 'tz1h4kQ41bKFSbT3ACbeXpFiUnkQA199eCer',
-            },
-            {
-                id: 29486,
-                name: 'Habit de Musicien',
-                src: 'https://ipfs.io/ipfs/QmbWU23NYVVMiwT24b6hZyfmQcjKAFZ23kCWKhB6CG7cBE',
-                mimeType: 'video/mp4',
-                creator: 'tz1h4kQ41bKFSbT3ACbeXpFiUnkQA199eCer',
-            },
-            {
-                id: 19699,
-                name: 'Nova Diretriz',
-                src: 'https://ipfs.io/ipfs/QmSS3Un3yVURAJ8mxCHZ2bYR5VtrYzgYfz2fp9ocood7EN',
-                mimeType: 'video/mp4',
-                creator: 'tz1h4kQ41bKFSbT3ACbeXpFiUnkQA199eCer',
             },
         ],
     },

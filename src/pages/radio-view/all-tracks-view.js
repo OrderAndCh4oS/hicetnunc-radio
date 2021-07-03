@@ -4,6 +4,7 @@ import useRadio from '../../hooks/use-radio';
 import { useEffect } from 'react';
 import { gql, request } from 'graphql-request';
 import usePlaylist from '../../hooks/use-playlist';
+import { ipfsUrls } from '../../constants';
 
 const query = gql`
     query AudioObjktData {
@@ -61,8 +62,9 @@ const AllTracksView = () => {
                 id: o.id,
                 creator: o.creator_id,
                 name: o.title,
-                src: `https://ipfs.io/ipfs/${o.artifact_uri.slice(7)}`,
+                src: `${ipfsUrls[~~(Math.random() * ipfsUrls.length)]}/${o.artifact_uri.slice(7)}`,
                 mimeType: o.mime,
+                displayUri: o.display_uri,
             })));
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps

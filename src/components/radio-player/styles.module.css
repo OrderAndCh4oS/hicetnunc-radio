@@ -1,6 +1,30 @@
+img { 
+    max-width: 300px;
+}
+
 .radioPlayerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     max-width: 600px;
     margin-bottom: 32px;
+}
+
+.currentPlaylistImageHolder {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.currentPlaylistImage {
+    max-height: 100px;
+    max-width: 100px;
 }
 
 .button {
@@ -216,6 +240,22 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
 @media screen and (min-width: 600px) {
     .controlsHolder {
         width: auto;
+    }
+
+    .radioPlayerContainer {
+        height: 160px;
+        flex-direction: row;
+    }
+
+    .currentPlaylistImageHolder {
+        width: 160px;
+        height: 160px;
+        margin-bottom: 0;
+    }
+
+    .currentPlaylistImage {
+        max-width: 160px;
+        max-height: 160px;
     }
 
     .playerBar {
