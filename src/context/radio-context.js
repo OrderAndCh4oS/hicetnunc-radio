@@ -49,7 +49,10 @@ const RadioProvider = ({children}) => {
 
     const handleSelectTrack = (tracks) => i => async() => {
         cancelAnimationFrame(rAF);
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
         await fetchSrc(tracks[i].src, tracks[i].mimeType);
+        // audio.src = tracks[i].src;
+        // audio.mimeType = tracks[i].mimeType;
         await playAudio();
         setRunningTime(0);
         setPlayerState(prevState => ({
@@ -120,12 +123,14 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({...prevState, volume}));
     };
 
-    const handleNext = (tracks) => () => {
+    const handleNext = (tracks) => async () => {
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % tracks.length;
-        audio.src = tracks[nextTrackKey].src;
-        audio.mimeType = tracks[nextTrackKey].mimeType;
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[nextTrackKey].src, tracks[nextTrackKey].mimeType);
+        // audio.src = tracks[nextTrackKey].src;
+        // audio.mimeType = tracks[nextTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();
@@ -137,13 +142,15 @@ const RadioProvider = ({children}) => {
         }));
     };
 
-    const handlePrev = (tracks) => () => {
+    const handlePrev = (tracks) => async () => {
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         let prevTrackKey = currentTrackKey - 1;
         if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
-        audio.src = tracks[prevTrackKey].src;
-        audio.mimeType = tracks[prevTrackKey].mimeType;
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[prevTrackKey].src, tracks[prevTrackKey].mimeType);
+        // audio.src = tracks[prevTrackKey].src;
+        // audio.mimeType = tracks[prevTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();

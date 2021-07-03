@@ -8,6 +8,7 @@ import { getAlias, getCreator } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import { useEffect } from 'react';
 import { playlistDefault } from '../../assets/images';
+import { ipfsUrls } from '../../constants';
 
 const RadioPlayer = () => {
     const {
@@ -56,16 +57,17 @@ const RadioPlayer = () => {
     });
 
     if(!tracks) return null;
-
     const track = playerState.currentTrack;
-
+    const coverHash = track?.displayUri?.slice(7) || '';
+    const srcSet = ipfsUrls.map((url) => `${url}/${coverHash}`).join(', ');
     return (
         <div className={styles.radioPlayerContainer}>
             <div className={styles.currentPlaylistImageHolder}>
                 <img
                     src={track?.displayUri
-                        ? `https://ipfs.io/ipfs/${track.displayUri.slice(7)}`
+                        ? `https://cloudflare-ipfs.com/ipfs/${track.displayUri.slice(7)}`
                         : playlistDefault}
+                    srcSet={track?.displayUri ? srcSet : playlistDefault}
                     alt=""
                     className={styles.currentPlaylistImage}
                 />
