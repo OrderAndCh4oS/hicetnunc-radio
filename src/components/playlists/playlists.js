@@ -46,7 +46,8 @@ const Playlists = ({handlePlaylistChange, playlists}) => {
                 <button
                     className={styles.createPlaylist_button}
                     onClick={handleCreatePlaylist}
-                >Create Playlist</button>
+                >Create Playlist
+                </button>
             </div>
             <div className={styles.searchInput_container}>
                 <input

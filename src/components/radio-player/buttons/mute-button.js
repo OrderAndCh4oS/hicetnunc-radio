@@ -1,7 +1,7 @@
-import styles from './styles.module.css';
-import UnmuteIcon from './unmute-icon';
-import MuteIcon from './mute-icon';
-import useRadio from '../../hooks/use-radio';
+import styles from '../styles.module.css';
+import UnmuteIcon from '../icons/unmute-icon';
+import MuteIcon from '../icons/mute-icon';
+import useRadio from '../../../hooks/use-radio';
 
 const MuteButton = () => {
     const {
@@ -11,14 +11,14 @@ const MuteButton = () => {
     return <>
         {playerState.isMuted ? (
             <button
-                className={`${styles.button} ${styles.button_unmute} ${styles.button_playerControl}`}
+                className={`${styles.button} ${styles.button_unmute} ${styles.playerIconHolder}`}
                 onClick={controls.unmute}
             >
                 <UnmuteIcon/>
             </button>
         ) : (
             <button
-                className={`${styles.button} ${styles.button_mute} ${styles.button_playerControl}`}
+                className={`${styles.button} ${styles.button_mute} ${styles.playerIconHolder}`}
                 onClick={controls.mute}
             >
                 <MuteIcon/>

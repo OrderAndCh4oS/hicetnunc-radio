@@ -14,6 +14,7 @@ const RadioProvider = ({children}) => {
         currentTrackKey: 0,
         currentTrack: null,
         isPlaying: null,
+        isLoading: false,
         isMuted: false,
         volume: 0.5,
         stateUpdatedBy: null,
@@ -28,16 +29,19 @@ const RadioProvider = ({children}) => {
 
     const playAudio = async() => {
         try {
+            setPlayerState(prevState => ({...prevState, isLoading: true}))
             cancelAnimationFrame(rAF);
             await audioContext.resume();
             await audio.play();
             rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
         } catch(e) {
-            setAudioError('Failed to play track, possibly unsupported media.');
+            setAudioError('Failed to play track, could be an IPFS issue or unsupported media.');
             setTimeout(() => {
                 setAudioError(null);
             }, 4000);
             console.log(e);
+        } finally {
+            setPlayerState(prevState => ({...prevState, isLoading: false}))
         }
     };
 
@@ -48,6 +52,7 @@ const RadioProvider = ({children}) => {
     };
 
     const handleSelectTrack = (tracks) => i => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         cancelAnimationFrame(rAF);
         // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
         await fetchSrc(tracks[i].src, tracks[i].mimeType);
@@ -60,6 +65,7 @@ const RadioProvider = ({children}) => {
             currentTrackKey: i,
             currentTrack: tracks[i],
             isPlaying: true,
+            isLoading: false
         }));
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
     };
@@ -124,6 +130,7 @@ const RadioProvider = ({children}) => {
     };
 
     const handleNext = (tracks) => async () => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % tracks.length;
@@ -139,10 +146,12 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: nextTrackKey,
             currentTrack: tracks[nextTrackKey],
+            isLoading: false
         }));
     };
 
     const handlePrev = (tracks) => async () => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         let prevTrackKey = currentTrackKey - 1;
@@ -159,6 +168,7 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: prevTrackKey,
             currentTrack: tracks[prevTrackKey],
+            isLoading: false
         }));
     };
 

@@ -15,7 +15,8 @@ const RemoveFromPlaylist = ({playlistName, track}) => {
                 onClick={handleRemoveTrack}
                 className={styles.addToPlaylist_addToggle}
                 title='Remove Track'
-            >×</button>
+            >×
+            </button>
         </div>
     );
 };
