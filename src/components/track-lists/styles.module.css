@@ -36,7 +36,7 @@
     background: none;
 }
 
-.button_playerControl_small {
+.playerControlIcon_small {
     width: 12px;
     height: 12px;
     padding: 0;
@@ -52,6 +52,11 @@
 }
 
 .button_pause_small svg {
+    width: 12px;
+    height: auto;
+}
+
+.icon_loading_small svg {
     width: 12px;
     height: auto;
 }

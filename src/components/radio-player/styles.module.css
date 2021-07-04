@@ -1,4 +1,4 @@
-img { 
+img {
     max-width: 300px;
 }
 
@@ -47,7 +47,7 @@ img {
     width: 100%;
 }
 
-.button_playerControl {
+.playerIconHolder {
     width: auto;
     height: 32px;
     display: flex;
@@ -55,12 +55,20 @@ img {
     margin-right: 8px;
 }
 
-.button_playerControl svg {
+.loadingIconHolder {
+    width: auto;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.playerIconHolder svg {
     fill: #000000;
 }
 
 .button_play svg {
-    width: 16px;
+    width: 17px;
     height: auto;
 }
 
@@ -75,7 +83,7 @@ img {
 }
 
 .button_pause svg {
-    width: 17px;
+    width: 18px;
     height: auto;
 }
 
@@ -86,6 +94,11 @@ img {
 
 .button_unmute svg {
     width: 24px;
+    height: auto;
+}
+
+.icon_loading svg {
+    width: 18px;
     height: auto;
 }
 

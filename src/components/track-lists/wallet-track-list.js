@@ -15,7 +15,7 @@ const WalletTrackList = () => {
         controls,
         isTrackPlaying,
     } = useRadio();
-    const {objkts, walletId} = useWallet()
+    const {objkts, walletId} = useWallet();
 
     const {tracks, setTracks, creatorMetadata} = usePlaylist();
 

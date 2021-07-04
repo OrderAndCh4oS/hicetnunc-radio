@@ -1,8 +1,6 @@
 import styles from './styles.module.css';
-import PlayPauseButton from './play-pause-button';
-import MuteButton from './mute-button';
-import PrevButton from './prev-button';
-import NextButton from './next-button';
+import PlayPauseButton from './buttons/play-pause-button';
+import MuteButton from './buttons/mute-button';
 import getAudioTime from '../../utilities/get-audio-time';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
@@ -11,6 +9,8 @@ import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import { useEffect } from 'react';
 import { playlistDefault } from '../../assets/images';
 import { ipfsUrls } from '../../constants';
+import PrevButton from './buttons/prev-button';
+import NextButton from './buttons/next-button';
 
 const RadioPlayer = () => {
     const {

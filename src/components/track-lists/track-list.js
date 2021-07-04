@@ -1,10 +1,11 @@
 import styles from './styles.module.css';
-import PauseIcon from '../radio-player/pause-icon';
-import PlayIcon from '../radio-player/play-icon';
+import PauseIcon from '../radio-player/icons/pause-icon';
+import PlayIcon from '../radio-player/icons/play-icon';
 import { getAlias, getCreator } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
+import LoadingIcon from '../radio-player/icons/loading-icon';
 
 const TrackList = ({
     tracks,
@@ -12,25 +13,34 @@ const TrackList = ({
     creatorMetadata,
     playlist,
 }) => {
-    const {controls} = useRadio()
+    const {controls, playerState} = useRadio();
     const handleSelectTrack = controls.selectTrack(tracks);
+
+    const renderPlayPauseButton = (id, i) => {
+        if(playerState.isLoading) return (
+            <span className={`${styles.icon_loading_small} ${styles.playerControlIcon_small}`}>
+                <LoadingIcon/>
+            </span>
+        );
+        return isTrackPlaying(id)
+            ? (
+                <button
+                    className={`${styles.button} ${styles.button_pause_small} ${styles.playerControlIcon_small}`}
+                    onClick={controls.pause}
+                ><PauseIcon/></button>
+            ) : (
+                <button
+                    className={`${styles.button} ${styles.button_play_small} ${styles.playerControlIcon_small}`}
+                    onClick={handleSelectTrack(i)}
+                ><PlayIcon/></button>
+            );
+    };
     return <>
         {!tracks.length ? <p>No audio tracks available</p> : (
             <div>
                 {tracks.map((t, i) =>
                     <div key={t.id} className={styles.trackRow}>
-                        {isTrackPlaying(t.id)
-                            ? (
-                                <button
-                                    className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
-                                    onClick={controls.pause}
-                                ><PauseIcon/></button>
-                            ) : (
-                                <button
-                                    className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                    onClick={handleSelectTrack(i)}
-                                ><PlayIcon/></button>
-                            )}
+                        {renderPlayPauseButton(t.id, i)}
                         {
                             playlist?.curator === 'Mine'
                                 ? <RemoveFromPlaylist
