@@ -118,101 +118,94 @@ img {
     font-size: 11px;
 }
 
-input[type="range"].radioRange {
-    -webkit-appearance: none;
-    background-color: transparent;
+input[type=range].radioRange {
     width: 100%;
-    position: relative;
-    top: -2px;
-    margin: 11.5px 0;
+    margin: 10.5px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
 }
-
-input[type="range"].radioRange:focus {
+input[type=range].radioRange:focus {
     outline: none;
 }
 
-input[type="range"].radioRange::-webkit-slider-runnable-track {
+input[type=range].radioRange::-webkit-slider-runnable-track {
+    background: #000000;
+    border: 0;
+    border-radius: 1px;
     width: 100%;
-    height: 4px;
+    height: 2px;
     cursor: pointer;
-    box-shadow: 1px 1px 1px rgba(7, 7, 17, 0.15), 0 0 1px rgba(79, 176, 81, 0.2);
-    background: #151515;
-    border-radius: 8px;
-    border: 0 solid rgba(79, 176, 81, 0.2);
 }
-
-input[type="range"].radioRange::-webkit-slider-thumb {
-    box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);
-    height: 20px;
-    width: 6px;
-    border-radius: 4.5px;
-    background: #1d1d1b;
+input[type=range].radioRange::-webkit-slider-thumb {
+    margin-top: -10.5px;
+    width: 5px;
+    height: 23px;
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -8px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
-
-input[type="range"].radioRange:focus::-webkit-slider-runnable-track {
-    background: #151515;
+input[type=range].radioRange:focus::-webkit-slider-runnable-track {
+    background: #000000;
 }
-
-input[type="range"].radioRange::-moz-range-track {
+input[type=range].radioRange::-moz-range-track {
+    background: #000000;
+    border: 0;
+    border-radius: 1px;
     width: 100%;
-    height: 4px;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px rgba(7, 7, 17, 0.15), 0 0 1px rgba(79, 176, 81, 0.2);
-    background: #151515;
-    border-radius: 8px;
-    border: 0 solid rgba(79, 176, 81, 0.2);
-}
-
-input[type="range"].radioRange::-moz-range-thumb {
-    box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);
-    height: 20px;
-    width: 6px;
-    border-radius: 4.5px;
-    background: #1d1d1b;
+    height: 2px;
     cursor: pointer;
 }
-
-input[type="range"].radioRange::-ms-track {
-    width: 100%;
-    height: 4px;
+input[type=range].radioRange::-moz-range-thumb {
+    width: 5px;
+    height: 23px;
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
     cursor: pointer;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+input[type=range].radioRange::-ms-track {
     background: transparent;
     border-color: transparent;
+    border-width: 12.5px 0;
     color: transparent;
-}
-
-input[type="range"].radioRange::-ms-fill-lower {
-    background: #151515;
-    border: 0 solid rgba(171, 171, 171, 0.2);
-    border-radius: 4.5px;
-    box-shadow: 1px 1px 1px rgba(145, 145, 145, 0.4), 0 0 1px rgba(171, 171, 171, 0.2);
-}
-
-input[type="range"].radioRange::-ms-fill-upper {
-    background: #151515;
-    border: 0 solid rgba(171, 171, 171, 0.2);
-    border-radius: 4.5px;
-    box-shadow: 1px 1px 1px rgba(145, 145, 145, 0.4), 0 0 1px rgba(171, 171, 171, 0.2);
-}
-
-input[type="range"].radioRange::-ms-thumb {
-    box-shadow: 2.1px 2.1px 3.8px rgba(7, 7, 17, 0.15), 0 0 2.1px rgba(14, 14, 35, 0.15);
-    width: 6px;
-    border-radius: 4.5px;
-    background: #1d1d1b;
+    width: 100%;
+    height: 2px;
     cursor: pointer;
-    height: 4px;
 }
-
-input[type="range"].radioRange:focus::-ms-fill-lower {
-    background: #151515;
+input[type=range].radioRange::-ms-fill-lower {
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
 }
-
-input[type="range"].radioRange:focus::-ms-fill-upper {
-    background: #151515;
+input[type=range].radioRange::-ms-fill-upper {
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
+}
+input[type=range].radioRange::-ms-thumb {
+    width: 5px;
+    height: 23px;
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+input[type=range].radioRange:focus::-ms-fill-lower {
+    background: #000000;
+}
+input[type=range].radioRange:focus::-ms-fill-upper {
+    background: #000000;
+}
+@supports (-ms-ime-align:auto) {
+    input[type=range].radioRange {
+        margin: 0;
+    }
 }
 
 .trackRow_text {
@@ -264,7 +257,12 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
     }
 
     .runningTime {
-        margin-left: 8px;
+        margin-left: 0;
+        font-size: 14px;
+    }
+
+    .trackRow_text {
+        font-size: 14px;
     }
 
     .errorText {
