@@ -72,7 +72,7 @@ const RadioPlayer = () => {
                     className={styles.currentPlaylistImage}
                 />
             </div>
-            <div>
+            <div className={styles.controlsLayout}>
                 <div className={styles.playerBar}>
                     <div className={styles.controlsHolder}>
                         <PlayPauseButton/>
@@ -88,11 +88,8 @@ const RadioPlayer = () => {
                         />
                         <MuteButton/>
                     </div>
-                    <div className={styles.runningTime}>
-                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
-                    </div>
                 </div>
-                <div className={styles.scrubber}>
+                <div className={styles.scrubberBar}>
                     <input
                         ref={scrubberRef}
                         className={styles.radioRange}
@@ -104,6 +101,9 @@ const RadioPlayer = () => {
                         step="0.001"
                         onChange={controls.time}
                     />
+                    <div className={styles.runningTime}>
+                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
+                    </div>
                 </div>
                 <div className={styles.nextPrevControls}>
                     <button

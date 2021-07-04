@@ -3,28 +3,35 @@ img {
 }
 
 .radioPlayerContainer {
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    max-width: 600px;
-    margin-bottom: 32px;
+    background-color: #fff;
+    padding: 16px 40px;
+    z-index: 1;
+    box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.1);
 }
 
 .currentPlaylistImageHolder {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 16px;
     flex-shrink: 0;
-    margin-right: 16px;
+    margin-right: 32px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
 .currentPlaylistImage {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 50px;
+    max-width: 50px;
 }
 
 .button {
@@ -77,16 +84,20 @@ img {
 
 .playerBar {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-start;
     padding: 8px 0;
 }
 
 .runningTime {
-    padding-top: 4px;
+    padding-left: 8px;
+    font-size: 11px;
+    white-space: nowrap;
 }
 
-.scrubber {
+.scrubberBar {
+    display: flex;
+    align-items: center;
     margin-bottom: 12px;
 }
 
@@ -243,20 +254,29 @@ input[type="range"].radioRange:focus::-ms-fill-upper {
     }
 
     .radioPlayerContainer {
-        height: 160px;
+        position: static;
+        bottom: auto;
+        left: auto;
+        width: auto;
+        padding: 0;
+        box-shadow: none;
+        height: 120px;
         align-items: center;
         flex-direction: row;
+        max-width: 600px;
+        margin-bottom: 32px;
+
     }
 
     .currentPlaylistImageHolder {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
         margin-bottom: 0;
     }
 
     .currentPlaylistImage {
-        max-width: 160px;
-        max-height: 160px;
+        max-width: 120px;
+        max-height: 120px;
     }
 
     .playerBar {
