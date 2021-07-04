@@ -9,6 +9,8 @@ import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import { useEffect } from 'react';
 import { playlistDefault } from '../../assets/images';
 import { ipfsUrls } from '../../constants';
+import PrevButton from './buttons/prev-button';
+import NextButton from './buttons/next-button';
 
 const RadioPlayer = () => {
     const {
@@ -72,27 +74,24 @@ const RadioPlayer = () => {
                     className={styles.currentPlaylistImage}
                 />
             </div>
-            <div>
+            <div className={styles.controlsLayout}>
                 <div className={styles.playerBar}>
-                    <div className={styles.controlsHolder}>
-                        <PlayPauseButton/>
-                        <input
-                            className={styles.radioRange}
-                            title="volume"
-                            type="range"
-                            value={playerState.volume}
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            onChange={controls.volume}
-                        />
-                        <MuteButton/>
-                    </div>
-                    <div className={styles.runningTime}>
-                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
-                    </div>
+                    <PrevButton tracks={tracks}/>
+                    <PlayPauseButton/>
+                    <NextButton tracks={tracks}/>
+                    <input
+                        className={`${styles.radioRange} ${styles.volumeControl}`}
+                        title="volume"
+                        type="range"
+                        value={playerState.volume}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        onChange={controls.volume}
+                    />
+                    <MuteButton/>
                 </div>
-                <div className={styles.scrubber}>
+                <div className={styles.scrubberBar}>
                     <input
                         ref={scrubberRef}
                         className={styles.radioRange}
@@ -104,18 +103,11 @@ const RadioPlayer = () => {
                         step="0.001"
                         onChange={controls.time}
                     />
+                    <div className={styles.runningTime}>
+                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
+                    </div>
                 </div>
-                <div className={styles.nextPrevControls}>
-                    <button
-                        className={styles.button_prevTrack}
-                        onClick={controls.previous(tracks)}
-                    >Prev
-                    </button>
-                    <button
-                        className={styles.button_nextTrack}
-                        onClick={controls.next(tracks)}
-                    >Next
-                    </button>
+                <div className={styles.trackMetaRow}>
                     {track ? <AddToPlaylist track={track}/> : null}
                     {playerState.currentTrack !== null
                         ? (
@@ -124,12 +116,14 @@ const RadioPlayer = () => {
                                 <a
                                     href={`https://hicetnunc.xyz/objkt/${track.id}`}
                                     className={styles.trackRow_link}
-                                >#{track.id} {track.name}</a>
-                                <br/>
+                                >#{track.id}</a>
+                                {' '}
                                 By <a
                                 href={`https://hicetnunc.xyz/tz/${track.creator}`}
                                 className={styles.trackRow_link}
                             >{getCreator(track.creator)} {getAlias(track, creatorMetadata)}</a>
+                                <br/>
+                                {track.name}
                             </span>
                             </div>
                         ) : null}

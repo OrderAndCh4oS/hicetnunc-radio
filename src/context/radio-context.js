@@ -16,7 +16,7 @@ const RadioProvider = ({children}) => {
         isPlaying: null,
         isLoading: false,
         isMuted: false,
-        volume: 0.5,
+        volume: 1,
         stateUpdatedBy: null,
     });
     const [runningTime, setRunningTime] = useState(0);
