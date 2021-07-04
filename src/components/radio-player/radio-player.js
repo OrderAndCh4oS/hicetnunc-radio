@@ -11,15 +11,14 @@ import { playlistDefault } from '../../assets/images';
 import { ipfsUrls } from '../../constants';
 import PrevButton from './buttons/prev-button';
 import NextButton from './buttons/next-button';
+import ScrubberBar from './scrubber-bar';
+
 
 const RadioPlayer = () => {
     const {
-        audio,
         audioError,
         playerState,
         controls,
-        runningTime,
-        scrubberRef,
     } = useRadio();
     const {tracks, creatorMetadata} = usePlaylist();
 
@@ -91,22 +90,7 @@ const RadioPlayer = () => {
                     />
                     <MuteButton/>
                 </div>
-                <div className={styles.scrubberBar}>
-                    <input
-                        ref={scrubberRef}
-                        className={styles.radioRange}
-                        title="time"
-                        type="range"
-                        value={runningTime ? runningTime / audio.duration : 0}
-                        min="0"
-                        max="1"
-                        step="0.001"
-                        onChange={controls.time}
-                    />
-                    <div className={styles.runningTime}>
-                        {getAudioTime(runningTime)} of {getAudioTime(audio.duration)}
-                    </div>
-                </div>
+                <ScrubberBar />
                 <div className={styles.trackMetaRow}>
                     {track ? <AddToPlaylist track={track}/> : null}
                     {playerState.currentTrack !== null
