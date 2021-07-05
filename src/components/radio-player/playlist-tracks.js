@@ -32,13 +32,13 @@ const PlaylistTracks = ({playlist}) => {
     if(!tracks) return <p>Loading...</p>;
 
     return (
-            <TrackList
-                tracks={tracks}
-                isTrackPlaying={isTrackPlaying}
-                creatorMetadata={creatorMetadata}
-                playlist={playlist}
-            />
+        <TrackList
+            tracks={tracks}
+            isTrackPlaying={isTrackPlaying}
+            creatorMetadata={creatorMetadata}
+            playlist={playlist}
+        />
     );
-}
+};
 
 export default PlaylistTracks;

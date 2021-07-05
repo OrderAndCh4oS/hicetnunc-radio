@@ -14,8 +14,9 @@ const RadioProvider = ({children}) => {
         currentTrackKey: 0,
         currentTrack: null,
         isPlaying: null,
+        isLoading: false,
         isMuted: false,
-        volume: 0.5,
+        volume: 1,
         stateUpdatedBy: null,
     });
     const [runningTime, setRunningTime] = useState(0);
@@ -28,16 +29,19 @@ const RadioProvider = ({children}) => {
 
     const playAudio = async() => {
         try {
+            setPlayerState(prevState => ({...prevState, isLoading: true}))
             cancelAnimationFrame(rAF);
             await audioContext.resume();
             await audio.play();
             rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
         } catch(e) {
-            setAudioError('Failed to play track, possibly unsupported media.');
+            setAudioError('Failed to play track, could be an IPFS issue or unsupported media.');
             setTimeout(() => {
                 setAudioError(null);
             }, 4000);
             console.log(e);
+        } finally {
+            setPlayerState(prevState => ({...prevState, isLoading: false}))
         }
     };
 
@@ -48,8 +52,12 @@ const RadioProvider = ({children}) => {
     };
 
     const handleSelectTrack = (tracks) => i => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         cancelAnimationFrame(rAF);
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
         await fetchSrc(tracks[i].src, tracks[i].mimeType);
+        // audio.src = tracks[i].src;
+        // audio.mimeType = tracks[i].mimeType;
         await playAudio();
         setRunningTime(0);
         setPlayerState(prevState => ({
@@ -57,6 +65,7 @@ const RadioProvider = ({children}) => {
             currentTrackKey: i,
             currentTrack: tracks[i],
             isPlaying: true,
+            isLoading: false
         }));
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
     };
@@ -120,12 +129,15 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({...prevState, volume}));
     };
 
-    const handleNext = (tracks) => () => {
+    const handleNext = (tracks) => async () => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % tracks.length;
-        audio.src = tracks[nextTrackKey].src;
-        audio.mimeType = tracks[nextTrackKey].mimeType;
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[nextTrackKey].src, tracks[nextTrackKey].mimeType);
+        // audio.src = tracks[nextTrackKey].src;
+        // audio.mimeType = tracks[nextTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();
@@ -134,16 +146,20 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: nextTrackKey,
             currentTrack: tracks[nextTrackKey],
+            isLoading: false
         }));
     };
 
-    const handlePrev = (tracks) => () => {
+    const handlePrev = (tracks) => async () => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         let prevTrackKey = currentTrackKey - 1;
         if(prevTrackKey < 0) prevTrackKey = tracks.length - 1;
-        audio.src = tracks[prevTrackKey].src;
-        audio.mimeType = tracks[prevTrackKey].mimeType;
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[prevTrackKey].src, tracks[prevTrackKey].mimeType);
+        // audio.src = tracks[prevTrackKey].src;
+        // audio.mimeType = tracks[prevTrackKey].mimeType;
         if(playerState.isPlaying) {
             audioContext.resume();
             audio.play();
@@ -152,6 +168,7 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: prevTrackKey,
             currentTrack: tracks[prevTrackKey],
+            isLoading: false
         }));
     };
 

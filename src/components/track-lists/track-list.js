@@ -1,37 +1,11 @@
 import styles from './styles.module.css';
-import PauseIcon from '../radio-player/pause-icon';
-import PlayIcon from '../radio-player/play-icon';
+import PauseIcon from '../radio-player/icons/pause-icon';
+import PlayIcon from '../radio-player/icons/play-icon';
 import { getAlias, getCreator } from '../../utilities/general';
 import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
-import ipfsClient from 'ipfs-http-client';
-
-// converts an ipfs hash to ipfs url
-const HashToURL = (hash, type) => {
-    // when on preview the hash might be undefined.
-    // its safe to return empty string as whatever called HashToURL is not going to be used
-    // artifactUri or displayUri
-    if (hash === undefined) {
-      return ''
-    }
-  
-    switch (type) {
-      case 'CLOUDFLARE':
-        return hash.replace('ipfs://', 'https://cloudflare-ipfs.com/ipfs/')
-      case 'PINATA':
-        return hash.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/')
-      case 'IPFS':
-        return hash.replace('ipfs://', 'https://ipfs.io/ipfs/')
-      case 'INFURA':
-        var cidv1 = new ipfsClient.CID(hash.replace('ipfs://', '')).toV1()
-        var subdomain = cidv1.toBaseEncodedString('base32')
-        return `https://${subdomain}.ipfs.infura-ipfs.io/`
-      default:
-        console.error('please specify type')
-        return hash
-    }
-  }
+import LoadingIcon from '../radio-player/icons/loading-icon';
 
 const TrackList = ({
     tracks,
@@ -39,27 +13,34 @@ const TrackList = ({
     creatorMetadata,
     playlist,
 }) => {
-
-    const {controls} = useRadio()
+    const {controls, playerState} = useRadio();
     const handleSelectTrack = controls.selectTrack(tracks);
+
+    const renderPlayPauseButton = (id, i) => {
+        if(playerState.isLoading) return (
+            <span className={`${styles.icon_loading_small} ${styles.playerControlIcon_small}`}>
+                <LoadingIcon/>
+            </span>
+        );
+        return isTrackPlaying(id)
+            ? (
+                <button
+                    className={`${styles.button} ${styles.button_pause_small} ${styles.playerControlIcon_small}`}
+                    onClick={controls.pause}
+                ><PauseIcon/></button>
+            ) : (
+                <button
+                    className={`${styles.button} ${styles.button_play_small} ${styles.playerControlIcon_small}`}
+                    onClick={handleSelectTrack(i)}
+                ><PlayIcon/></button>
+            );
+    };
     return <>
         {!tracks.length ? <p>No audio tracks available</p> : (
             <div>
-                {tracks.map((t, i) =>{
-                    console.log(t.thumbnailUri);
-                    return <div key={t.id} className={styles.trackRow}>
-                        {isTrackPlaying(t.id)
-                            ? (
-                                <button
-                                    className={`${styles.button} ${styles.button_pause_small} ${styles.button_playerControl_small}`}
-                                    onClick={controls.pause}
-                                ><PauseIcon/></button>
-                            ) : (
-                                <button
-                                    className={`${styles.button} ${styles.button_play_small} ${styles.button_playerControl_small}`}
-                                    onClick={handleSelectTrack(i)}
-                                ><PlayIcon/></button>
-                            )}
+                {tracks.map((t, i) =>
+                    <div key={t.id} className={styles.trackRow}>
+                        {renderPlayPauseButton(t.id, i)}
                         {
                             playlist?.curator === 'Mine'
                                 ? <RemoveFromPlaylist
@@ -69,7 +50,6 @@ const TrackList = ({
                                 : <AddToPlaylist track={t}/>
                         }
                         <span className={styles.trackRow_text}>
-                        <img src={HashToURL(t.displayUri,'CLOUDFLARE')} alt="album cover" />
                             <a
                                 href={`https://hicetnunc.xyz/objkt/${t.id}`}
                                 className={styles.trackRow_link}
@@ -87,8 +67,8 @@ const TrackList = ({
                             className={styles.trackRow_avatar}
                             src={`https://services.tzkt.io/v1/avatars2/${t.creator}`}
                         />
-                    </div>
-                })}
+                    </div>,
+                )}
             </div>
         )}
     </>;

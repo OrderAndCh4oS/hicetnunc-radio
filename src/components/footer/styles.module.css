@@ -2,6 +2,7 @@
     margin-top: auto;
     width: 90%;
     max-width: 764px;
+    padding-bottom: 170px;
 }
 
 .footerTitle {
@@ -12,8 +13,11 @@
     font-size: 9px;
 }
 
-
 @media screen and (min-width: 600px) {
+    .footerBar {
+        padding-bottom: 20px;
+    }
+
     .footerTitle {
         font-size: 12px;
     }

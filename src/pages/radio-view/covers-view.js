@@ -1,5 +1,5 @@
 import useTitle from '../../hooks/use-title';
-import TrackList from '../../components/track-lists/track-list';
+import CoverList from '../../components/track-lists/cover-list';
 import useRadio from '../../hooks/use-radio';
 import { useEffect } from 'react';
 import { gql, request } from 'graphql-request';
@@ -32,7 +32,7 @@ const query = gql`
     }
 `;
 
-const AllTracksView = () => {
+const CoverView = () => {
     useTitle(`H=N Radio Tracks`);
     const {
         audio,
@@ -76,7 +76,7 @@ const AllTracksView = () => {
 
     return (
         <>
-            <TrackList
+            <CoverList
                 tracks={tracks}
                 isTrackPlaying={isTrackPlaying}
                 creatorMetadata={creatorMetadata}
@@ -85,6 +85,6 @@ const AllTracksView = () => {
     );
 };
 
-export default AllTracksView;
+export default CoverView;
 
 
