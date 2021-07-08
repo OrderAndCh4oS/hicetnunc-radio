@@ -26,7 +26,6 @@ const WalletView = () => {
     const {walletId, setWalletId, objkts, isLoading, setIsLoading, error} = useWallet();
     const [walletsWithAudio, setWalletsWithAudio] = useState([]);
     useTitle(`H=N Radio ${walletId ? `| ${walletId}` : ''}`);
-
     useEffect(() => {
         if(!tz || tz === walletId) return;
         setWalletId(tz);

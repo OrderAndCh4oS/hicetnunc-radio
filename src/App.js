@@ -7,6 +7,7 @@ import Logo from './components/logo/logo';
 import Footer from './components/footer/footer';
 import useWallet from './hooks/use-wallet';
 import AllTracksView from './pages/radio-view/all-tracks-view';
+import TrackView from './pages/radio-view/track-view';
 import RadioPlayer from './components/radio-player/radio-player';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             </div>
             <Switch>
                 <Route exact path="/" component={AllTracksView}/>
+                <Route exact path="/:objkt" component={TrackView}/>
                 <Route exact path="/tz" component={WalletView}/>
                 <Route path="/tz/:tz" component={WalletView}/>
                 <Route path="/playlists" component={PlaylistView}/>
