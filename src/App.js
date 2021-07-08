@@ -28,7 +28,7 @@ function App() {
             </div>
             <Switch>
                 <Route exact path="/" component={AllTracksView}/>
-                <Route exact path="/:objkt" component={TrackView}/>
+                <Route exact path="/o/:objkt" component={AllTracksView}/>
                 <Route exact path="/tz" component={WalletView}/>
                 <Route path="/tz/:tz" component={WalletView}/>
                 <Route path="/playlists" component={PlaylistView}/>

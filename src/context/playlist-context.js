@@ -8,7 +8,7 @@ export const PlaylistContext = createContext(null);
 const PlaylistProvider = ({children}) => {
     const [tracks, setTracks] = useState([]);
     const [creatorMetadata, setCreatorMetadata] = useState({});
-    const {playerState, setPlayerState} = useRadio();
+    const {controls} = useRadio();
     const {audio} = useAudio();
 
     useEffect(() => {
@@ -31,21 +31,6 @@ const PlaylistProvider = ({children}) => {
                 }, {});
             setCreatorMetadata(nextCreatorMetadata);
         })();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks]);
-
-    useEffect(() => {
-        if(!tracks?.length || !audio) return;
-        if(audio.src) return;
-        audio.crossOrigin = 'anonymous';
-        audio.src = tracks[0].src;
-        audio.volume = playerState.volume;
-        audio.mimeType = tracks[0].mimeType;
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: 0,
-            currentTrack: tracks[0],
-        }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks]);
 
