@@ -85,7 +85,8 @@ const WalletView = () => {
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
                     disabled={!walletIdInput}
-                >Get Tracks</button>
+                >Get Tracks
+                </button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
             <div>

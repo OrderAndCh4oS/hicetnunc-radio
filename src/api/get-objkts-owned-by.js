@@ -22,13 +22,13 @@ const query = gql`
     }
 `;
 
-const getObjktsOwnedBy = async (walletId) => {
+const getObjktsOwnedBy = async(walletId) => {
     const response = await request(
         'https://api.hicdex.com/v1/graphql',
         query,
         {ownerId: walletId},
     );
-    return  response.hic_et_nunc_token || []
+    return response.hic_et_nunc_token || [];
 };
 
 export default getObjktsOwnedBy;
