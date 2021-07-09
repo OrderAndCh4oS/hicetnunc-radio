@@ -11,7 +11,6 @@ const WalletTrackList = () => {
     const {
         audio,
         playerState,
-        setPlayerState,
         controls,
         isTrackPlaying,
     } = useRadio();

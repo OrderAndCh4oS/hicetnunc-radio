@@ -1,15 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import getUserMetadataByWalletId from '../api/get-user-metadata-by-wallet-id';
-import useAudio from '../hooks/use-audio';
-import useRadio from '../hooks/use-radio';
 
 export const PlaylistContext = createContext(null);
 
 const PlaylistProvider = ({children}) => {
     const [tracks, setTracks] = useState([]);
     const [creatorMetadata, setCreatorMetadata] = useState({});
-    const {controls} = useRadio();
-    const {audio} = useAudio();
 
     useEffect(() => {
         if(!tracks) return;
