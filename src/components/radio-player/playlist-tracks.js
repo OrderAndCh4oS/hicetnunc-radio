@@ -25,7 +25,7 @@ const PlaylistTracks = ({playlist}) => {
     useEffect(() => {
         if(!tracks?.length || !audio) return;
         if(audio.src) return;
-        controls.selectTrack(tracks)(0)();
+        controls.initialiseTrack(tracks)(0)();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks]);
 

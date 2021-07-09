@@ -70,6 +70,22 @@ const RadioProvider = ({children}) => {
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
     };
 
+    const handleInitialiseTrack = (tracks) => i => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}))
+        cancelAnimationFrame(rAF);
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[i].src, tracks[i].mimeType);
+        // audio.src = tracks[i].src;
+        // audio.mimeType = tracks[i].mimeType;
+        setRunningTime(0);
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: i,
+            currentTrack: tracks[i],
+            isLoading: false
+        }));
+    };
+
     const handlePause = () => {
         if(!audio) return;
         cancelAnimationFrame(rAF);
@@ -197,6 +213,7 @@ const RadioProvider = ({children}) => {
                     next: handleNext,
                     previous: handlePrev,
                     selectTrack: handleSelectTrack,
+                    initialiseTrack: handleInitialiseTrack
                 },
             }}
         >

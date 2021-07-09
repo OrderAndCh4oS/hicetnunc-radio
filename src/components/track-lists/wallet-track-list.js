@@ -24,7 +24,7 @@ const WalletTrackList = () => {
     audio.onended = () => {
         if(!filteredTracks.length) return;
         const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
-        controls.selectTrack(filteredTracks)(nextTrackKey)();
+        controls.initialiseTrack(filteredTracks)(nextTrackKey)();
     };
 
     useEffect(() => {

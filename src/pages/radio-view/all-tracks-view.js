@@ -69,7 +69,7 @@ const AllTracksView = () => {
         if(!tracks?.length || !audio) return;
         if(audio.src) return;
         const foundIndex = tracks.findIndex(t => t.id === Number(objkt));
-        controls.selectTrack(tracks)(foundIndex !== -1 ? foundIndex : 0)();
+        controls.initialiseTrack(tracks)(foundIndex !== -1 ? foundIndex : 0)();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tracks]);
 
