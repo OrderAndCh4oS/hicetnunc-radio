@@ -7,7 +7,6 @@ import Logo from './components/logo/logo';
 import Footer from './components/footer/footer';
 import useWallet from './hooks/use-wallet';
 import AllTracksView from './pages/radio-view/all-tracks-view';
-import TrackView from './pages/radio-view/track-view';
 import RadioPlayer from './components/radio-player/radio-player';
 
 function App() {
