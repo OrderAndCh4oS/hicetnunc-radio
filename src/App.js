@@ -9,7 +9,7 @@ import useWallet from './hooks/use-wallet';
 import AllTracksView from './pages/radio-view/all-tracks-view';
 import RadioPlayer from './components/radio-player/radio-player';
 import { Helmet } from "react-helmet";
-
+/*
 const getMetaTags = () => {
     const metaTags = [
         { itemprop: 'name', content: 'title' },
@@ -28,7 +28,7 @@ const getMetaTags = () => {
     ];
     return metaTags;
 }
-
+*/
 function App() {
     const { walletId } = useWallet();
     return (
