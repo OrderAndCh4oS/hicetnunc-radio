@@ -26,7 +26,6 @@ const WalletView = () => {
     const {walletId, setWalletId, objkts, isLoading, setIsLoading, error} = useWallet();
     const [walletsWithAudio, setWalletsWithAudio] = useState([]);
     useTitle(`H=N Radio ${walletId ? `| ${walletId}` : ''}`);
-
     useEffect(() => {
         if(!tz || tz === walletId) return;
         setWalletId(tz);
@@ -86,7 +85,8 @@ const WalletView = () => {
                     className={styles.button_getObjktData}
                     onClick={handleGetTracks}
                     disabled={!walletIdInput}
-                >Get Tracks</button>
+                >Get Tracks
+                </button>
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
             <div>

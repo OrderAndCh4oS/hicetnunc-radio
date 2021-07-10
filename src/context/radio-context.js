@@ -29,7 +29,7 @@ const RadioProvider = ({children}) => {
 
     const playAudio = async() => {
         try {
-            setPlayerState(prevState => ({...prevState, isLoading: true}))
+            setPlayerState(prevState => ({...prevState, isLoading: true}));
             cancelAnimationFrame(rAF);
             await audioContext.resume();
             await audio.play();
@@ -41,7 +41,7 @@ const RadioProvider = ({children}) => {
             }, 4000);
             console.log(e);
         } finally {
-            setPlayerState(prevState => ({...prevState, isLoading: false}))
+            setPlayerState(prevState => ({...prevState, isLoading: false}));
         }
     };
 
@@ -52,7 +52,7 @@ const RadioProvider = ({children}) => {
     };
 
     const handleSelectTrack = (tracks) => i => async() => {
-        setPlayerState(prevState => ({...prevState, isLoading: true}))
+        setPlayerState(prevState => ({...prevState, isLoading: true}));
         cancelAnimationFrame(rAF);
         // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
         await fetchSrc(tracks[i].src, tracks[i].mimeType);
@@ -65,9 +65,25 @@ const RadioProvider = ({children}) => {
             currentTrackKey: i,
             currentTrack: tracks[i],
             isPlaying: true,
-            isLoading: false
+            isLoading: false,
         }));
         rAF = requestAnimationFrame(updateTrackPlayDuration(audio));
+    };
+
+    const handleInitialiseTrack = (tracks) => i => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}));
+        cancelAnimationFrame(rAF);
+        // Note: Use fetchSrc if we have issues with duration not being present in the audio meta
+        await fetchSrc(tracks[i].src, tracks[i].mimeType);
+        // audio.src = tracks[i].src;
+        // audio.mimeType = tracks[i].mimeType;
+        setRunningTime(0);
+        setPlayerState(prevState => ({
+            ...prevState,
+            currentTrackKey: i,
+            currentTrack: tracks[i],
+            isLoading: false,
+        }));
     };
 
     const handlePause = () => {
@@ -97,7 +113,7 @@ const RadioProvider = ({children}) => {
         const changeTime = () => {
             const timePercent = event.target.value;
             audio.currentTime = timePercent * audio.duration;
-        }
+        };
         if(timer) clearTimeout(timer);
         const now = +new Date();
         if(now - lastTime > throttle) {
@@ -129,8 +145,8 @@ const RadioProvider = ({children}) => {
         setPlayerState(prevState => ({...prevState, volume}));
     };
 
-    const handleNext = (tracks) => async () => {
-        setPlayerState(prevState => ({...prevState, isLoading: true}))
+    const handleNext = (tracks) => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}));
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         const nextTrackKey = (currentTrackKey + 1) % tracks.length;
@@ -146,12 +162,12 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: nextTrackKey,
             currentTrack: tracks[nextTrackKey],
-            isLoading: false
+            isLoading: false,
         }));
     };
 
-    const handlePrev = (tracks) => async () => {
-        setPlayerState(prevState => ({...prevState, isLoading: true}))
+    const handlePrev = (tracks) => async() => {
+        setPlayerState(prevState => ({...prevState, isLoading: true}));
         const {currentTrackKey} = playerState;
         if(!tracks.length) return;
         let prevTrackKey = currentTrackKey - 1;
@@ -168,7 +184,7 @@ const RadioProvider = ({children}) => {
             ...prevState,
             currentTrackKey: prevTrackKey,
             currentTrack: tracks[prevTrackKey],
-            isLoading: false
+            isLoading: false,
         }));
     };
 
@@ -197,6 +213,7 @@ const RadioProvider = ({children}) => {
                     next: handleNext,
                     previous: handlePrev,
                     selectTrack: handleSelectTrack,
+                    initialiseTrack: handleInitialiseTrack,
                 },
             }}
         >

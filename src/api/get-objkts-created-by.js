@@ -24,13 +24,13 @@ const query = gql`
     }
 `;
 
-const getObjktsCreatedBy = async (walletId) => {
+const getObjktsCreatedBy = async(walletId) => {
     const response = await request(
         'https://api.hicdex.com/v1/graphql',
         query,
         {creatorId: walletId},
     );
-    return  response.hic_et_nunc_token || []
+    return response.hic_et_nunc_token || [];
 };
 
 export default getObjktsCreatedBy;

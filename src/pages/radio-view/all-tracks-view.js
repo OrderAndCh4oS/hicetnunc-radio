@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { gql, request } from 'graphql-request';
 import usePlaylist from '../../hooks/use-playlist';
 import { ipfsUrls } from '../../constants';
+import { useParams } from 'react-router';
 
 const query = gql`
     query AudioObjktData {
@@ -33,11 +34,11 @@ const query = gql`
 `;
 
 const AllTracksView = () => {
+    const {objkt} = useParams();
     useTitle(`H=N Radio Tracks`);
     const {
         audio,
         playerState,
-        setPlayerState,
         controls,
         isTrackPlaying,
     } = useRadio();
@@ -46,13 +47,7 @@ const AllTracksView = () => {
     audio.onended = () => {
         if(!tracks.length) return;
         const nextTrackKey = (playerState.currentTrackKey + 1) % tracks.length;
-        audio.src = tracks[nextTrackKey].src;
-        controls.play();
-        setPlayerState(prevState => ({
-            ...prevState,
-            currentTrackKey: nextTrackKey,
-            currentTrack: tracks[nextTrackKey],
-        }));
+        controls.selectTrack(tracks)(nextTrackKey)();
     };
 
     useEffect(() => {
@@ -69,6 +64,14 @@ const AllTracksView = () => {
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if(!tracks?.length || !audio) return;
+        if(audio.src) return;
+        const foundIndex = tracks.findIndex(t => t.id === Number(objkt));
+        controls.initialiseTrack(tracks)(foundIndex !== -1 ? foundIndex : 0)();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tracks]);
 
     if(!tracks) return <p>Loading...</p>;
 
