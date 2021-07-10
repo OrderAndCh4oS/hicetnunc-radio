@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate, render } from "react-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -9,25 +9,50 @@ import AudioProvider from './context/audio-context';
 import PlaylistProvider from './context/playlist-context';
 import WalletProvider from './context/wallet-context';
 import UserPlaylistProvider from './context/user-playlists-context';
+import { Helmet } from "react-helmet";
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Router>
-            <WalletProvider>
-                <AudioProvider>
-                    <RadioProvider>
-                        <UserPlaylistProvider>
-                            <PlaylistProvider>
-                                <App/>
-                            </PlaylistProvider>
-                        </UserPlaylistProvider>
-                    </RadioProvider>
-                </AudioProvider>
-            </WalletProvider>
-        </Router>
-    </React.StrictMode>,
-    document.getElementById('root'),
-);
+const rootElement = document.getElementById("root");
+
+if (rootElement.hasChildNodes()) {
+    hydrate(
+        <React.StrictMode>
+            <Router>
+                <WalletProvider>
+                    <AudioProvider>
+                        <RadioProvider>
+                            <UserPlaylistProvider>
+                                <PlaylistProvider>
+                                    <App>
+                                        <Helmet/>
+                                    </App>
+                                </PlaylistProvider>
+                            </UserPlaylistProvider>
+                        </RadioProvider>
+                    </AudioProvider>
+                </WalletProvider>
+            </Router>
+        </React.StrictMode>,
+        rootElement);
+} else {
+    render(
+        <React.StrictMode>
+            <Router>
+                <WalletProvider>
+                    <AudioProvider>
+                        <RadioProvider>
+                            <UserPlaylistProvider>
+                                <PlaylistProvider>
+                                    <App />
+                                </PlaylistProvider>
+                            </UserPlaylistProvider>
+                        </RadioProvider>
+                    </AudioProvider>
+                </WalletProvider>
+            </Router>
+        </React.StrictMode>,
+        rootElement
+    );
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
