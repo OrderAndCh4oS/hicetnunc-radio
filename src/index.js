@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import RadioProvider from './context/radio-context';
 import AudioProvider from './context/audio-context';
 import PlaylistProvider from './context/playlist-context';
@@ -12,7 +12,7 @@ import UserPlaylistProvider from './context/user-playlists-context';
 
 ReactDOM.render(
     <React.StrictMode>
-        <HashRouter>
+        <Router>
             <WalletProvider>
                 <AudioProvider>
                     <RadioProvider>
@@ -24,7 +24,7 @@ ReactDOM.render(
                     </RadioProvider>
                 </AudioProvider>
             </WalletProvider>
-        </HashRouter>
+        </Router>
     </React.StrictMode>,
     document.getElementById('root'),
 );
