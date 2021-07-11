@@ -16,27 +16,34 @@ const PlaylistView = () => {
     const search = useLocation().search;
     const objktIdsStr = new URLSearchParams(search).get("objktIds");
     const objktIds = objktIdsStr?.split(',');
-    const {setTracks} = usePlaylist();
+    const { setTracks } = usePlaylist();
 
-   // if (objktIds) {
-       const objktList = objktIds.map((obj) => (`{id: {_eq: ${obj}}}`)).join(',')
-        const query = gql`
-            query AudioObjktData {
-                hic_et_nunc_token(where: {_or: [${objktList}]}) {
-                    id
-                    artifact_uri
-                    creator_id
-                    description
-                    display_uri
-                  }
-            }
-`;
-   // }
+    useEffect(() => {
 
-            useEffect(() => {
+        if (objktIds) {
+            const objktList = objktIds.map((obj) => (`{id: {_eq: ${obj}}}`)).join(',')
+            const query = gql`
+                         query AudioObjktData {
+                             hic_et_nunc_token(where: {_or: [${objktList}]}) {
+                                 id
+                                 artifact_uri
+                                 creator_id
+                                 description
+                                 display_uri
+                               }
+                         }
+             `;
+
             (async () => {
+
                 const data = await request('https://api.hicdex.com/v1/graphql', query);
-                setTracks(data?.hic_et_nunc_token?.map(o => ({
+
+                const tokens = data?.hic_et_nunc_token;
+
+                //sort the result to be in the same order as the in the url
+                tokens.sort((a, b) => objktIds.indexOf(String(a.id)) - objktIds.indexOf(String(b.id)))
+
+                setTracks(tokens.map(o => ({
                     id: o.id,
                     creator: o.creator_id,
                     name: o.title,
@@ -45,8 +52,10 @@ const PlaylistView = () => {
                     displayUri: o.display_uri,
                 })));
             })();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const { userPlaylists } = useUserPlaylists();
     const [playlists, setPlaylists] = useState(initialPlaylists);
@@ -68,7 +77,7 @@ const PlaylistView = () => {
 
     return (
         <>
-            <CurrentPlaylist playlist={selectedPlaylist} />
+            {!objktIds && <CurrentPlaylist playlist={selectedPlaylist} />}
             <PlaylistTracks playlist={selectedPlaylist} />
             <Playlists
                 handlePlaylistChange={handlePlaylistChange}
