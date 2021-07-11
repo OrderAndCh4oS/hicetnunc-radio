@@ -3,7 +3,7 @@ import TrackList from '../track-lists/track-list';
 import useRadio from '../../hooks/use-radio';
 import usePlaylist from '../../hooks/use-playlist';
 
-const PlaylistTracks = ({playlist}) => {
+const PlaylistTracks = ({tracklist}) => {
     const {
         audio,
         playerState,
@@ -13,8 +13,8 @@ const PlaylistTracks = ({playlist}) => {
     const {tracks, setTracks, creatorMetadata} = usePlaylist();
 
     useEffect(() => {
-        setTracks(playlist.tracks);
-    }, [playlist, setTracks]);
+        setTracks(tracklist);
+    }, [tracklist, setTracks]);
 
     audio.onended = () => {
         if(!tracks.length) return;
@@ -36,7 +36,7 @@ const PlaylistTracks = ({playlist}) => {
             tracks={tracks}
             isTrackPlaying={isTrackPlaying}
             creatorMetadata={creatorMetadata}
-            playlist={playlist}
+           
         />
     );
 };
