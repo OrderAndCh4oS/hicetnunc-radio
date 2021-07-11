@@ -18,8 +18,9 @@ function App() {
                 <div className={styles.navBar}>
                     <Link className={styles.navBar_link} to={'/'}>All Tracks</Link>
                     <Link className={styles.navBar_link} to={'/playlists'}>Playlists</Link>
-                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>By
-                                                                                                   Wallet</Link>
+                    <Link className={styles.navBar_link} to={walletId ? `/tz/${walletId}` : '/tz'}>
+                        By Wallet
+                    </Link>
                 </div>
             </div>
             <div className={styles.radioPlayerBar}>
