@@ -7,7 +7,6 @@ import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
 import LoadingIcon from '../radio-player/icons/loading-icon';
 import FilterButtons from '../radio-player/buttons/filter-buttons';
-import { useState } from 'react';
 
 const TrackList = ({
     tracks,
