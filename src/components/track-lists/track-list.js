@@ -19,7 +19,7 @@ const TrackList = ({
 }) => {
     const {controls, playerState} = useRadio();
     const handleSelectTrack = controls.selectTrack(tracks);
-    const [tagBtn, setTagBtn] = useState(['jazz', 'rock', 'glitch','noise','ambient','saxophone','chill','beats','guitar','drums','soundscape','piano','peaceful','live','hardcore','funk','bass','dark','brazil','poetry','rap','hiphop','electro']);
+    const tagBtn= ['jazz', 'rock', 'glitch','noise','ambient','saxophone','chill','beats','guitar','drums','soundscape','piano','peaceful','live','hardcore','funk','bass','dark','brazil','poetry','rap','hiphop','electro'];
 
     const renderPlayPauseButton = (id, i) => {
         if(playerState.isLoading) return (
