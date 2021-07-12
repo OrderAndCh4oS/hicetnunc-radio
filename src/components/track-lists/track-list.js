@@ -6,15 +6,20 @@ import AddToPlaylist from '../add-to-playlist/add-to-playlist';
 import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
 import LoadingIcon from '../radio-player/icons/loading-icon';
+import FilterButtons from '../radio-player/buttons/filter-buttons';
+import { useState } from 'react';
 
 const TrackList = ({
     tracks,
+    setTracks,
+    allTracks,
     isTrackPlaying,
     creatorMetadata,
     playlist,
 }) => {
     const {controls, playerState} = useRadio();
     const handleSelectTrack = controls.selectTrack(tracks);
+    const [tagBtn, setTagBtn] = useState(['jazz', 'rock', 'glitch','noise','ambient','saxophone','chill','beats','guitar','drums','soundscape','piano','peaceful','live','hardcore','funk','bass','dark','brazil','poetry','rap','hiphop','electro']);
 
     const renderPlayPauseButton = (id, i) => {
         if(playerState.isLoading) return (
@@ -35,9 +40,16 @@ const TrackList = ({
                 ><PlayIcon/></button>
             );
     };
+
+    const filterTracks = (tag) => {
+        const filteredTracks = allTracks.filter(track => track.tags?.some((tagArr) => { console.log(tagArr.tag.tag); return tagArr.tag.tag === tag}))
+        setTracks(filteredTracks);
+    }
     return <>
         {!tracks.length ? <p>No audio tracks available</p> : (
             <div>
+                <FilterButtons tagBtn={tagBtn} filter={filterTracks} />
+                <hr/>
                 {tracks.map((t, i) =>
                     <div key={t.id} className={styles.trackRow}>
                         {renderPlayPauseButton(t.id, i)}

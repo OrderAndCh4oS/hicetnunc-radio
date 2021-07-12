@@ -1,7 +1,7 @@
 import useTitle from '../../hooks/use-title';
 import TrackList from '../../components/track-lists/track-list';
 import useRadio from '../../hooks/use-radio';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { gql, request } from 'graphql-request';
 import usePlaylist from '../../hooks/use-playlist';
 import { ipfsUrls } from '../../constants';
@@ -29,6 +29,9 @@ const query = gql`
             mime
             creator_id
             artifact_uri
+            token_tags {
+                tag{tag}
+              }
         }
     }
 `;
@@ -43,6 +46,7 @@ const AllTracksView = () => {
         isTrackPlaying,
     } = useRadio();
     const {tracks, setTracks, creatorMetadata} = usePlaylist();
+    const [allTracks, setAllTracks] = useState([]);
 
     audio.onended = () => {
         if(!tracks.length) return;
@@ -53,14 +57,19 @@ const AllTracksView = () => {
     useEffect(() => {
         (async() => {
             const data = await request('https://api.hicdex.com/v1/graphql', query);
-            setTracks(data?.hic_et_nunc_token?.map(o => ({
+            const allTracks = (data?.hic_et_nunc_token?.map(o => ({
                 id: o.id,
                 creator: o.creator_id,
                 name: o.title,
                 src: `${ipfsUrls[~~(Math.random() * ipfsUrls.length)]}/${o.artifact_uri.slice(7)}`,
                 mimeType: o.mime,
                 displayUri: o.display_uri,
+                tags: o.token_tags,
             })));
+
+            setTracks(allTracks);
+            //Alltracks is to be able to reset after filtering by tag
+            setAllTracks(allTracks);
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -79,6 +88,8 @@ const AllTracksView = () => {
         <>
             <TrackList
                 tracks={tracks}
+                setTracks={setTracks}
+                allTracks={allTracks}
                 isTrackPlaying={isTrackPlaying}
                 creatorMetadata={creatorMetadata}
             />
