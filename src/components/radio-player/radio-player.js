@@ -75,7 +75,7 @@ const RadioPlayer = () => {
             <div className={styles.controlsLayout}>
                 <div className={styles.playerBar}>
                     <PrevButton tracks={tracks}/>
-                    <PlayPauseButton/>
+                    <PlayPauseButton track={tracks[0]}/>
                     <NextButton tracks={tracks}/>
                     <input
                         className={`${styles.radioRange} ${styles.volumeControl}`}
