@@ -46,11 +46,11 @@ const RadioProvider = ({children}) => {
         
     };
 
-    const handlePlay = prop => async() => {
+    const handlePlay = () => async() => {
         if(!audio) return;
-        setPlayerState(prevState => ({...prevState, isPlaying: true}));
-        await fetchSrc(prop.track.src, prop.track.mimeType);
+        if (playerState.isPlaying === null) await fetchSrc(playerState.currentTrack.src, playerState.currentTrack.mimeType);
         await playAudio();
+        setPlayerState(prevState => ({...prevState, isPlaying: true}));
     };
 
     const handleSelectTrack = (tracks) => i => async() => {

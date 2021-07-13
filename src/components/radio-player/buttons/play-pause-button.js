@@ -4,7 +4,7 @@ import PlayIcon from '../icons/play-icon';
 import useRadio from '../../../hooks/use-radio';
 import LoadingIcon from '../icons/loading-icon';
 
-const PlayPauseButton = (track) => {
+const PlayPauseButton = () => {
     const {controls, playerState} = useRadio();
     if(playerState.isLoading) return (
         <span className={`${styles.playerIconHolder} ${styles.icon_loading} ${styles.playerIconHolder}`}>
@@ -22,7 +22,7 @@ const PlayPauseButton = (track) => {
         ) : (
             <button
                 className={`${styles.button} ${styles.button_play} ${styles.playerIconHolder}`}
-                onClick={controls.play(track)}
+                onClick={controls.play()}
             >
                 <PlayIcon/>
             </button>
