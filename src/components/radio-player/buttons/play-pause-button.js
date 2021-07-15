@@ -22,7 +22,7 @@ const PlayPauseButton = () => {
         ) : (
             <button
                 className={`${styles.button} ${styles.button_play} ${styles.playerIconHolder}`}
-                onClick={controls.play()}
+                onClick={controls.play}
             >
                 <PlayIcon/>
             </button>
