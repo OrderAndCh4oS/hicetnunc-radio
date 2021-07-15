@@ -10,30 +10,30 @@ const PlaylistTracks = ({playlist}) => {
         controls,
         isTrackPlaying,
     } = useRadio();
-    const {tracks, setTracks, creatorMetadata} = usePlaylist();
+    const {filteredTracks, setFilteredTracks, creatorMetadata} = usePlaylist();
 
     useEffect(() => {
-        setTracks(playlist.tracks);
-    }, [playlist, setTracks]);
+        setFilteredTracks(playlist.tracks);
+    }, [playlist, setFilteredTracks]);
 
     audio.onended = () => {
-        if(!tracks.length) return;
-        const nextTrackKey = (playerState.currentTrackKey + 1) % tracks.length;
-        controls.selectTrack(tracks)(nextTrackKey)();
+        if(!filteredTracks.length) return;
+        const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
+        controls.selectTrack(filteredTracks)(nextTrackKey)();
     };
 
     useEffect(() => {
-        if(!tracks?.length || !audio) return;
+        if(!filteredTracks?.length || !audio) return;
         if(audio.src) return;
-        controls.initialiseTrack(tracks)(0)();
+        controls.initialiseTrack(filteredTracks)(0)();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks]);
+    }, [filteredTracks]);
 
-    if(!tracks) return <p>Loading...</p>;
+    if(!filteredTracks) return <p>Loading...</p>;
 
     return (
         <TrackList
-            tracks={tracks}
+            tracks={filteredTracks}
             isTrackPlaying={isTrackPlaying}
             creatorMetadata={creatorMetadata}
             playlist={playlist}

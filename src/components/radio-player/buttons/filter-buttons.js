@@ -1,10 +1,10 @@
 import React from 'react'
 
-function FilterButtons({ tagBtn, filter }) {
+function FilterButtons({ tags, filter }) {
     return (
         <div>
             {
-                tagBtn.map((tag, i) => {
+                tags.map((tag, i) => {
                     return <button type="button" onClick={() => filter(tag)} className="btn">{tag}</button>
                 })
             }

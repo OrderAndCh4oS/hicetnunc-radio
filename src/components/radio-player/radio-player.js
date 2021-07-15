@@ -19,12 +19,12 @@ const RadioPlayer = () => {
         playerState,
         controls,
     } = useRadio();
-    const {tracks, creatorMetadata} = usePlaylist();
+    const {filteredTracks, creatorMetadata} = usePlaylist();
 
     // Todo: double check this actually works…
     useEffect(() => {
         const keyUpListener = document.addEventListener('keydown', async(event) => {
-            if(!tracks) return;
+            if(!filteredTracks) return;
             switch(event) {
                 case 'MediaPlayPause':
                     if(!playerState.isPlaying) { await controls.play(); } else { await controls.pause(); }
@@ -33,10 +33,10 @@ const RadioPlayer = () => {
                     await controls.pause();
                     break;
                 case 'MediaTrackPrevious':
-                    await controls.previous(tracks);
+                    await controls.previous(filteredTracks);
                     break;
                 case 'MediaTrackNext':
-                    await controls.next(tracks);
+                    await controls.next(filteredTracks);
                     break;
                 case 'VolumeUp':
                     await controls.volumeUp();
@@ -56,7 +56,7 @@ const RadioPlayer = () => {
         };
     });
 
-    if(!tracks) return null;
+    if(!filteredTracks) return null;
     const track = playerState.currentTrack;
     const coverHash = track?.displayUri?.slice(7) || '';
     const srcSet = ipfsUrls.map((url) => `${url}/${coverHash}`).join(', ');
@@ -74,9 +74,9 @@ const RadioPlayer = () => {
             </div>
             <div className={styles.controlsLayout}>
                 <div className={styles.playerBar}>
-                    <PrevButton tracks={tracks}/>
+                    <PrevButton tracks={filteredTracks}/>
                     <PlayPauseButton/>
-                    <NextButton tracks={tracks}/>
+                    <NextButton tracks={filteredTracks}/>
                     <input
                         className={`${styles.radioRange} ${styles.volumeControl}`}
                         title="volume"

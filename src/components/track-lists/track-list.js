@@ -7,19 +7,21 @@ import RemoveFromPlaylist from '../add-to-playlist/remove-from-playlist';
 import useRadio from '../../hooks/use-radio';
 import LoadingIcon from '../radio-player/icons/loading-icon';
 import FilterButtons from '../radio-player/buttons/filter-buttons';
+import { useLocation } from 'react-router-dom'
 
 const TrackList = ({
     tracks,
     setTracks,
-    allTracks,
     isTrackPlaying,
     creatorMetadata,
     playlist,
 }) => {
     const {controls, playerState} = useRadio();
     const handleSelectTrack = controls.selectTrack(tracks);
-    const tagBtn= ['jazz', 'rock', 'glitch','noise','ambient','saxophone','chill','beats','guitar','drums','soundscape','piano','peaceful','live','hardcore','funk','bass','dark','brazil','poetry','rap','hiphop','electro'];
+    const tags= ['jazz', 'rock', 'glitch','noise','ambient','saxophone','chill','beats','guitar','drums','soundscape','piano','peaceful','live','hardcore','funk','bass','dark','brazil','poetry','rap','hiphop','electro'];
 
+    const page = useLocation().pathname;
+    
     const renderPlayPauseButton = (id, i) => {
         if(playerState.isLoading) return (
             <span className={`${styles.icon_loading_small} ${styles.playerControlIcon_small}`}>
@@ -41,13 +43,13 @@ const TrackList = ({
     };
 
     const filterTracks = (tag) => {
-        const filteredTracks = allTracks.filter(track => track.tags?.some((tagArr) => { console.log(tagArr.tag.tag); return tagArr.tag.tag === tag}))
+        const filteredTracks = playerState.allTracks.filter(track => track.tags?.some((tags) => { return tags.tag.tag === tag}))
         setTracks(filteredTracks);
     }
     return <>
         {!tracks.length ? <p>No audio tracks available</p> : (
             <div>
-                <FilterButtons tagBtn={tagBtn} filter={filterTracks} />
+                {page === "/" && <FilterButtons tags={tags} filter={filterTracks} />}
                 <hr/>
                 {tracks.map((t, i) =>
                     <div key={t.id} className={styles.trackRow}>

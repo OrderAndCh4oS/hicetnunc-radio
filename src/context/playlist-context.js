@@ -4,13 +4,13 @@ import getUserMetadataByWalletId from '../api/get-user-metadata-by-wallet-id';
 export const PlaylistContext = createContext(null);
 
 const PlaylistProvider = ({children}) => {
-    const [tracks, setTracks] = useState([]);
+    const [filteredTracks, setFilteredTracks] = useState([]);
     const [creatorMetadata, setCreatorMetadata] = useState({});
 
     useEffect(() => {
-        if(!tracks) return;
+        if(!filteredTracks) return;
         (async() => {
-            const uniqueCreatorWalletIds = new Set(tracks.map(t => t.creator));
+            const uniqueCreatorWalletIds = new Set(filteredTracks.map(t => t.creator));
             const nextCreatorMetadata = (await Promise.allSettled(
                 [...uniqueCreatorWalletIds]
                     .map(id => getUserMetadataByWalletId(id)),
@@ -28,13 +28,13 @@ const PlaylistProvider = ({children}) => {
             setCreatorMetadata(nextCreatorMetadata);
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks]);
+    }, [filteredTracks]);
 
     return (
         <PlaylistContext.Provider
             value={{
-                tracks,
-                setTracks,
+                filteredTracks,
+                setFilteredTracks,
                 creatorMetadata,
             }}
         >
