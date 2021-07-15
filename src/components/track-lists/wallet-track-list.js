@@ -16,19 +16,19 @@ const WalletTrackList = () => {
     } = useRadio();
     const {objkts, walletId} = useWallet();
 
-    const {tracks, setTracks, creatorMetadata} = usePlaylist();
+    const {filteredTracks, setFilteredTracks, creatorMetadata} = usePlaylist();
 
-    const [filteredTracks, setFilteredTracks] = useState([]);
+    const [walletFilterTracks, setWalletFilterTracks] = useState([]);
     const [filter, setFilter] = useState(FilterTypes.ALL);
 
     audio.onended = () => {
-        if(!filteredTracks.length) return;
-        const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
-        controls.initialiseTrack(filteredTracks)(nextTrackKey)();
+        if(!walletFilterTracks.length) return;
+        const nextTrackKey = (playerState.currentTrackKey + 1) % walletFilterTracks.length;
+        controls.initialiseTrack(walletFilterTracks)(nextTrackKey)();
     };
 
     useEffect(() => {
-        setTracks(objkts.map(o => ({
+        setFilteredTracks(objkts.map(o => ({
             id: o.id,
             creator: o.creator_id,
             name: o.title,
@@ -40,8 +40,8 @@ const WalletTrackList = () => {
     }, [objkts]);
 
     useEffect(() => {
-        if(!tracks) return;
-        setFilteredTracks(tracks.filter(t => {
+        if(!filteredTracks) return;
+        setWalletFilterTracks(filteredTracks.filter(t => {
             switch(filter) {
                 case FilterTypes.ALL:
                     return true;
@@ -54,15 +54,15 @@ const WalletTrackList = () => {
             }
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks, filter]);
+    }, [filteredTracks, filter]);
 
-    if(!tracks) return <p>Loading...</p>;
+    if(!filteredTracks) return <p>Loading...</p>;
 
     return (
         <>
             <TracksFilterBar filter={filter} setFilter={setFilter}/>
             <TrackList
-                tracks={filteredTracks}
+                tracks={walletFilterTracks}
                 isTrackPlaying={isTrackPlaying}
                 creatorMetadata={creatorMetadata}
             />

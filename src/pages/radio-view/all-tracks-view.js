@@ -29,6 +29,9 @@ const query = gql`
             mime
             creator_id
             artifact_uri
+            token_tags {
+                tag{tag}
+              }
         }
     }
 `;
@@ -42,43 +45,49 @@ const AllTracksView = () => {
         controls,
         isTrackPlaying,
     } = useRadio();
-    const {tracks, setTracks, creatorMetadata} = usePlaylist();
-
+    const {filteredTracks, setFilteredTracks, creatorMetadata} = usePlaylist();
     audio.onended = () => {
-        if(!tracks.length) return;
-        const nextTrackKey = (playerState.currentTrackKey + 1) % tracks.length;
-        controls.selectTrack(tracks)(nextTrackKey)();
+        if(!filteredTracks.length) return;
+        const nextTrackKey = (playerState.currentTrackKey + 1) % filteredTracks.length;
+        controls.selectTrack(filteredTracks)(nextTrackKey)();
     };
 
     useEffect(() => {
+
         (async() => {
             const data = await request('https://api.hicdex.com/v1/graphql', query);
-            setTracks(data?.hic_et_nunc_token?.map(o => ({
+            const allTracks = (data?.hic_et_nunc_token?.map(o => ({
                 id: o.id,
                 creator: o.creator_id,
                 name: o.title,
                 src: `${ipfsUrls[~~(Math.random() * ipfsUrls.length)]}/${o.artifact_uri.slice(7)}`,
                 mimeType: o.mime,
                 displayUri: o.display_uri,
+                tags: o.token_tags,
             })));
+
+            setFilteredTracks(allTracks);
+            //Alltracks is to be able to reset after filtering by tag
+            playerState.allTracks = allTracks;
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if(!tracks?.length || !audio) return;
+        if(!filteredTracks?.length || !audio) return;
         if(audio.src) return;
-        const foundIndex = tracks.findIndex(t => t.id === Number(objkt));
-        controls.initialiseTrack(tracks)(foundIndex !== -1 ? foundIndex : 0)();
+        const foundIndex = filteredTracks.findIndex(t => t.id === Number(objkt));
+        controls.initialiseTrack(filteredTracks)(foundIndex !== -1 ? foundIndex : 0)();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tracks]);
+    }, [filteredTracks]);
 
-    if(!tracks) return <p>Loading...</p>;
+    if(!filteredTracks) return <p>Loading...</p>;
 
     return (
         <>
             <TrackList
-                tracks={tracks}
+                tracks={filteredTracks}
+                setTracks={setFilteredTracks}
                 isTrackPlaying={isTrackPlaying}
                 creatorMetadata={creatorMetadata}
             />

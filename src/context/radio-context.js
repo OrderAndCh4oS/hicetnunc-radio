@@ -18,6 +18,7 @@ const RadioProvider = ({children}) => {
         isMuted: false,
         volume: 1,
         stateUpdatedBy: null,
+        allTracks: [],
     });
     const [runningTime, setRunningTime] = useState(0);
     const [audioError, setAudioError] = useState(null);
