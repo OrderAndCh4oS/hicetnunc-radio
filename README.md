@@ -1,4 +1,10 @@
-# Hicathon 2021 | WG7 7.2 - Galleries and collections
+
+## !!!Not in use anymore!!! 
+Moved to https://github.com/OrderAndCh4oS/hen-radio-next
+
+---
+
+## Hicathon 2021 | WG7 7.2 - Galleries and collections
 
 ## Minimal galleries for exhibitions
 
