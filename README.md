@@ -1,4 +1,5 @@
-## Deprecated see https://github.com/OrderAndCh4oS/hen-radio-next
+## Deprecated
+Check out the latest repo here https://github.com/OrderAndCh4oS/hen-radio-next. Now using NextJS
 
 # Hicathon 2021 | WG7 7.2 - Galleries and collections
 
